@@ -952,6 +952,15 @@
       "type": "service_added",
       "service": "Sql.EastUS3",
       "ip_count": 7,
+      "prefixes": [
+        "134.138.83.32/27",
+        "134.138.83.64/27",
+        "134.138.83.128/26",
+        "134.138.96.48/29",
+        "134.138.96.224/27",
+        "2603:1030:1402:2::760/123",
+        "2603:1030:1402:3::80/121"
+      ],
       "region": "eastus3",
       "system_service": "AzureSQL"
     },
@@ -959,6 +968,10 @@
       "type": "service_added",
       "service": "ServiceBus.EastUS3",
       "ip_count": 2,
+      "prefixes": [
+        "134.138.71.128/25",
+        "2603:1030:1402:1::180/121"
+      ],
       "region": "eastus3",
       "system_service": "AzureServiceBus"
     },

@@ -188,6 +188,7 @@ def detect_changes(old_data: Optional[Dict], new_data: Dict) -> List[Dict]:
                 'type': 'service_added',
                 'service': service_name,
                 'ip_count': len(new_service.get('properties', {}).get('addressPrefixes', [])),
+                'prefixes': new_service.get('properties', {}).get('addressPrefixes', []),
                 'region': new_service.get('properties', {}).get('region'),
                 'system_service': new_service.get('properties', {}).get('systemService')
             })
@@ -215,11 +216,14 @@ def detect_changes(old_data: Optional[Dict], new_data: Dict) -> List[Dict]:
     # Check for removed services
     for service_name in old_services:
         if service_name not in new_services:
+            old_service = old_services[service_name]
             changes.append({
                 'type': 'service_removed',
                 'service': service_name,
-                'region': old_services[service_name].get('properties', {}).get('region'),
-                'system_service': old_services[service_name].get('properties', {}).get('systemService')
+                'ip_count': len(old_service.get('properties', {}).get('addressPrefixes', [])),
+                'prefixes': old_service.get('properties', {}).get('addressPrefixes', []),
+                'region': old_service.get('properties', {}).get('region'),
+                'system_service': old_service.get('properties', {}).get('systemService')
             })
     
     logging.info(f"Detected {len(changes)} changes")

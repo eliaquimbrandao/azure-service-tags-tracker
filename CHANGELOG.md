@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2025-12-22
+
+### ♻️ Code Refactoring & Modularization
+
+#### Changed
+- **Frontend Architecture**
+  - Refactored monolithic `dashboard.js` into ES6 modules.
+  - Created dedicated managers: `TimelineManager`, `ModalManager`, `ChartManager`, `DataManager`.
+  - Improved code maintainability and separation of concerns.
+- **Performance**
+  - Optimized DOM manipulation by splitting UI logic into specialized modules.
+
 ## [Unreleased] - 2025-12-12
 
 ### 🚀 SEO, UI Polish & Content Expansion

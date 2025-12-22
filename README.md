@@ -90,7 +90,12 @@ azure-service-tags-tracker/
 │   ├── analytics.html            # Analytics & charts page
 │   ├── history.html              # Change history timeline
 │   ├── js/
-│   │   └── dashboard.js          # Core JavaScript (6000+ lines)
+│   │   ├── dashboard.js          # Main controller
+│   │   └── modules/              # ES6 Modules
+│   │       ├── core/             # Data & Region logic
+│   │       ├── ui/               # UI Managers (Timeline, Modal, Search)
+│   │       ├── visualizations/   # Charts & Lists
+│   │       └── export/           # Export functionality
 │   ├── css/
 │   │   ├── style.css             # Main styles
 │   │   ├── navigation.css        # Navigation & common components
@@ -119,7 +124,8 @@ azure-service-tags-tracker/
 
 **Frontend (Vanilla JS + Chart.js)**
 
-- `dashboard.js`: Handles all chart rendering, data loading, search, filtering, and exports
+- **Modular Architecture**: ES6 modules for better maintainability (`TimelineManager`, `ChartManager`, `DataManager`, etc.)
+- `dashboard.js`: Main controller that coordinates modules
 - Pie charts for AzureCloud regional infrastructure
 - Timeline scatter plots for Microsoft update tracking
 - Bar charts for service activity and regional analysis
@@ -157,7 +163,6 @@ azure-service-tags-tracker/
 - **Detailed Views**: Expandable service cards with exact IP changes
 - **One-Click Copy**: Copy all added or removed IPs per service
 - **Export Data**: Download filtered results as JSON for automation
-- **Week Comparison**: Compare any two weeks side-by-side
 - **Region Navigation**: Browse changes by geographic region
 
 ---
