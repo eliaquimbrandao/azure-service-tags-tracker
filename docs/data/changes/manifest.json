@@ -1,11 +1,16 @@
 {
-  "generated": "2025-12-15T12:19:56.539551+00:00",
-  "total_files": 11,
+  "generated": "2025-12-22T01:25:02.433197+00:00",
+  "total_files": 12,
   "date_range": {
     "oldest": "2025-10-08",
-    "newest": "2025-12-15"
+    "newest": "2025-12-22"
   },
   "files": [
+    {
+      "date": "2025-12-22",
+      "filename": "2025-12-22-changes.json",
+      "size": 52702
+    },
     {
       "date": "2025-12-15",
       "filename": "2025-12-15-changes.json",
