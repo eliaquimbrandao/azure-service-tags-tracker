@@ -1,120 +1,13 @@
 {
-  "last_updated": "2025-12-22T01:25:02.286311+00:00",
+  "last_updated": "2025-12-29T01:27:45.613881+00:00",
   "total_services": 3092,
   "total_ip_ranges": 98027,
-  "changes_this_week": 115,
-  "ip_changes": 115,
+  "changes_this_week": 0,
+  "ip_changes": 0,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {
-    "": 20,
-    "indonesiacentral": 9,
-    "australiacentral": 1,
-    "australiacentral2": 1,
-    "australiaeast": 2,
-    "australiasoutheast": 1,
-    "austriaeast": 1,
-    "belgiumcentral": 1,
-    "brazilsouth": 1,
-    "brazilse": 1,
-    "canadacentral": 2,
-    "canadaeast": 1,
-    "centralindia": 2,
-    "centralus": 1,
-    "chilec": 2,
-    "eastasia": 1,
-    "eastus": 2,
-    "eastus2": 2,
-    "eastus2euap": 1,
-    "eastus3": 1,
-    "centralfrance": 1,
-    "southfrance": 1,
-    "germanyn": 1,
-    "germanywc": 2,
-    "israelnorthwest": 1,
-    "italynorth": 2,
-    "japaneast": 2,
-    "japanwest": 1,
-    "jioindiacentral": 1,
-    "jioindiawest": 1,
-    "koreacentral": 1,
-    "koreasouth": 1,
-    "malaysiawest": 1,
-    "mexicocentral": 1,
-    "newzealandnorth": 1,
-    "northcentralus": 2,
-    "northeurope": 2,
-    "norwaye": 1,
-    "norwayw": 1,
-    "polandcentral": 1,
-    "qatarcentral": 2,
-    "southafricanorth": 1,
-    "southafricawest": 1,
-    "southcentralus": 2,
-    "southcentralus2": 2,
-    "southindia": 1,
-    "southeastasia": 3,
-    "southeastus": 1,
-    "southeastus3": 1,
-    "spaincentral": 2,
-    "swedencentral": 3,
-    "swedensouth": 1,
-    "switzerlandn": 1,
-    "switzerlandw": 1,
-    "taiwannorth": 1,
-    "taiwannorthwest": 1,
-    "uaecentral": 1,
-    "uaenorth": 1,
-    "uksouth": 1,
-    "ukwest": 1,
-    "westcentralus": 2,
-    "westeurope": 2,
-    "westus": 2,
-    "westus2": 2,
-    "westus3": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureMonitor",
-      "change_count": 148
-    },
-    {
-      "service": "AzureCloud",
-      "change_count": 120
-    },
-    {
-      "service": "Scuba",
-      "change_count": 88
-    },
-    {
-      "service": "AzureSentinel",
-      "change_count": 30
-    },
-    {
-      "service": "AzureMonitor.Core",
-      "change_count": 19
-    },
-    {
-      "service": "AzureManagedGrafana",
-      "change_count": 15
-    },
-    {
-      "service": "AzureCloud.eastus2",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.southcentralus2",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.spaincentral",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.italynorth",
-      "change_count": 9
-    }
-  ],
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -128,6 +21,7 @@
     "2025-11-24",
     "2025-12-01",
     "2025-12-08",
-    "2025-12-15"
+    "2025-12-15",
+    "2025-12-22"
   ]
 }
