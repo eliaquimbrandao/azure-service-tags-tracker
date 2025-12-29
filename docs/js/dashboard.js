@@ -213,7 +213,7 @@ class AzureServiceTagsDashboard {
                     if (parts.length > 1) {
                         const region = parts[parts.length - 1].toLowerCase();
                         // Only count known Azure regions (filter out service components like 'backend', 'core', etc.)
-                        if (AZURE_REGIONS[region]) {
+                        if (this.regionMapper && this.regionMapper.regionDisplayMap && this.regionMapper.regionDisplayMap[region]) {
                             regions.add(region);
                         }
                     }
