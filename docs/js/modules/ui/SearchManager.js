@@ -70,7 +70,7 @@ export class SearchManager {
         searchResults.innerHTML = `
             <div class="search-loading" style="text-align: center; padding: 2rem;">
                 <div class="spinner"></div>
-                <p>Searching across all historical changes...</p>
+                <p>Searching across current state and historical changes...</p>
             </div>
         `;
         searchResults.classList.remove('hidden');
@@ -83,6 +83,7 @@ export class SearchManager {
             const regionMatches = new Map();
             const ipMatches = new Map();
 
+            // --- Historical Search ---
             allChanges.forEach(({ date, changes }) => {
                 changes.forEach(change => {
                     // Service Search (normalize key to merge variants)
@@ -197,7 +198,51 @@ export class SearchManager {
                 });
             });
 
-            // Convert Maps to Arrays and sort occurrences by date desc for accurate "Latest"
+            // --- Current State Search ---
+            const currentMatches = {
+                services: [],
+                ips: []
+            };
+
+            const currentData = this.dataManager.currentData;
+            if (currentData && currentData.values) {
+                const isPotentialIP = /^[\d\.:/]+$/.test(query);
+                const dotCount = (query.match(/\./g) || []).length;
+                const hasEnoughSegments = dotCount >= 2;
+
+                currentData.values.forEach(tag => {
+                    const props = tag.properties || {};
+                    const serviceName = props.systemService || tag.name || '';
+                    const region = props.region || '';
+                    
+                    // Search Service Name in Current Data
+                    if (serviceName.toLowerCase().includes(queryLower)) {
+                        currentMatches.services.push({
+                            name: serviceName,
+                            region: region,
+                            displayName: this.regionMapper.getRegionDisplayName(region),
+                            prefixCount: (props.addressPrefixes || []).length
+                        });
+                    }
+
+                    // Search IPs in Current Data
+                    if (isPotentialIP && (hasEnoughSegments || query.includes(':'))) {
+                        const prefixes = props.addressPrefixes || [];
+                        const matchingPrefixes = prefixes.filter(prefix => prefix.includes(query));
+
+                        if (matchingPrefixes.length > 0) {
+                            currentMatches.ips.push({
+                                service: serviceName,
+                                region: region,
+                                displayName: this.regionMapper.getRegionDisplayName(region),
+                                matches: matchingPrefixes
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Convert Maps to Arrays and sort occurrences by date desc
             const sortByDateDesc = (a, b) => (this.dataManager.parseDateOnly(b.date) || 0) - (this.dataManager.parseDateOnly(a.date) || 0);
 
             const services = Array.from(serviceMatches.values()).map(item => {
@@ -237,7 +282,7 @@ export class SearchManager {
             });
 
             // Display results
-            this.displayHistoricalSearchResults(services, regions, ips, query);
+            this.displayHistoricalSearchResults(services, regions, ips, query, currentMatches);
 
         } catch (error) {
             console.error('Error searching historical data:', error);
@@ -300,16 +345,20 @@ export class SearchManager {
         return allChanges;
     }
 
-    displayHistoricalSearchResults(services, regions, ips, query) {
+    displayHistoricalSearchResults(services, regions, ips, query, currentMatches = null) {
         const searchResults = document.getElementById('searchResults');
 
-        if (services.length === 0 && regions.length === 0 && ips.length === 0) {
+        const hasHistorical = services.length > 0 || regions.length > 0 || ips.length > 0;
+        const hasCurrent = currentMatches && ((currentMatches.services && currentMatches.services.length > 0) || 
+                                              (currentMatches.ips && currentMatches.ips.length > 0));
+
+        if (!hasHistorical && !hasCurrent) {
             searchResults.innerHTML = `
                 <div class="search-no-results">
                     <div class="search-no-results-icon">🔍</div>
-                    <div>No results found for "<strong>${query}</strong>" in historical changes</div>
+                    <div>No results found for "<strong>${query}</strong>"</div>
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                        Try searching for service names like "Storage", "AzureAD", regions like "East US", or IP addresses
+                        Try searching for service names like "Storage", regions like "East US", or specific IP addresses (e.g., "13.68.")
                     </div>
                 </div>
             `;
@@ -317,82 +366,135 @@ export class SearchManager {
             return;
         }
 
-        let html = '<div class="search-results-header">Found in historical changes:</div>';
-
         // Store data for click handlers
-        this.historicalSearchData = { services, regions, ips };
+        this.historicalSearchData = { services, regions, ips, currentMatches };
 
-        // Display region results
-        if (regions.length > 0) {
-            html += '<div class="search-category-header">🌍 Regions</div>';
-            regions.forEach((region, index) => {
-                const occurrenceCount = region.occurrences.length;
-                const latestDate = region.occurrences[0]?.date;
-                const variants = Array.from(region.variants || []);
-                const variantText = variants.length > 1 ? `Includes: ${variants.join(', ')}` : '';
+        let html = '';
 
-                html += `
-                    <div class="search-result-item historical" data-type="region" data-index="${index}">
-                        <div class="search-result-info">
-                            <div class="search-result-name">${region.displayName}</div>
-                            <div class="search-result-meta">
-                                📊 ${region.totalChanges} change${region.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
-                                • Latest: ${this.formatDateShort(latestDate)}
-                                ${variantText ? `<br><span class="search-variant">${variantText}</span>` : ''}
+        // --- Display Current State Results ---
+        if (hasCurrent) {
+            html += '<div class="search-results-header" style="color: var(--success-color);">✅ Found in Current State (Active):</div>';
+
+            // Active Services
+            if (currentMatches.services && currentMatches.services.length > 0) {
+                html += '<div class="search-category-header">🔧 Active Services</div>';
+                currentMatches.services.forEach((service, index) => {
+                    html += `
+                        <div class="search-result-item current" data-type="current-service" data-index="${index}">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${service.name}</div>
+                                <div class="search-result-meta">
+                                    📍 Region: ${service.displayName}<br>
+                                    🔢 ${service.prefixCount} IP Ranges currently active
+                                </div>
                             </div>
+                            <span class="search-result-badge service">Active</span>
                         </div>
-                        <span class="search-result-badge region">Region</span>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
+
+            // Active IPs
+            if (currentMatches.ips && currentMatches.ips.length > 0) {
+                html += '<div class="search-category-header">🔢 Active IP Addresses</div>';
+                currentMatches.ips.forEach((match, index) => {
+                    html += `
+                        <div class="search-result-item current" data-type="current-ip" data-index="${index}">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${match.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${match.displayName})</span></div>
+                                <div class="search-result-meta">
+                                    🎯 Matched "${query}" in ${match.matches.length} active ranges
+                                    <br>
+                                    <span class="search-preview-ip">${match.matches.slice(0, 3).join(', ')}${match.matches.length > 3 ? '...' : ''}</span>
+                                </div>
+                            </div>
+                            <span class="search-result-badge ip">Active IP</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (hasHistorical) {
+                html += '<hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border-color);">';
+            }
         }
 
-        // Display service results
-        if (services.length > 0) {
-            html += '<div class="search-category-header">🔧 Services</div>';
-            services.forEach((service, index) => {
-                const occurrenceCount = service.occurrences.length;
-                const latestDate = service.occurrences[0]?.date;
+        // --- Display Historical Results ---
+        if (hasHistorical) {
+            html += '<div class="search-results-header">📜 Found in Historical Changes:</div>';
 
-                html += `
-                    <div class="search-result-item historical" data-type="service" data-index="${index}">
-                        <div class="search-result-info">
-                            <div class="search-result-name">${service.name}</div>
-                            <div class="search-result-meta">
-                                📊 ${service.totalChanges} change${service.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
-                                <br>
-                                <span style="color: var(--success-color);">+${service.totalIPAdded.toLocaleString()} IPs</span> • 
-                                <span style="color: var(--danger-color);">-${service.totalIPRemoved.toLocaleString()} IPs</span> • 
-                                Latest: ${this.formatDateShort(latestDate)}
-                            </div>
-                        </div>
-                        <span class="search-result-badge service">Service</span>
-                    </div>
-                `;
-            });
-        }
+            // Display region results
+            if (regions.length > 0) {
+                html += '<div class="search-category-header">🌍 Regions (History)</div>';
+                regions.forEach((region, index) => {
+                    const occurrenceCount = region.occurrences.length;
+                    const latestDate = region.occurrences[0]?.date;
+                    const variants = Array.from(region.variants || []);
+                    const variantText = variants.length > 1 ? `Includes: ${variants.join(', ')}` : '';
 
-        // Display IP results
-        if (ips.length > 0) {
-            html += '<div class="search-category-header">🔢 IP Addresses</div>';
-            ips.forEach((ipMatch, index) => {
-                const latestDate = ipMatch.occurrences[0].date;
-                const occurrenceCount = ipMatch.occurrences.length;
-                
-                html += `
-                    <div class="search-result-item historical" data-type="ip" data-index="${index}">
-                        <div class="search-result-info">
-                            <div class="search-result-name">${ipMatch.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${ipMatch.displayName})</span></div>
-                            <div class="search-result-meta">
-                                🎯 Found "${query}" in ${ipMatch.totalMatches} IP range${ipMatch.totalMatches !== 1 ? 's' : ''}
-                                <br>
-                                Latest: ${this.formatDateShort(latestDate)}
+                    html += `
+                        <div class="search-result-item historical" data-type="region" data-index="${index}">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${region.displayName}</div>
+                                <div class="search-result-meta">
+                                    📊 ${region.totalChanges} change${region.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
+                                    • Latest: ${this.formatDateShort(latestDate)}
+                                    ${variantText ? `<br><span class="search-variant">${variantText}</span>` : ''}
+                                </div>
                             </div>
+                            <span class="search-result-badge region">History</span>
                         </div>
-                        <span class="search-result-badge ip">IP Range</span>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
+
+            // Display service results
+            if (services.length > 0) {
+                html += '<div class="search-category-header">🔧 Services (History)</div>';
+                services.forEach((service, index) => {
+                    const occurrenceCount = service.occurrences.length;
+                    const latestDate = service.occurrences[0]?.date;
+
+                    html += `
+                        <div class="search-result-item historical" data-type="service" data-index="${index}">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${service.name}</div>
+                                <div class="search-result-meta">
+                                    📊 ${service.totalChanges} change${service.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
+                                    <br>
+                                    <span style="color: var(--success-color);">+${service.totalIPAdded.toLocaleString()} IPs</span> • 
+                                    <span style="color: var(--danger-color);">-${service.totalIPRemoved.toLocaleString()} IPs</span> • 
+                                    Latest: ${this.formatDateShort(latestDate)}
+                                </div>
+                            </div>
+                            <span class="search-result-badge service">History</span>
+                        </div>
+                    `;
+                });
+            }
+
+            // Display IP results
+            if (ips.length > 0) {
+                html += '<div class="search-category-header">🔢 IP Addresses (History)</div>';
+                ips.forEach((ipMatch, index) => {
+                    const latestDate = ipMatch.occurrences[0].date;
+                    const occurrenceCount = ipMatch.occurrences.length;
+                    
+                    html += `
+                        <div class="search-result-item historical" data-type="ip" data-index="${index}">
+                            <div class="search-result-info">
+                                <div class="search-result-name">${ipMatch.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${ipMatch.displayName})</span></div>
+                                <div class="search-result-meta">
+                                    🎯 Found "${query}" in ${ipMatch.totalMatches} historical change${ipMatch.totalMatches !== 1 ? 's' : ''}
+                                    <br>
+                                    Latest: ${this.formatDateShort(latestDate)}
+                                </div>
+                            </div>
+                            <span class="search-result-badge ip">History</span>
+                        </div>
+                    `;
+                });
+            }
         }
 
         searchResults.innerHTML = html;
@@ -416,6 +518,69 @@ export class SearchManager {
                 }
             });
         });
+
+        // Add event listeners for current/active results
+        searchResults.querySelectorAll('.search-result-item.current').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const type = item.getAttribute('data-type');
+                const index = parseInt(item.getAttribute('data-index'));
+                
+                if (type === 'current-service' || type === 'current-ip') {
+                    // For current items, we can show a simple modal with the current IPs
+                    // Retrieve data from stored currentMatches
+                    const match = type === 'current-service' 
+                        ? this.historicalSearchData.currentMatches.services[index] 
+                        : this.historicalSearchData.currentMatches.ips[index];
+                        
+                    this.showCurrentStateDetails(match);
+                }
+            });
+        });
+    }
+
+    showCurrentStateDetails(match) {
+        // Helper to show modal for current state items
+        const serviceName = match.name || match.service;
+        const region = match.displayName;
+        
+        let contentHtml = '';
+        
+        // Use matches if available (IP search), otherwise we'd need to fetch prefixes (Service search)
+        // Since we didn't store all prefixes for Service search to save memory, we might need a hint.
+        // For now, let's just show what we have.
+        
+        if (match.matches) {
+            contentHtml = `
+                <div class="ip-list">
+                    <h4>Matched IP Ranges:</h4>
+                    ${match.matches.map(ip => `<span class="ip-tag">${ip}</span>`).join('')}
+                </div>
+            `;
+        } else {
+            contentHtml = `
+                <p>This service is currently active in <strong>${region}</strong> with <strong>${match.prefixCount}</strong> IP ranges.</p>
+                <p style="font-size:0.9em; color:var(--text-secondary); margin-top:1rem;">
+                    (To view the full list of IPs, verify this service in the official download file or use the main dashboard filters)
+                </p>
+            `;
+        }
+
+        const modalContent = `
+            <div class="changes-modal">
+                <div class="changes-modal-header">
+                    <h3>✅ ${serviceName} (Current State)</h3>
+                    <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
+                </div>
+                <div class="changes-modal-body">
+                    <div class="service-info" style="margin-bottom:1rem;">
+                        <p><strong>Region:</strong> ${region}</p>
+                        <p><strong>Status:</strong> Active Validation</p>
+                    </div>
+                    ${contentHtml}
+                </div>
+            </div>
+        `;
+        this.modalManager.showCustomModal(modalContent);
     }
 
     formatDateShort(dateString) {
