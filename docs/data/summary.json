@@ -1,86 +1,14 @@
 {
-  "last_updated": "2026-01-05T01:40:38.679873+00:00",
+  "last_updated": "2026-01-12T01:27:32.296252+00:00",
   "total_services": 3092,
   "total_ip_ranges": 98082,
-  "changes_this_week": 38,
-  "ip_changes": 38,
+  "changes_this_week": 0,
+  "ip_changes": 0,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {
-    "": 7,
-    "australiaeast": 2,
-    "eastus2": 2,
-    "southcentralus": 2,
-    "westeurope": 2,
-    "westus": 2,
-    "belgiumcentral": 1,
-    "brazilsouth": 1,
-    "canadacentral": 1,
-    "centralindia": 1,
-    "centralus": 1,
-    "eastus2euap": 1,
-    "eastus": 1,
-    "centralfrance": 1,
-    "indonesiacentral": 1,
-    "israelcentral": 1,
-    "italynorth": 1,
-    "japaneast": 1,
-    "malaysiawest": 1,
-    "mexicocentral": 1,
-    "northcentralus": 1,
-    "southcentralus2": 1,
-    "spaincentral": 1,
-    "swedencentral": 1,
-    "uksouth": 1,
-    "westus2": 1,
-    "westus3": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureCloud",
-      "change_count": 179
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 17
-    },
-    {
-      "service": "AzureCloud.eastus2",
-      "change_count": 16
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 12
-    },
-    {
-      "service": "AzureCloud.mexicocentral",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.israelcentral",
-      "change_count": 10
-    },
-    {
-      "service": "AzureCloud.japaneast",
-      "change_count": 9
-    },
-    {
-      "service": "AzureCloud.westus2",
-      "change_count": 9
-    },
-    {
-      "service": "AzureCloud.eastus",
-      "change_count": 6
-    },
-    {
-      "service": "AzureCloud.indonesiacentral",
-      "change_count": 6
-    }
-  ],
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
-    "2025-10-08",
-    "2025-10-10",
-    "2025-10-13",
     "2025-10-17",
     "2025-10-20",
     "2025-10-27",
@@ -92,6 +20,7 @@
     "2025-12-08",
     "2025-12-15",
     "2025-12-22",
-    "2025-12-29"
+    "2025-12-29",
+    "2026-01-05"
   ]
 }
