@@ -1,16 +1,76 @@
 {
-  "last_updated": "2026-01-12T01:27:32.296252+00:00",
-  "total_services": 3092,
-  "total_ip_ranges": 98082,
-  "changes_this_week": 0,
-  "ip_changes": 0,
-  "service_additions": 0,
+  "last_updated": "2026-01-19T01:28:10.014744+00:00",
+  "total_services": 3128,
+  "total_ip_ranges": 98311,
+  "changes_this_week": 57,
+  "ip_changes": 21,
+  "service_additions": 36,
   "service_removals": 0,
-  "regional_changes": {},
-  "top_active_services": [],
+  "regional_changes": {
+    "": 2,
+    "denmarkeast": 36,
+    "eastus": 2,
+    "brazilsouth": 1,
+    "canadacentral": 1,
+    "centralus": 1,
+    "eastus2": 1,
+    "eastus3": 1,
+    "israelcentral": 1,
+    "israelnorthwest": 1,
+    "newzealandnorth": 1,
+    "northcentralus": 1,
+    "southcentralus2": 1,
+    "southcentralus": 1,
+    "swedencentral": 1,
+    "uksouth": 1,
+    "westeurope": 1,
+    "westus2": 1,
+    "westus3": 1,
+    "westus": 1
+  },
+  "top_active_services": [
+    {
+      "service": "AzureCloud",
+      "change_count": 121
+    },
+    {
+      "service": "AzureCloud.eastus2",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.southcentralus",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.eastus3",
+      "change_count": 11
+    },
+    {
+      "service": "AzureCloud.israelcentral",
+      "change_count": 11
+    },
+    {
+      "service": "AzureCloud.canadacentral",
+      "change_count": 9
+    },
+    {
+      "service": "AzureCloud.southcentralus2",
+      "change_count": 9
+    },
+    {
+      "service": "SecurityCopilot",
+      "change_count": 8
+    },
+    {
+      "service": "AzureCloud.israelnorthwest",
+      "change_count": 7
+    },
+    {
+      "service": "AzureCloud.westeurope",
+      "change_count": 7
+    }
+  ],
   "available_dates": [
-    "2025-10-17",
-    "2025-10-20",
     "2025-10-27",
     "2025-11-03",
     "2025-11-10",
@@ -21,6 +81,7 @@
     "2025-12-15",
     "2025-12-22",
     "2025-12-29",
-    "2026-01-05"
+    "2026-01-05",
+    "2026-01-12"
   ]
 }
