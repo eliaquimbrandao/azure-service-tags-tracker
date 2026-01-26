@@ -1,77 +1,88 @@
 {
-  "last_updated": "2026-01-19T01:28:10.014744+00:00",
+  "last_updated": "2026-01-26T01:41:35.956015+00:00",
   "total_services": 3128,
-  "total_ip_ranges": 98311,
-  "changes_this_week": 57,
-  "ip_changes": 21,
-  "service_additions": 36,
+  "total_ip_ranges": 99089,
+  "changes_this_week": 46,
+  "ip_changes": 46,
+  "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 2,
-    "denmarkeast": 36,
-    "eastus": 2,
+    "": 10,
+    "indonesiacentral": 1,
+    "malaysiawest": 1,
+    "northeurope": 2,
+    "swedencentral": 2,
+    "westus2": 2,
+    "centralus": 2,
+    "polandcentral": 2,
+    "australiaeast": 1,
     "brazilsouth": 1,
     "canadacentral": 1,
-    "centralus": 1,
+    "centralindia": 1,
+    "eastus2euap": 1,
     "eastus2": 1,
-    "eastus3": 1,
-    "israelcentral": 1,
-    "israelnorthwest": 1,
-    "newzealandnorth": 1,
+    "eastus": 1,
+    "centralfrance": 1,
+    "germanywc": 1,
+    "japaneast": 1,
+    "japanwest": 1,
+    "koreacentral": 1,
+    "malaysiasouth": 1,
     "northcentralus": 1,
     "southcentralus2": 1,
     "southcentralus": 1,
-    "swedencentral": 1,
+    "southindia": 1,
+    "southeastus3": 1,
+    "spaincentral": 1,
     "uksouth": 1,
+    "ukwest": 1,
     "westeurope": 1,
-    "westus2": 1,
     "westus3": 1,
     "westus": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 121
+      "change_count": 361
     },
     {
-      "service": "AzureCloud.eastus2",
-      "change_count": 13
+      "service": "M365ManagementActivityApi",
+      "change_count": 157
     },
     {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 13
+      "service": "AzureSiteRecovery",
+      "change_count": 71
     },
     {
-      "service": "AzureCloud.eastus3",
-      "change_count": 11
+      "service": "AzureCloud.westus",
+      "change_count": 45
     },
     {
-      "service": "AzureCloud.israelcentral",
-      "change_count": 11
+      "service": "MicrosoftPurviewPolicyDistribution",
+      "change_count": 44
     },
     {
-      "service": "AzureCloud.canadacentral",
-      "change_count": 9
-    },
-    {
-      "service": "AzureCloud.southcentralus2",
-      "change_count": 9
-    },
-    {
-      "service": "SecurityCopilot",
-      "change_count": 8
-    },
-    {
-      "service": "AzureCloud.israelnorthwest",
-      "change_count": 7
+      "service": "AzureCloud.northeurope",
+      "change_count": 39
     },
     {
       "service": "AzureCloud.westeurope",
-      "change_count": 7
+      "change_count": 39
+    },
+    {
+      "service": "AzureCloud.eastus",
+      "change_count": 24
+    },
+    {
+      "service": "AzureCloud.centralus",
+      "change_count": 23
+    },
+    {
+      "service": "AzureCloud.malaysiasouth",
+      "change_count": 21
     }
   ],
   "available_dates": [
-    "2025-10-27",
     "2025-11-03",
     "2025-11-10",
     "2025-11-17",
@@ -82,6 +93,7 @@
     "2025-12-22",
     "2025-12-29",
     "2026-01-05",
-    "2026-01-12"
+    "2026-01-12",
+    "2026-01-19"
   ]
 }
