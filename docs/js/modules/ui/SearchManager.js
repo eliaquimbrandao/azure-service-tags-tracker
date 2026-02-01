@@ -7,6 +7,15 @@ export class SearchManager {
         this.historicalSearchData = null;
     }
 
+    clearSearchUI(searchResultsEl, searchClearEl) {
+        if (searchClearEl) searchClearEl.classList.remove('visible');
+        if (searchResultsEl) {
+            searchResultsEl.innerHTML = '';
+            searchResultsEl.classList.add('hidden');
+        }
+        this.historicalSearchData = null;
+    }
+
     initializeGlobalSearch() {
         console.log('Initializing Global Search...');
         const searchInput = document.getElementById('globalSearch');
@@ -25,8 +34,7 @@ export class SearchManager {
             if (query) {
                 searchClear.classList.add('visible');
             } else {
-                searchClear.classList.remove('visible');
-                searchResults.classList.add('hidden');
+                this.clearSearchUI(searchResults, searchClear);
                 return;
             }
 
@@ -40,8 +48,7 @@ export class SearchManager {
         // Handle clear button
         searchClear.addEventListener('click', () => {
             searchInput.value = '';
-            searchClear.classList.remove('visible');
-            searchResults.classList.add('hidden');
+            this.clearSearchUI(searchResults, searchClear);
             searchInput.focus();
         });
 
@@ -61,10 +68,142 @@ export class SearchManager {
         return key.toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
+    isIPAddressLike(input) {
+        return /^[\d\.:]+$/.test(input || '');
+    }
+
+    parseIPAddress(input) {
+        if (!input) return null;
+        const trimmed = input.trim();
+        if (!trimmed) return null;
+
+        if (trimmed.includes(':')) {
+            return this.parseIPv6(trimmed);
+        }
+        if (trimmed.includes('.')) {
+            return this.parseIPv4(trimmed);
+        }
+        return null;
+    }
+
+    parseIPv4(ip) {
+        const parts = ip.split('.');
+        if (parts.length !== 4) return null;
+
+        const octets = parts.map(p => parseInt(p, 10));
+        if (octets.some(o => Number.isNaN(o) || o < 0 || o > 255)) return null;
+
+        let value = 0n;
+        octets.forEach(o => {
+            value = (value << 8n) + BigInt(o);
+        });
+
+        return { version: 4, value, maxBits: 32 };
+    }
+
+    parseIPv6(ip) {
+        // Expand shorthand (::) and pad to 8 hextets
+        const parts = ip.split('::');
+        if (parts.length > 2) return null;
+
+        const head = parts[0] ? parts[0].split(':').filter(Boolean) : [];
+        const tail = parts[1] ? parts[1].split(':').filter(Boolean) : [];
+        const missing = 8 - (head.length + tail.length);
+        if (missing < 0) return null;
+
+        const full = [...head, ...Array(missing).fill('0'), ...tail].map(p => parseInt(p || '0', 16));
+        if (full.length !== 8 || full.some(v => Number.isNaN(v) || v < 0 || v > 0xffff)) return null;
+
+        let value = 0n;
+        full.forEach(v => {
+            value = (value << 16n) + BigInt(v);
+        });
+
+        return { version: 6, value, maxBits: 128 };
+    }
+
+    cidrContains(ipContext, cidr) {
+        if (!ipContext || !cidr) return false;
+        const [base, maskStr] = cidr.split('/');
+        if (!base) return false;
+
+        const baseCtx = base.includes(':') ? this.parseIPv6(base) : this.parseIPv4(base);
+        if (!baseCtx || baseCtx.version !== ipContext.version) return false;
+
+        const mask = maskStr ? parseInt(maskStr, 10) : baseCtx.maxBits;
+        if (Number.isNaN(mask) || mask < 0 || mask > baseCtx.maxBits) return false;
+
+        const shift = BigInt(baseCtx.maxBits - mask);
+        const baseNet = baseCtx.value >> shift;
+        const targetNet = ipContext.value >> shift;
+        return baseNet === targetNet;
+    }
+
+    matchingPrefixesForIP(ipContext, prefixes = []) {
+        if (!ipContext) return [];
+        return (prefixes || []).filter(prefix => this.cidrContains(ipContext, prefix));
+    }
+
+    isAdditiveChange(type) {
+        if (!type) return false;
+        const lower = String(type).toLowerCase();
+        return lower.includes('added') || lower.includes('newservice');
+    }
+
+    isRemovalChange(type) {
+        if (!type) return false;
+        const lower = String(type).toLowerCase();
+        return lower.includes('removed');
+    }
+
+    summarizeRangeHistory(rangeList, serviceKey, regionKey, events) {
+        if (!rangeList || rangeList.length === 0 || !events || events.length === 0) return {};
+
+        let addedOn = null;
+        let lastEvent = null;
+        let lastEventAction = null;
+
+        const parseDate = (d) => this.dataManager.parseDateOnly(d) || new Date(d);
+
+        rangeList.forEach(range => {
+            const relevant = events.filter(evt => evt.serviceKey === serviceKey && evt.regionKey === regionKey && evt.matches.includes(range));
+            if (relevant.length === 0) return;
+
+            const addedEvents = relevant.filter(evt => evt.action === 'added');
+            addedEvents.forEach(evt => {
+                const eventDate = parseDate(evt.date);
+                if (!addedOn || eventDate < parseDate(addedOn)) {
+                    addedOn = evt.date;
+                }
+            });
+
+            relevant.forEach(evt => {
+                const eventDate = parseDate(evt.date);
+                if (!lastEvent || eventDate > parseDate(lastEvent)) {
+                    lastEvent = evt.date;
+                    lastEventAction = evt.action;
+                }
+            });
+        });
+
+        return { addedOn, lastEvent, lastEventAction };
+    }
+
     async performGlobalSearch(query) {
         console.log('Performing global search for:', query);
         const searchResults = document.getElementById('searchResults');
+        const searchClear = document.getElementById('searchClear');
+
+        // If query is empty after trimming, reset UI and stop.
+        if (!query || !query.trim()) {
+            this.clearSearchUI(searchResults, searchClear);
+            return;
+        }
+
         const queryLower = query.toLowerCase();
+        const ipContext = this.parseIPAddress(query);
+        const isPotentialIP = this.isIPAddressLike(query);
+        const partialIPMode = !ipContext && isPotentialIP;
 
         // Show loading state
         searchResults.innerHTML = `
@@ -78,6 +217,7 @@ export class SearchManager {
         try {
             // Load all historical changes from manifest
             const allChanges = await this.loadAllHistoricalChanges();
+            const ipHistoryEvents = [];
 
             const serviceMatches = new Map();
             const regionMatches = new Map();
@@ -161,38 +301,79 @@ export class SearchManager {
                     }
 
                     // IP Search (aggregate by service+region key)
-                    const isPotentialIP = /^[\d\.:/]+$/.test(query);
-                    const dotCount = (query.match(/\./g) || []).length;
-                    const hasEnoughSegments = dotCount >= 2;
-                    
-                    if (change.type === 'ip_changes' && isPotentialIP && (hasEnoughSegments || query.includes(':'))) {
-                        const added = change.added_prefixes || [];
-                        const removed = change.removed_prefixes || [];
-                        const allPrefixes = [...added, ...removed];
-                        
-                        const matchingPrefixes = allPrefixes.filter(prefix => prefix.includes(query));
-                        
-                        if (matchingPrefixes.length > 0) {
-                            const regionKeyIP = this.normalizeKey(change.region || '', 'global');
-                            const serviceKeyIP = this.normalizeKey(change.service || '', 'unknown');
-                            const key = `${serviceKeyIP}-${regionKeyIP}`;
-                            if (!ipMatches.has(key)) {
-                                ipMatches.set(key, {
-                                    type: 'ip',
+                    const addedPrefixes = [...(change.added_prefixes || [])];
+                    const removedPrefixes = [...(change.removed_prefixes || [])];
+
+                    if (this.isAdditiveChange(change.type) && Array.isArray(change.prefixes)) {
+                        addedPrefixes.push(...change.prefixes);
+                    }
+                    if (this.isRemovalChange(change.type) && Array.isArray(change.prefixes)) {
+                        removedPrefixes.push(...change.prefixes);
+                    }
+
+                    const combinedPrefixes = [...addedPrefixes, ...removedPrefixes];
+
+                    let matchingPrefixes = [];
+                    let addedMatches = [];
+                    let removedMatches = [];
+
+                    if (ipContext) {
+                        addedMatches = this.matchingPrefixesForIP(ipContext, addedPrefixes);
+                        removedMatches = this.matchingPrefixesForIP(ipContext, removedPrefixes);
+                        matchingPrefixes = [...addedMatches, ...removedMatches];
+                    } else if (partialIPMode) {
+                        addedMatches = addedPrefixes.filter(prefix => prefix.includes(query));
+                        removedMatches = removedPrefixes.filter(prefix => prefix.includes(query));
+                        matchingPrefixes = [...addedMatches, ...removedMatches];
+                    }
+
+                    if (matchingPrefixes.length > 0) {
+                        const regionKeyIP = this.normalizeKey(change.region || '', 'global');
+                        const serviceKeyIP = this.normalizeKey(change.service || '', 'unknown');
+                        const key = `${serviceKeyIP}-${regionKeyIP}`;
+                        if (!ipMatches.has(key)) {
+                            ipMatches.set(key, {
+                                type: 'ip',
+                                service: change.service,
+                                region: change.region,
+                                displayName: this.regionMapper.getRegionDisplayName(change.region || ''),
+                                occurrences: [],
+                                totalMatches: 0
+                            });
+                        }
+                        const match = ipMatches.get(key);
+                        match.occurrences.push({
+                            date: date,
+                            change: change,
+                            matches: matchingPrefixes
+                        });
+                        match.totalMatches += matchingPrefixes.length;
+
+                        if (ipContext) {
+                            if (addedMatches.length > 0) {
+                                ipHistoryEvents.push({
+                                    date,
+                                    action: 'added',
+                                    matches: addedMatches,
+                                    change,
+                                    serviceKey: serviceKeyIP,
+                                    regionKey: regionKeyIP,
                                     service: change.service,
-                                    region: change.region,
-                                    displayName: this.regionMapper.getRegionDisplayName(change.region || ''),
-                                    occurrences: [],
-                                    totalMatches: 0
+                                    region: change.region
                                 });
                             }
-                            const match = ipMatches.get(key);
-                            match.occurrences.push({
-                                date: date,
-                                change: change,
-                                matches: matchingPrefixes
-                            });
-                            match.totalMatches += matchingPrefixes.length;
+                            if (removedMatches.length > 0) {
+                                ipHistoryEvents.push({
+                                    date,
+                                    action: 'removed',
+                                    matches: removedMatches,
+                                    change,
+                                    serviceKey: serviceKeyIP,
+                                    regionKey: regionKeyIP,
+                                    service: change.service,
+                                    region: change.region
+                                });
+                            }
                         }
                     }
                 });
@@ -206,14 +387,12 @@ export class SearchManager {
 
             const currentData = this.dataManager.currentData;
             if (currentData && currentData.values) {
-                const isPotentialIP = /^[\d\.:/]+$/.test(query);
-                const dotCount = (query.match(/\./g) || []).length;
-                const hasEnoughSegments = dotCount >= 2;
-
                 currentData.values.forEach(tag => {
                     const props = tag.properties || {};
                     const serviceName = props.systemService || tag.name || '';
                     const region = props.region || '';
+                    const serviceKey = this.normalizeKey(serviceName, 'unknown');
+                    const regionKey = this.normalizeKey(region, 'global');
                     
                     // Search Service Name in Current Data
                     if (serviceName.toLowerCase().includes(queryLower)) {
@@ -226,16 +405,25 @@ export class SearchManager {
                     }
 
                     // Search IPs in Current Data
-                    if (isPotentialIP && (hasEnoughSegments || query.includes(':'))) {
+                    if (isPotentialIP) {
                         const prefixes = props.addressPrefixes || [];
-                        const matchingPrefixes = prefixes.filter(prefix => prefix.includes(query));
+                        const matchingPrefixes = ipContext
+                            ? this.matchingPrefixesForIP(ipContext, prefixes)
+                            : partialIPMode ? prefixes.filter(prefix => prefix.includes(query)) : [];
 
                         if (matchingPrefixes.length > 0) {
+                            const historyMeta = ipContext
+                                ? this.summarizeRangeHistory(matchingPrefixes, serviceKey, regionKey, ipHistoryEvents)
+                                : {};
+
                             currentMatches.ips.push({
                                 service: serviceName,
                                 region: region,
                                 displayName: this.regionMapper.getRegionDisplayName(region),
-                                matches: matchingPrefixes
+                                matches: matchingPrefixes,
+                                addedOn: historyMeta.addedOn || null,
+                                lastEvent: historyMeta.lastEvent || null,
+                                lastEventAction: historyMeta.lastEventAction || null
                             });
                         }
                     }
@@ -403,9 +591,11 @@ export class SearchManager {
                             <div class="search-result-info">
                                 <div class="search-result-name">${match.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${match.displayName})</span></div>
                                 <div class="search-result-meta">
-                                    🎯 Matched "${query}" in ${match.matches.length} active ranges
+                                    🎯 Contains IP in ${match.matches.length} active range${match.matches.length !== 1 ? 's' : ''}
                                     <br>
                                     <span class="search-preview-ip">${match.matches.slice(0, 3).join(', ')}${match.matches.length > 3 ? '...' : ''}</span>
+                                    ${match.addedOn ? `<br>➕ Added ${this.formatDateShort(match.addedOn)}` : ''}
+                                    ${match.lastEvent ? `<br>🕓 Last change ${this.formatDateShort(match.lastEvent)} (${match.lastEventAction || 'updated'})` : ''}
                                 </div>
                             </div>
                             <span class="search-result-badge ip">Active IP</span>
@@ -485,7 +675,7 @@ export class SearchManager {
                             <div class="search-result-info">
                                 <div class="search-result-name">${ipMatch.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${ipMatch.displayName})</span></div>
                                 <div class="search-result-meta">
-                                    🎯 Found "${query}" in ${ipMatch.totalMatches} historical change${ipMatch.totalMatches !== 1 ? 's' : ''}
+                                    🎯 IP landed in ${ipMatch.totalMatches} historical change${ipMatch.totalMatches !== 1 ? 's' : ''}
                                     <br>
                                     Latest: ${this.formatDateShort(latestDate)}
                                 </div>
