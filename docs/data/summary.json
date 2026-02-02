@@ -1,89 +1,89 @@
 {
-  "last_updated": "2026-01-26T01:41:35.956015+00:00",
+  "last_updated": "2026-02-02T01:54:26.377615+00:00",
   "total_services": 3128,
-  "total_ip_ranges": 99089,
-  "changes_this_week": 46,
-  "ip_changes": 46,
+  "total_ip_ranges": 99349,
+  "changes_this_week": 63,
+  "ip_changes": 63,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 10,
-    "indonesiacentral": 1,
-    "malaysiawest": 1,
-    "northeurope": 2,
-    "swedencentral": 2,
-    "westus2": 2,
-    "centralus": 2,
-    "polandcentral": 2,
-    "australiaeast": 1,
+    "": 13,
+    "eastus3": 7,
+    "eastasia": 2,
+    "eastus": 2,
+    "eastus2": 2,
+    "eastus2euap": 2,
+    "italynorth": 2,
+    "northcentralus": 2,
+    "southcentralus": 2,
+    "southeastasia": 2,
+    "westcentralus": 2,
+    "westus": 2,
+    "westus3": 2,
+    "chilec": 2,
+    "australiasoutheast": 1,
+    "austriaeast": 1,
     "brazilsouth": 1,
     "canadacentral": 1,
     "centralindia": 1,
-    "eastus2euap": 1,
-    "eastus2": 1,
-    "eastus": 1,
-    "centralfrance": 1,
+    "centralus": 1,
     "germanywc": 1,
-    "japaneast": 1,
-    "japanwest": 1,
     "koreacentral": 1,
-    "malaysiasouth": 1,
-    "northcentralus": 1,
-    "southcentralus2": 1,
-    "southcentralus": 1,
-    "southindia": 1,
+    "mexicocentral": 1,
+    "newzealandnorth": 1,
+    "northeurope": 1,
+    "polandcentral": 1,
     "southeastus3": 1,
     "spaincentral": 1,
+    "swedencentral": 1,
+    "switzerlandn": 1,
     "uksouth": 1,
-    "ukwest": 1,
     "westeurope": 1,
-    "westus3": 1,
-    "westus": 1
+    "westus2": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 361
+      "change_count": 195
     },
     {
-      "service": "M365ManagementActivityApi",
-      "change_count": 157
+      "service": "M365ManagementActivityApiWebhook",
+      "change_count": 122
     },
     {
-      "service": "AzureSiteRecovery",
-      "change_count": 71
+      "service": "ZeroTrustSegmentation",
+      "change_count": 28
     },
     {
-      "service": "AzureCloud.westus",
-      "change_count": 45
+      "service": "AzureCloud.southcentralus",
+      "change_count": 16
     },
     {
-      "service": "MicrosoftPurviewPolicyDistribution",
-      "change_count": 44
-    },
-    {
-      "service": "AzureCloud.northeurope",
-      "change_count": 39
-    },
-    {
-      "service": "AzureCloud.westeurope",
-      "change_count": 39
-    },
-    {
-      "service": "AzureCloud.eastus",
-      "change_count": 24
+      "service": "AzureCloud.mexicocentral",
+      "change_count": 14
     },
     {
       "service": "AzureCloud.centralus",
-      "change_count": 23
+      "change_count": 11
     },
     {
-      "service": "AzureCloud.malaysiasouth",
-      "change_count": 21
+      "service": "AzureCloud.eastus",
+      "change_count": 11
+    },
+    {
+      "service": "Storage.EastUS",
+      "change_count": 10
+    },
+    {
+      "service": "Storage.EastUS2EUAP",
+      "change_count": 10
+    },
+    {
+      "service": "AzureCloud.newzealandnorth",
+      "change_count": 9
     }
   ],
   "available_dates": [
-    "2025-11-03",
     "2025-11-10",
     "2025-11-17",
     "2025-11-24",
@@ -94,6 +94,7 @@
     "2025-12-29",
     "2026-01-05",
     "2026-01-12",
-    "2026-01-19"
+    "2026-01-19",
+    "2026-01-26"
   ]
 }
