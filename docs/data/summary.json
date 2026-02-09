@@ -1,90 +1,14 @@
 {
-  "last_updated": "2026-02-02T01:54:26.377615+00:00",
+  "last_updated": "2026-02-09T01:56:42.778285+00:00",
   "total_services": 3128,
   "total_ip_ranges": 99349,
-  "changes_this_week": 63,
-  "ip_changes": 63,
+  "changes_this_week": 0,
+  "ip_changes": 0,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {
-    "": 13,
-    "eastus3": 7,
-    "eastasia": 2,
-    "eastus": 2,
-    "eastus2": 2,
-    "eastus2euap": 2,
-    "italynorth": 2,
-    "northcentralus": 2,
-    "southcentralus": 2,
-    "southeastasia": 2,
-    "westcentralus": 2,
-    "westus": 2,
-    "westus3": 2,
-    "chilec": 2,
-    "australiasoutheast": 1,
-    "austriaeast": 1,
-    "brazilsouth": 1,
-    "canadacentral": 1,
-    "centralindia": 1,
-    "centralus": 1,
-    "germanywc": 1,
-    "koreacentral": 1,
-    "mexicocentral": 1,
-    "newzealandnorth": 1,
-    "northeurope": 1,
-    "polandcentral": 1,
-    "southeastus3": 1,
-    "spaincentral": 1,
-    "swedencentral": 1,
-    "switzerlandn": 1,
-    "uksouth": 1,
-    "westeurope": 1,
-    "westus2": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureCloud",
-      "change_count": 195
-    },
-    {
-      "service": "M365ManagementActivityApiWebhook",
-      "change_count": 122
-    },
-    {
-      "service": "ZeroTrustSegmentation",
-      "change_count": 28
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 16
-    },
-    {
-      "service": "AzureCloud.mexicocentral",
-      "change_count": 14
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.eastus",
-      "change_count": 11
-    },
-    {
-      "service": "Storage.EastUS",
-      "change_count": 10
-    },
-    {
-      "service": "Storage.EastUS2EUAP",
-      "change_count": 10
-    },
-    {
-      "service": "AzureCloud.newzealandnorth",
-      "change_count": 9
-    }
-  ],
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
-    "2025-11-10",
     "2025-11-17",
     "2025-11-24",
     "2025-12-01",
@@ -95,6 +19,7 @@
     "2026-01-05",
     "2026-01-12",
     "2026-01-19",
-    "2026-01-26"
+    "2026-01-26",
+    "2026-02-02"
   ]
 }
