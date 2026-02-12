@@ -6,6 +6,54 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-02-12
+
+### 🔍 Search & Modal Unification, Data Integrity & Collection Tracking
+
+#### Added
+- **Collection Log** (`docs/data/collection-log.json`)
+  - Tracks every script run with date, changeNumber, changes detected, total services/IPs
+  - Calculates coverage percentage and identifies missing weekly collections
+  - Automatically updated on each `azure_watcher.py` run
+  - Backfill script to populate log from existing history files
+
+- **IPv4/IPv6 Separation in Modals**
+  - Active (Current State) modal now shows separate IPv4 Ranges and IPv6 Ranges sections
+  - History modal splits Added/Removed IPs into IPv4 and IPv6 subsections
+  - Each section has its own copy button (Copy IPv4, Copy IPv6, etc.)
+
+- **Data Recovery**
+  - Recovered 9 deleted data files from git history (3 history snapshots, 6 change reports)
+  - Backfilled 3,090 missing IP prefixes in old `service_added` change entries
+
+#### Changed
+- **Unified Modal Layouts**
+  - Active and History modals now share the same top stat box pattern (count / +added / -removed)
+  - Both use identical structure: `historical-summary`, `summary-stat-box`, `historical-events-list`
+
+- **Unified Search Result Items**
+  - Active service items now show `+X IPs • -0 IPs • Y IPv4 • Z IPv6` matching History format
+  - Both Active and History items use same visual structure and badge styling
+
+- **Current State Modal**
+  - Now shows full IP list with expand/collapse and copy functionality
+  - Search results store actual `prefixes` array (not just count)
+
+- **Modal CSS**
+  - Fixed content clipping at edges (added `1.5rem` padding to modal body/content)
+
+- **Data Retention**
+  - Removed `cleanup_old_files()` function — all historical data is now preserved permanently
+  - Regenerated `manifest.json` and `summary.json` with full date range
+
+#### Removed
+- **Dead Code Cleanup** (~800 lines)
+  - Removed 13 dead methods from `dashboard.js` that were duplicated in ES6 modules
+  - Removed unused class fields (`currentModal`, `filteredServices`, `servicesPage`, etc.)
+  - Deleted one-time utility scripts (`backfill_prefixes.py`, `regenerate_manifest.py`, `backfill_collection_log.py`)
+
+---
+
 ## [Unreleased] - 2025-12-22
 
 ### ♻️ Code Refactoring & Modularization

@@ -18,7 +18,7 @@ import requests
 import hashlib
 import time
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from bs4 import BeautifulSoup
@@ -357,6 +357,79 @@ def save_data_files(data: Dict, changes: List[Dict], summary: Dict, metadata: Di
     
     # Generate manifest of all change files for historical analysis
     generate_changes_manifest()
+    
+    # Update collection log
+    update_collection_log(data, changes, metadata)
+
+def update_collection_log(data: Dict, changes: List[Dict], metadata: Dict):
+    """Append an entry to the collection log for every run, tracking history of collections."""
+    log_file = Path('docs/data/collection-log.json')
+    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+    
+    # Load existing log
+    log_data = {'runs': [], 'expected_schedule': 'weekly-monday'}
+    if log_file.exists():
+        try:
+            with open(log_file, 'r') as f:
+                log_data = json.load(f)
+        except (json.JSONDecodeError, IOError):
+            pass
+    
+    # Build this run's entry
+    change_number = data.get('changeNumber', '?')
+    total_services = len(data.get('values', []))
+    total_ips = sum(len(svc.get('properties', {}).get('addressPrefixes', [])) for svc in data.get('values', []))
+    
+    entry = {
+        'date': today,
+        'timestamp': datetime.now(timezone.utc).isoformat(),
+        'change_number': change_number,
+        'changes_detected': len(changes),
+        'total_services': total_services,
+        'total_ip_ranges': total_ips,
+        'metadata': {
+            'version': metadata.get('version', ''),
+            'date_published': metadata.get('date_published', '')
+        }
+    }
+    
+    # Avoid duplicate entries for same date (re-run)
+    log_data['runs'] = [r for r in log_data['runs'] if r.get('date') != today]
+    log_data['runs'].append(entry)
+    log_data['runs'].sort(key=lambda r: r['date'])
+    
+    # Calculate missing weeks
+    if len(log_data['runs']) >= 2:
+        all_dates = [datetime.strptime(r['date'], '%Y-%m-%d').date() for r in log_data['runs']]
+        first_monday = min(all_dates)
+        # Align to Monday
+        first_monday = first_monday - timedelta(days=first_monday.weekday())
+        last_date = max(all_dates)
+        
+        expected = set()
+        d = first_monday
+        while d <= last_date:
+            expected.add(d.isoformat())
+            d += timedelta(days=7)
+        
+        collected = set(r['date'] for r in log_data['runs'])
+        missing = sorted(expected - collected)
+        
+        log_data['coverage'] = {
+            'first_collection': min(all_dates).isoformat(),
+            'latest_collection': max(all_dates).isoformat(),
+            'total_runs': len(log_data['runs']),
+            'expected_runs': len(expected),
+            'missing_dates': missing,
+            'missing_count': len(missing),
+            'coverage_pct': round(len(collected) / len(expected) * 100, 1) if expected else 100
+        }
+    
+    # Save
+    with open(log_file, 'w') as f:
+        json.dump(log_data, f, indent=2)
+    
+    logging.info(f"Updated collection log: {len(log_data['runs'])} total runs")
 
 def generate_changes_manifest():
     """Generate a manifest file listing all available change files for the dashboard."""
@@ -400,30 +473,6 @@ def generate_changes_manifest():
     except Exception as e:
         logging.warning(f"Could not generate manifest: {e}")
 
-def cleanup_old_files(keep_weeks: int = 12):
-    """Clean up old history files to prevent repository bloat."""
-    import glob
-    from datetime import datetime, timedelta
-    
-    cutoff_date = datetime.now() - timedelta(weeks=keep_weeks)
-    
-    history_files = glob.glob('docs/data/history/*.json')
-    changes_files = glob.glob('docs/data/changes/*-changes.json')
-    
-    for file_path in history_files + changes_files:
-        try:
-            # Extract date from filename
-            filename = Path(file_path).stem
-            if filename.startswith('2'):  # Year starts with 2
-                file_date_str = filename[:10]  # YYYY-MM-DD
-                file_date = datetime.strptime(file_date_str, '%Y-%m-%d')
-                
-                if file_date < cutoff_date:
-                    os.remove(file_path)
-                    logging.info(f"Cleaned up old file: {file_path}")
-        except Exception as e:
-            logging.warning(f"Could not process file {file_path}: {e}")
-
 def main():
     """Main execution function."""
     # Parse command line arguments
@@ -458,9 +507,6 @@ def main():
         
         # Save all files (including metadata)
         save_data_files(new_data, changes, summary, metadata)
-        
-        # Cleanup old files
-        cleanup_old_files()
         
         if args.baseline:
             logging.info("=== Baseline setup completed successfully ===")

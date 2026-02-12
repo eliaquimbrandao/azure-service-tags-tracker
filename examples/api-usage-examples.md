@@ -14,34 +14,42 @@ https://eliaquimbrandao.github.io/azure-service-tags-tracker
 
 ### Data Endpoints
 
-- **Current Data**: `/data/current.json` - Latest Azure Service Tags snapshot
-- **Summary**: `/data/summary.json` - Statistics and available dates
-- **Historical Snapshots**: `/data/history/YYYY-MM-DD.json` - Daily snapshots
-- **Latest Changes**: `/data/changes/latest-changes.json` - Most recent changes
-- **Historical Changes**: `/data/changes/YYYY-MM-DD-changes.json` - Specific date changes
-- **Changes Manifest**: `/data/changes/manifest.json` - Index of all change reports
+- **Current Data**: `/data/current.json` - Latest Azure Service Tags snapshot (~4MB)
+- **Summary**: `/data/summary.json` - Statistics, available dates, and weekly trends
+- **Regions**: `/data/regions.json` - Region code → display name mapping
+- **Collection Log**: `/data/collection-log.json` - Collection run history with coverage stats
+- **Historical Snapshots**: `/data/history/YYYY-MM-DD.json` - Weekly snapshots (~4MB each)
+- **Latest Changes**: `/data/changes/latest-changes.json` - Most recent change diff
+- **Historical Changes**: `/data/changes/YYYY-MM-DD-changes.json` - Specific week's change diff
+- **Changes Manifest**: `/data/changes/manifest.json` - Index of all change files
+
+> **Note**: Not all dates have history snapshots. Some early weeks (Oct-Nov 2025) have change files but no full snapshot. Use `summary.json → available_dates` for reliable history file discovery, as those dates are guaranteed to have snapshots.
 
 ### Key Fields in Data
 
 ```json
 {
-  "changeNumber": "123",
+  "changeNumber": 386,
   "cloud": "Public",
   "values": [
     {
       "name": "Storage",
       "id": "Storage",
       "properties": {
-        "changeNumber": "123",
+        "changeNumber": 380,
         "region": "",
         "regionId": 0,
         "platform": "Azure",
         "systemService": "AzureStorage",
-        "addressPrefixes": ["40.79.152.0/21", "..."]
+        "addressPrefixes": ["40.79.152.0/21", "52.239.128.0/17"]
       }
     }
   ]
 }
+```
+
+> **Note**: `changeNumber` is an **integer**, not a string. The top-level `changeNumber` is
+> Microsoft's global version; each service tag has its own `changeNumber` tracking when it last changed.
 ```
 
 ## ⚠️ Important: Two Detection Methods
@@ -478,12 +486,16 @@ removed = ips1 - ips2
 
 ```json
 {
-  "last_updated": "2025-10-14T10:00:00Z",
-  "total_services": 3039,
-  "total_regions": 65,
-  "available_dates": ["2025-10-08", "2025-10-10", "2025-10-13"],
-  "changes_this_week": 5,
-  "top_active_services": ["Storage", "AzureCloud.eastus"]
+  "last_updated": "2026-02-09T01:56:42.778285+00:00",
+  "total_services": 3128,
+  "total_ip_ranges": 99349,
+  "changes_this_week": 0,
+  "ip_changes": 0,
+  "service_additions": 0,
+  "service_removals": 0,
+  "regional_changes": {},
+  "top_active_services": [],
+  "available_dates": ["2025-10-08", "2025-10-10", "2025-10-20", "2025-11-24", "..."]
 }
 ```
 
@@ -491,14 +503,14 @@ removed = ips1 - ips2
 
 ```json
 {
-  "changeNumber": "123",
+  "changeNumber": 386,
   "cloud": "Public",
   "values": [
     {
       "name": "Storage",
       "id": "Storage",
       "properties": {
-        "changeNumber": "123",
+        "changeNumber": 380,
         "region": "",
         "platform": "Azure",
         "systemService": "AzureStorage",
@@ -513,13 +525,43 @@ removed = ips1 - ips2
 
 ```json
 {
+  "generated": "2026-02-12T10:00:00Z",
+  "total_files": 19,
+  "date_range": {"earliest": "2025-10-08", "latest": "2026-02-09"},
   "files": [
     {
-      "date": "2025-10-08",
-      "filename": "2025-10-08-changes.json",
-      "total_changes": 15
+      "date": "2026-02-09",
+      "filename": "2026-02-09-changes.json",
+      "size": 249
     }
   ]
+}
+```
+
+> **Note**: Manifest files have `date`, `filename`, and `size` (bytes). They do NOT have a change count field.
+> To get the number of changes, fetch the individual change file and count `changes[]`.
+
+### collection-log.json
+
+```json
+{
+  "expected_schedule": "weekly-monday",
+  "runs": [
+    {
+      "date": "2026-02-09",
+      "timestamp": "2026-02-09T07:00:00+00:00",
+      "change_number": 386,
+      "changes_detected": 0,
+      "total_services": 3128,
+      "total_ip_ranges": 99349
+    }
+  ],
+  "coverage": {
+    "total_expected_weeks": 19,
+    "total_collected": 15,
+    "coverage_percentage": 78.9,
+    "missing_weeks": ["2025-10-13", "2025-10-27", "2025-11-03", "2025-11-10", "2025-11-17"]
+  }
 }
 ```
 
@@ -551,12 +593,14 @@ removed = ips1 - ips2
 
 ## 💡 Best Practices
 
-1. **Cache Historical Data**: Download snapshots once, compare locally to reduce API calls
-2. **Error Handling**: Always handle 404 errors (snapshots may not exist for all dates)
-3. **Rate Limiting**: No rate limits currently, but be respectful with bulk requests
-4. **Date Validation**: Don't add current date to history list (snapshot may not exist yet)
-5. **Set Operations**: Use set operations (Except, intersect) for efficient IP comparison
-6. **Logging**: Log change events for audit trails and compliance reporting
+1. **Use `available_dates`**: Prefer `summary.json → available_dates` over manifest dates — manifest includes dates without history snapshots
+2. **Cache Historical Data**: Download snapshots once, compare locally to reduce API calls
+3. **Error Handling**: Always handle 404 errors (some early weeks have no history snapshots)
+4. **Rate Limiting**: No rate limits currently, but be respectful with bulk requests
+5. **Date Validation**: Don't add current date to history list (snapshot may not exist yet)
+6. **Set Operations**: Use set operations (Except, intersect) for efficient IP comparison
+7. **changeNumber is an integer**: Don't treat it as a string in comparisons
+8. **Logging**: Log change events for audit trails and compliance reporting
 
 ---
 

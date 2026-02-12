@@ -15,6 +15,12 @@ export class ChangeRenderer {
             const addedPrefixes = change.added_prefixes || [];
             const removedPrefixes = change.removed_prefixes || [];
 
+            // Split into IPv4 and IPv6
+            const addedIPv4 = addedPrefixes.filter(ip => !ip.includes(':'));
+            const addedIPv6 = addedPrefixes.filter(ip => ip.includes(':'));
+            const removedIPv4 = removedPrefixes.filter(ip => !ip.includes(':'));
+            const removedIPv6 = removedPrefixes.filter(ip => ip.includes(':'));
+
             const showAddedIPs = addedPrefixes.length > 0;
             const showRemovedIPs = removedPrefixes.length > 0;
             const showBoth = showAddedIPs && showRemovedIPs;
@@ -31,6 +37,28 @@ export class ChangeRenderer {
                 allIPs = [...addedPrefixes, ...removedPrefixes];
             }
 
+            // Build added section with IPv4/IPv6 split
+            let addedHtml = '';
+            if (showAddedIPs) {
+                if (addedIPv4.length > 0) {
+                    addedHtml += this.renderIPList(addedIPv4, 'added-ipv4', uniqueId, `added IPv4 for ${change.service}`);
+                }
+                if (addedIPv6.length > 0) {
+                    addedHtml += this.renderIPList(addedIPv6, 'added-ipv6', uniqueId, `added IPv6 for ${change.service}`);
+                }
+            }
+
+            // Build removed section with IPv4/IPv6 split
+            let removedHtml = '';
+            if (showRemovedIPs) {
+                if (removedIPv4.length > 0) {
+                    removedHtml += this.renderIPList(removedIPv4, 'removed-ipv4', uniqueId, `removed IPv4 for ${change.service}`);
+                }
+                if (removedIPv6.length > 0) {
+                    removedHtml += this.renderIPList(removedIPv6, 'removed-ipv6', uniqueId, `removed IPv6 for ${change.service}`);
+                }
+            }
+
             return `
                 <div class="change-item detailed ${changeTypeClass}">
                     <div class="change-header">
@@ -45,8 +73,8 @@ export class ChangeRenderer {
                             <span class="change-stat added">➕ ${addedCount} IPs added</span>
                             <span class="change-stat removed">➖ ${removedCount} IPs removed</span>
                         </div>
-                        ${this.renderIPList(addedPrefixes, 'added', uniqueId, `added IPs for ${change.service}`)}
-                        ${this.renderIPList(removedPrefixes, 'removed', uniqueId, `removed IPs for ${change.service}`)}
+                        ${addedHtml}
+                        ${removedHtml}
                         ${showBoth ? `
                             <div class="ip-copy-actions" style="margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
                                 <button class="copy-btn-small copy-ips-btn" data-ips="${this.escapeForDataAttr(JSON.stringify(allIPs))}" data-label="all changed IPs (added & removed) for ${this.escapeForDataAttr(change.service)}">
@@ -63,8 +91,21 @@ export class ChangeRenderer {
             const showPrefixes = prefixes.length > 0;
             
             const isRemoval = change.type === 'service_removed' || change.type === 'RemovedService';
-            const listType = isRemoval ? 'removed' : 'added';
-            const listLabel = isRemoval ? `IPs for removed service ${change.service}` : `IPs for new service ${change.service}`;
+            const baseType = isRemoval ? 'removed' : 'added';
+
+            // Split into IPv4 and IPv6
+            const ipv4Prefixes = prefixes.filter(ip => !ip.includes(':'));
+            const ipv6Prefixes = prefixes.filter(ip => ip.includes(':'));
+
+            let prefixHtml = '';
+            if (showPrefixes) {
+                if (ipv4Prefixes.length > 0) {
+                    prefixHtml += this.renderIPList(ipv4Prefixes, `${baseType}-ipv4`, uniqueId, `${isRemoval ? 'removed' : 'added'} IPv4 for ${change.service}`);
+                }
+                if (ipv6Prefixes.length > 0) {
+                    prefixHtml += this.renderIPList(ipv6Prefixes, `${baseType}-ipv6`, uniqueId, `${isRemoval ? 'removed' : 'added'} IPv6 for ${change.service}`);
+                }
+            }
 
             return `
                 <div class="change-item detailed ${changeTypeClass}">
@@ -79,7 +120,7 @@ export class ChangeRenderer {
                         ${change.ip_count ? `<p>${change.ip_count} IP ranges</p>` : ''}
                         ${change.system_service ? `<p>System Service: ${change.system_service}</p>` : ''}
                         
-                        ${showPrefixes ? this.renderIPList(prefixes, listType, uniqueId, listLabel) : ''}
+                        ${prefixHtml}
                     </div>
                 </div>
             `;
@@ -90,9 +131,27 @@ export class ChangeRenderer {
         if (!ips || ips.length === 0) return '';
         
         const collapseThreshold = 10;
-        const className = type === 'added' ? 'added-ip' : 'removed-ip';
-        const sectionTitle = type === 'added' ? 'Added IPs:' : 'Removed IPs:';
-        const copyLabel = type === 'added' ? 'Copy All Added' : 'Copy All Removed';
+        const classMap = {
+            added: 'added-ip', removed: 'removed-ip', active: 'added-ip',
+            ipv4: 'added-ip', ipv6: 'added-ip',
+            'added-ipv4': 'added-ip', 'added-ipv6': 'added-ip',
+            'removed-ipv4': 'removed-ip', 'removed-ipv6': 'removed-ip'
+        };
+        const titleMap = {
+            added: 'Added IPs:', removed: 'Removed IPs:', active: 'Active IP Ranges:',
+            ipv4: 'IPv4 Ranges:', ipv6: 'IPv6 Ranges:',
+            'added-ipv4': 'Added IPv4:', 'added-ipv6': 'Added IPv6:',
+            'removed-ipv4': 'Removed IPv4:', 'removed-ipv6': 'Removed IPv6:'
+        };
+        const copyMap = {
+            added: 'Copy All Added', removed: 'Copy All Removed', active: 'Copy All IPs',
+            ipv4: 'Copy IPv4', ipv6: 'Copy IPv6',
+            'added-ipv4': 'Copy Added IPv4', 'added-ipv6': 'Copy Added IPv6',
+            'removed-ipv4': 'Copy Removed IPv4', 'removed-ipv6': 'Copy Removed IPv6'
+        };
+        const className = classMap[type] || 'added-ip';
+        const sectionTitle = titleMap[type] || 'IP Ranges:';
+        const copyLabel = copyMap[type] || 'Copy All';
         
         return `
             <div class="ip-list-section">

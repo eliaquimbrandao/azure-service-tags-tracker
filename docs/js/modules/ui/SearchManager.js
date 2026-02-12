@@ -400,7 +400,8 @@ export class SearchManager {
                             name: serviceName,
                             region: region,
                             displayName: this.regionMapper.getRegionDisplayName(region),
-                            prefixCount: (props.addressPrefixes || []).length
+                            prefixCount: (props.addressPrefixes || []).length,
+                            prefixes: props.addressPrefixes || []
                         });
                     }
 
@@ -567,13 +568,18 @@ export class SearchManager {
             if (currentMatches.services && currentMatches.services.length > 0) {
                 html += '<div class="search-category-header">🔧 Active Services</div>';
                 currentMatches.services.forEach((service, index) => {
+                    const ipv4 = (service.prefixes || []).filter(ip => !ip.includes(':')).length;
+                    const ipv6 = (service.prefixes || []).filter(ip => ip.includes(':')).length;
                     html += `
                         <div class="search-result-item current" data-type="current-service" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${service.name}</div>
                                 <div class="search-result-meta">
-                                    📍 Region: ${service.displayName}<br>
-                                    🔢 ${service.prefixCount} IP Ranges currently active
+                                    📍 Region: ${service.displayName}
+                                    <br>
+                                    <span style="color: var(--success-color);">+${service.prefixCount} IPs</span> • 
+                                    <span style="color: var(--text-secondary);">-0 IPs</span> • 
+                                    ${ipv4} IPv4 • ${ipv6} IPv6
                                 </div>
                             </div>
                             <span class="search-result-badge service">Active</span>
@@ -729,30 +735,34 @@ export class SearchManager {
     }
 
     showCurrentStateDetails(match) {
-        // Helper to show modal for current state items
         const serviceName = match.name || match.service;
         const region = match.displayName;
-        
-        let contentHtml = '';
-        
-        // Use matches if available (IP search), otherwise we'd need to fetch prefixes (Service search)
-        // Since we didn't store all prefixes for Service search to save memory, we might need a hint.
-        // For now, let's just show what we have.
-        
-        if (match.matches) {
-            contentHtml = `
-                <div class="ip-list">
-                    <h4>Matched IP Ranges:</h4>
-                    ${match.matches.map(ip => `<span class="ip-tag">${ip}</span>`).join('')}
-                </div>
-            `;
+        const uniqueId = `current-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const ipsToShow = match.matches || match.prefixes || [];
+        const isIPSearch = !!match.matches;
+
+        // Split into IPv4 and IPv6
+        const ipv4List = ipsToShow.filter(ip => !ip.includes(':'));
+        const ipv6List = ipsToShow.filter(ip => ip.includes(':'));
+
+        // Build separate sections for IPv4 and IPv6
+        let ipContentHtml = '';
+        if (isIPSearch) {
+            // IP search — show all matches together
+            ipContentHtml = this.changeRenderer.renderIPList(
+                ipsToShow, 'added', uniqueId, `IPs for ${serviceName}`
+            );
         } else {
-            contentHtml = `
-                <p>This service is currently active in <strong>${region}</strong> with <strong>${match.prefixCount}</strong> IP ranges.</p>
-                <p style="font-size:0.9em; color:var(--text-secondary); margin-top:1rem;">
-                    (To view the full list of IPs, verify this service in the official download file or use the main dashboard filters)
-                </p>
-            `;
+            if (ipv4List.length > 0) {
+                ipContentHtml += this.changeRenderer.renderIPList(
+                    ipv4List, 'ipv4', `${uniqueId}-v4`, `IPv4 ranges for ${serviceName}`
+                );
+            }
+            if (ipv6List.length > 0) {
+                ipContentHtml += this.changeRenderer.renderIPList(
+                    ipv6List, 'ipv6', `${uniqueId}-v6`, `IPv6 ranges for ${serviceName}`
+                );
+            }
         }
 
         const modalContent = `
@@ -762,11 +772,29 @@ export class SearchManager {
                     <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
                 </div>
                 <div class="changes-modal-body">
-                    <div class="service-info" style="margin-bottom:1rem;">
-                        <p><strong>Region:</strong> ${region}</p>
-                        <p><strong>Status:</strong> Active Validation</p>
+                    <div class="historical-summary">
+                        <div class="summary-stat-box">
+                            <div class="summary-stat-number">${ipsToShow.length}</div>
+                            <div class="summary-stat-label">IP Ranges</div>
+                        </div>
+                        <div class="summary-stat-box">
+                            <div class="summary-stat-number" style="color: var(--success-color);">+${ipsToShow.length}</div>
+                            <div class="summary-stat-label">Total IPs Active</div>
+                        </div>
+                        <div class="summary-stat-box">
+                            <div class="summary-stat-number" style="color: var(--danger-color);">-0</div>
+                            <div class="summary-stat-label">Total IPs Removed</div>
+                        </div>
                     </div>
-                    ${contentHtml}
+                    <div class="historical-events-list">
+                        <div class="historical-event-item">
+                            <div class="historical-event-header">
+                                <span class="historical-event-date">📍 Region: ${region}</span>
+                                <span style="color: var(--success-color); font-weight: 600;">Active</span>
+                            </div>
+                            ${ipContentHtml}
+                        </div>
+                    </div>
                 </div>
             </div>
         `;

@@ -2708,14 +2708,14 @@ body {
 }
 
 .changes-modal-body {
-    padding: 0;
+    padding: 1.5rem;
     overflow-y: auto;
     flex: 1;
     min-height: 0;
 }
 
 .changes-modal-content {
-    padding: 0;
+    padding: 1.5rem;
     overflow-y: auto;
     flex: 1;
     min-height: 0;

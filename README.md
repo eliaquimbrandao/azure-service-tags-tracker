@@ -103,6 +103,7 @@ azure-service-tags-tracker/
 │   └── data/                     # JSON data storage
 │       ├── current.json          # Latest Azure Service Tags
 │       ├── summary.json          # Dashboard statistics
+│       ├── collection-log.json   # Collection run history & coverage
 │       ├── changes/              # Change detection reports
 │       │   ├── manifest.json     # Index of all change files
 │       │   ├── latest-changes.json
@@ -179,6 +180,7 @@ All data is publicly accessible as JSON via GitHub Pages. You can integrate this
 
 - `/data/current.json` - Latest Azure Service Tags snapshot
 - `/data/summary.json` - Statistics and available dates
+- `/data/collection-log.json` - Collection run history, coverage, and missing dates
 - `/data/changes/latest-changes.json` - Most recent changes
 - `/data/changes/manifest.json` - Index of all change reports
 - `/data/history/YYYY-MM-DD.json` - Historical snapshots

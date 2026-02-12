@@ -494,7 +494,16 @@
       "service": "CopilotActions",
       "ip_count": 7,
       "region": "",
-      "system_service": "CopilotActions"
+      "system_service": "CopilotActions",
+      "prefixes": [
+        "4.150.77.36/30",
+        "4.150.77.40/29",
+        "4.207.44.208/29",
+        "4.243.137.96/29",
+        "130.213.78.208/29",
+        "135.171.143.8/29",
+        "172.194.130.40/29"
+      ]
     },
     {
       "type": "ip_changes",
@@ -516,7 +525,37 @@
       "service": "M365LighthouseProd",
       "ip_count": 28,
       "region": "",
-      "system_service": "M365LighthouseProd"
+      "system_service": "M365LighthouseProd",
+      "prefixes": [
+        "4.195.177.248/29",
+        "4.195.178.0/31",
+        "20.91.113.180/31",
+        "20.91.113.192/29",
+        "40.84.108.110/31",
+        "40.84.109.32/29",
+        "48.209.78.6/31",
+        "48.209.78.32/29",
+        "48.210.97.154/31",
+        "48.210.97.192/29",
+        "48.211.37.134/31",
+        "48.211.37.168/29",
+        "57.154.86.78/31",
+        "57.154.86.80/29",
+        "68.218.185.84/31",
+        "68.218.185.88/29",
+        "74.226.43.80/29",
+        "74.226.43.88/31",
+        "128.24.142.136/30",
+        "128.24.142.144/28",
+        "128.251.81.190/31",
+        "128.251.81.232/29",
+        "130.107.7.102/31",
+        "130.107.61.32/29",
+        "130.131.135.56/29",
+        "130.131.135.96/31",
+        "135.225.65.6/31",
+        "135.225.65.24/29"
+      ]
     },
     {
       "type": "ip_changes",
@@ -677,14 +716,70 @@
       "service": "SystemServiceAzureSpringAppsResourceProvider",
       "ip_count": 32,
       "region": "",
-      "system_service": "SystemServiceAzureSpringAppsResourceProvider"
+      "system_service": "SystemServiceAzureSpringAppsResourceProvider",
+      "prefixes": [
+        "4.158.183.224/27",
+        "4.160.57.128/27",
+        "4.178.163.128/27",
+        "4.182.146.64/27",
+        "4.186.89.32/27",
+        "4.191.124.224/27",
+        "4.195.181.96/27",
+        "4.204.23.32/27",
+        "4.208.161.160/27",
+        "4.222.212.224/27",
+        "4.229.70.192/27",
+        "4.230.169.160/27",
+        "40.84.117.224/27",
+        "48.209.101.160/27",
+        "48.210.102.64/27",
+        "48.211.55.32/27",
+        "48.214.139.0/27",
+        "52.148.50.96/27",
+        "57.154.102.160/27",
+        "57.155.138.96/27",
+        "68.218.188.64/27",
+        "72.147.143.224/27",
+        "72.154.50.0/27",
+        "74.242.38.224/27",
+        "74.242.224.128/27",
+        "74.243.196.96/27",
+        "135.224.49.224/27",
+        "135.225.68.128/27",
+        "172.173.57.160/27",
+        "172.178.153.64/27",
+        "172.187.45.192/27",
+        "172.213.203.128/27"
+      ]
     },
     {
       "type": "service_added",
       "service": "ZeroTrustSegmentation",
       "ip_count": 20,
       "region": "",
-      "system_service": "ZeroTrustSegmentation"
+      "system_service": "ZeroTrustSegmentation",
+      "prefixes": [
+        "48.220.60.10/32",
+        "48.220.60.12/30",
+        "57.158.47.121/32",
+        "57.158.47.124/30",
+        "72.147.59.211/32",
+        "72.147.61.144/30",
+        "131.145.67.223/32",
+        "131.145.67.244/30",
+        "132.164.237.99/32",
+        "132.164.237.100/30",
+        "132.220.81.153/32",
+        "132.220.81.156/30",
+        "134.33.186.225/32",
+        "134.33.186.228/30",
+        "135.119.0.33/32",
+        "135.119.0.48/30",
+        "172.208.252.131/32",
+        "172.208.254.100/30",
+        "172.215.90.238/32",
+        "172.215.94.80/30"
+      ]
     },
     {
       "type": "ip_changes",
@@ -2704,84 +2799,180 @@
       "service": "AzureSecurityCenter.AustriaEast",
       "ip_count": 6,
       "region": "austriaeast",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "68.210.30.216/30",
+        "68.210.30.240/28",
+        "68.210.56.160/27",
+        "68.210.56.192/26",
+        "68.210.57.0/24",
+        "68.210.58.0/25"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.BelgiumCentral",
       "ip_count": 6,
       "region": "belgiumcentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "9.160.66.136/30",
+        "9.160.66.208/28",
+        "9.160.67.128/25",
+        "9.160.68.0/24",
+        "9.160.69.0/26",
+        "9.160.69.64/27"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.ChileCentral",
       "ip_count": 6,
       "region": "chilec",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "57.156.1.176/28",
+        "57.156.1.192/26",
+        "57.156.2.0/24",
+        "57.156.3.0/25",
+        "57.156.3.128/27",
+        "68.211.31.220/30"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.IndonesiaCentral",
       "ip_count": 6,
       "region": "indonesiacentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "70.153.92.140/30",
+        "70.153.92.160/27",
+        "70.153.92.192/26",
+        "70.153.93.0/24",
+        "70.153.94.0/25",
+        "70.153.94.128/28"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.IsraelCentral",
       "ip_count": 6,
       "region": "israelcentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "51.58.49.60/30",
+        "51.58.49.64/26",
+        "51.58.49.128/25",
+        "51.58.50.0/24",
+        "51.58.51.0/27",
+        "51.58.51.32/28"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.ItalyNorth",
       "ip_count": 6,
       "region": "italynorth",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "9.235.70.152/30",
+        "9.235.70.160/27",
+        "9.235.70.192/26",
+        "9.235.71.0/24",
+        "9.235.168.0/25",
+        "9.235.168.128/28"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.MalaysiaWest",
       "ip_count": 6,
       "region": "malaysiawest",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "85.211.140.136/30",
+        "85.211.143.176/28",
+        "85.211.143.192/26",
+        "85.211.232.0/24",
+        "85.211.233.0/25",
+        "85.211.233.128/27"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.MexicoCentral",
       "ip_count": 6,
       "region": "mexicocentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "172.195.50.60/30",
+        "172.195.50.64/26",
+        "172.195.50.128/25",
+        "172.195.51.0/24",
+        "172.195.52.0/27",
+        "172.195.52.32/28"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.NewZealandNorth",
       "ip_count": 6,
       "region": "newzealandnorth",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "172.196.57.128/25",
+        "172.196.58.0/24",
+        "172.196.59.0/26",
+        "172.196.59.64/27",
+        "172.196.59.96/28",
+        "172.204.255.248/30"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.PolandCentral",
       "ip_count": 6,
       "region": "polandcentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "20.215.122.24/30",
+        "20.215.122.32/27",
+        "20.215.122.64/26",
+        "20.215.123.0/24",
+        "20.215.124.0/25",
+        "20.215.124.128/28"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.QatarCentral",
       "ip_count": 6,
       "region": "qatarcentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "20.173.57.8/30",
+        "20.173.57.16/28",
+        "20.173.57.32/27",
+        "20.173.57.64/26",
+        "20.173.57.128/25",
+        "20.173.58.0/24"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureSecurityCenter.SpainCentral",
       "ip_count": 6,
       "region": "spaincentral",
-      "system_service": "AzureSecurityCenter"
+      "system_service": "AzureSecurityCenter",
+      "prefixes": [
+        "70.156.174.4/30",
+        "70.156.174.16/28",
+        "70.156.174.32/27",
+        "70.156.174.64/26",
+        "70.156.175.0/24",
+        "158.158.128.0/25"
+      ]
     },
     {
       "type": "ip_changes",

@@ -266,126 +266,215 @@
       "service": "ActionGroup.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "ActionGroup"
+      "system_service": "ActionGroup",
+      "prefixes": [
+        "134.138.99.4/30",
+        "2603:1030:1402:400::40/125"
+      ]
     },
     {
       "type": "service_added",
       "service": "ApiManagement.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureApiManagement"
+      "system_service": "AzureApiManagement",
+      "prefixes": [
+        "134.138.70.16/28",
+        "2603:1030:1402::740/124"
+      ]
     },
     {
       "type": "service_added",
       "service": "AppService.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureAppService"
+      "system_service": "AzureAppService",
+      "prefixes": [
+        "134.138.77.0/24",
+        "2603:1030:1402:2::/120"
+      ]
     },
     {
       "type": "service_added",
       "service": "AppServiceManagement.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureAppServiceManagement"
+      "system_service": "AzureAppServiceManagement",
+      "prefixes": [
+        "134.138.79.0/26",
+        "2603:1030:1402:2::380/122"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureArcInfrastructure.EastUS3",
       "ip_count": 4,
       "region": "eastus3",
-      "system_service": "AzureArcInfrastructure"
+      "system_service": "AzureArcInfrastructure",
+      "prefixes": [
+        "134.138.76.120/30",
+        "134.138.88.84/32",
+        "134.138.99.12/32",
+        "2603:1030:1402:2::240/124"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureAttestation.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureAttestation"
+      "system_service": "AzureAttestation",
+      "prefixes": [
+        "134.138.64.20/30",
+        "2603:1030:1402::760/124"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureBackup.EastUS3",
       "ip_count": 3,
       "region": "eastus3",
-      "system_service": "AzureBackup"
+      "system_service": "AzureBackup",
+      "prefixes": [
+        "134.138.70.80/28",
+        "134.138.70.128/26",
+        "2603:1030:1402:1::/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureBotService.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureBotService"
+      "system_service": "AzureBotService",
+      "prefixes": [
+        "134.138.64.16/30",
+        "2603:1030:1402::20/123"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureCognitiveSearch.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureCognitiveSearch"
+      "system_service": "AzureCognitiveSearch",
+      "prefixes": [
+        "134.138.64.192/26",
+        "2603:1030:1402::100/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureConnectors.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureConnectors"
+      "system_service": "AzureConnectors",
+      "prefixes": [
+        "134.138.76.128/26",
+        "2603:1030:1402:1::7c0/122"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureContainerRegistry.EastUS3",
       "ip_count": 11,
       "region": "eastus3",
-      "system_service": "AzureContainerRegistry"
+      "system_service": "AzureContainerRegistry",
+      "prefixes": [
+        "134.138.68.192/26",
+        "134.138.86.64/26",
+        "134.138.96.64/26",
+        "134.138.98.0/25",
+        "2603:1030:1402::700/125",
+        "2603:1030:1402:4::280/121",
+        "2603:1030:1402:4::508/125",
+        "2603:1030:1402:4::510/124",
+        "2603:1030:1402:4::540/123",
+        "2603:1030:1402:400::8/125",
+        "2603:1030:1402:400::80/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureCosmosDB.EastUS3",
       "ip_count": 3,
       "region": "eastus3",
-      "system_service": "AzureCosmosDB"
+      "system_service": "AzureCosmosDB",
+      "prefixes": [
+        "134.138.68.32/27",
+        "134.138.68.64/26",
+        "2603:1030:1402::5c0/123"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureDataExplorerManagement.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureDataExplorerManagement"
+      "system_service": "AzureDataExplorerManagement",
+      "prefixes": [
+        "134.138.73.80/28",
+        "2603:1030:1402:1::400/123"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureDigitalTwins.EastUS3",
       "ip_count": 3,
       "region": "eastus3",
-      "system_service": "AzureDigitalTwins"
+      "system_service": "AzureDigitalTwins",
+      "prefixes": [
+        "134.138.68.152/29",
+        "134.138.70.32/27",
+        "2603:1030:1402::780/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureEventGrid.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureEventGrid"
+      "system_service": "AzureEventGrid",
+      "prefixes": [
+        "134.138.65.128/25",
+        "2603:1030:1402::480/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "EventHub.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureEventHub"
+      "system_service": "AzureEventHub",
+      "prefixes": [
+        "134.138.72.0/24",
+        "2603:1030:1402:1::200/120"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureKeyVault.EastUS3",
       "ip_count": 5,
       "region": "eastus3",
-      "system_service": "AzureKeyVault"
+      "system_service": "AzureKeyVault",
+      "prefixes": [
+        "134.138.71.124/30",
+        "134.138.73.160/29",
+        "134.138.96.12/30",
+        "2603:1030:1402:1::3e8/125",
+        "2603:1030:1402:400::48/125"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureMachineLearning.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureMachineLearning"
+      "system_service": "AzureMachineLearning",
+      "prefixes": [
+        "134.138.65.64/27",
+        "2603:1030:1402::400/122"
+      ]
     },
     {
       "type": "ip_changes",
@@ -548,7 +637,20 @@
       "service": "AzureMonitor.EastUS3",
       "ip_count": 11,
       "region": "eastus3",
-      "system_service": "AzureMonitor"
+      "system_service": "AzureMonitor",
+      "prefixes": [
+        "134.138.82.12/30",
+        "134.138.82.144/29",
+        "134.138.82.152/30",
+        "134.138.82.156/31",
+        "134.138.82.192/26",
+        "134.138.98.136/29",
+        "134.138.98.240/28",
+        "2603:1030:1402:2::640/122",
+        "2603:1030:1402:2::700/122",
+        "2603:1030:1402:2::780/121",
+        "2603:1030:1402:3::/121"
+      ]
     },
     {
       "type": "ip_changes",
@@ -939,14 +1041,23 @@
       "service": "AzurePortal.EastUS3",
       "ip_count": 3,
       "region": "eastus3",
-      "system_service": "AzurePortal"
+      "system_service": "AzurePortal",
+      "prefixes": [
+        "134.138.82.8/30",
+        "134.138.82.160/27",
+        "2603:1030:1402:2::680/121"
+      ]
     },
     {
       "type": "service_added",
       "service": "AzureResourceManager.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "AzureResourceManager"
+      "system_service": "AzureResourceManager",
+      "prefixes": [
+        "134.138.74.0/23",
+        "2603:1030:1402:1::500/120"
+      ]
     },
     {
       "type": "service_added",
@@ -1004,70 +1115,121 @@
       "service": "Storage.EastUS3",
       "ip_count": 6,
       "region": "eastus3",
-      "system_service": "AzureStorage"
+      "system_service": "AzureStorage",
+      "prefixes": [
+        "20.153.48.0/24",
+        "20.153.58.0/24",
+        "57.150.249.0/24",
+        "135.130.0.0/23",
+        "135.130.2.0/24",
+        "2603:1030:1403::/48"
+      ]
     },
     {
       "type": "service_added",
       "service": "BatchNodeManagement.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "BatchNodeManagement"
+      "system_service": "BatchNodeManagement",
+      "prefixes": [
+        "134.138.68.0/27",
+        "2603:1030:1402::500/122"
+      ]
     },
     {
       "type": "service_added",
       "service": "DataFactory.EastUS3",
       "ip_count": 4,
       "region": "eastus3",
-      "system_service": "DataFactory"
+      "system_service": "DataFactory",
+      "prefixes": [
+        "134.138.80.0/23",
+        "134.138.98.224/28",
+        "2603:1030:1402:2::500/121",
+        "2603:1030:1402:400::200/124"
+      ]
     },
     {
       "type": "service_added",
       "service": "GatewayManager.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "GatewayManager"
+      "system_service": "GatewayManager",
+      "prefixes": [
+        "134.138.64.64/26",
+        "2603:1030:1402::40/122"
+      ]
     },
     {
       "type": "service_added",
       "service": "HDInsight.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "HDInsight"
+      "system_service": "HDInsight",
+      "prefixes": [
+        "134.138.73.152/29",
+        "2603:1030:1402:1::490/124"
+      ]
     },
     {
       "type": "service_added",
       "service": "LogicApps.EastUS3",
       "ip_count": 4,
       "region": "eastus3",
-      "system_service": "LogicApps"
+      "system_service": "LogicApps",
+      "prefixes": [
+        "134.138.84.192/28",
+        "134.138.84.224/27",
+        "2603:1030:1402:3::2e0/124",
+        "2603:1030:1402:3::300/123"
+      ]
     },
     {
       "type": "service_added",
       "service": "MicrosoftContainerRegistry.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "MicrosoftContainerRegistry"
+      "system_service": "MicrosoftContainerRegistry",
+      "prefixes": [
+        "134.138.96.0/29",
+        "2603:1030:1402:400::/125"
+      ]
     },
     {
       "type": "service_added",
       "service": "PowerBI.EastUS3",
       "ip_count": 5,
       "region": "eastus3",
-      "system_service": "PowerBI"
+      "system_service": "PowerBI",
+      "prefixes": [
+        "134.138.76.126/31",
+        "134.138.79.84/30",
+        "134.138.82.0/29",
+        "2603:1030:1402:2::3e0/123",
+        "2603:1030:1402:2::440/122"
+      ]
     },
     {
       "type": "service_added",
       "service": "PowerQueryOnline.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "PowerQueryOnline"
+      "system_service": "PowerQueryOnline",
+      "prefixes": [
+        "134.138.64.32/29",
+        "2603:1030:1402::1a0/123"
+      ]
     },
     {
       "type": "service_added",
       "service": "ServiceFabric.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "ServiceFabric"
+      "system_service": "ServiceFabric",
+      "prefixes": [
+        "134.138.96.8/30",
+        "2603:1030:1402:400::18/125"
+      ]
     },
     {
       "type": "ip_changes",
@@ -1086,7 +1248,11 @@
       "service": "StorageSyncService.EastUS3",
       "ip_count": 2,
       "region": "eastus3",
-      "system_service": "StorageSyncService"
+      "system_service": "StorageSyncService",
+      "prefixes": [
+        "134.138.79.88/29",
+        "2603:1030:1402:2::3c0/123"
+      ]
     },
     {
       "type": "ip_changes",
@@ -1337,7 +1503,42 @@
       "service": "AzureCloud.eastus3",
       "ip_count": 33,
       "region": "eastus3",
-      "system_service": ""
+      "system_service": "",
+      "prefixes": [
+        "20.20.54.96/27",
+        "20.38.53.0/24",
+        "20.143.108.0/23",
+        "20.153.48.0/24",
+        "20.153.58.0/24",
+        "20.153.148.0/24",
+        "20.201.169.0/24",
+        "20.201.170.0/23",
+        "20.231.150.224/27",
+        "51.57.128.0/17",
+        "52.106.121.0/27",
+        "57.150.249.0/24",
+        "57.157.24.0/26",
+        "57.157.24.64/30",
+        "57.157.24.68/31",
+        "134.138.0.0/17",
+        "135.130.0.0/23",
+        "135.130.2.0/24",
+        "209.199.33.224/28",
+        "209.199.35.0/25",
+        "2603:1030:1401::/48",
+        "2603:1030:1402::/47",
+        "2603:1030:1404::/48",
+        "2603:1030:1405::/48",
+        "2603:1036:3000:260::/59",
+        "2603:1037:1:2e0::/59",
+        "2603:1061:101a::/60",
+        "2603:1061:101a:10::/61",
+        "2603:1061:101a:18::/62",
+        "2603:1061:1312:4000::/54",
+        "2603:1061:174c::/62",
+        "2603:1061:2011:47::/64",
+        "2603:1063:2202:6c::/64"
+      ]
     },
     {
       "type": "ip_changes",
