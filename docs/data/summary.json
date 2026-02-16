@@ -1,13 +1,121 @@
 {
-  "last_updated": "2026-02-09T01:56:42.778285+00:00",
+  "last_updated": "2026-02-16T01:53:53.817020+00:00",
   "total_services": 3128,
-  "total_ip_ranges": 99349,
-  "changes_this_week": 0,
-  "ip_changes": 0,
+  "total_ip_ranges": 99658,
+  "changes_this_week": 177,
+  "ip_changes": 177,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {},
-  "top_active_services": [],
+  "regional_changes": {
+    "": 12,
+    "australiaeast": 2,
+    "australiasoutheast": 4,
+    "brazilsouth": 4,
+    "canadacentral": 4,
+    "canadaeast": 2,
+    "centralindia": 3,
+    "centraluseuap": 4,
+    "eastasia": 5,
+    "eastus": 3,
+    "eastus2": 4,
+    "eastus2euap": 2,
+    "centralfrance": 3,
+    "germanywc": 3,
+    "indonesiacentral": 3,
+    "israelcentral": 3,
+    "italynorth": 3,
+    "japaneast": 3,
+    "japanwest": 3,
+    "jioindiawest": 2,
+    "koreacentral": 3,
+    "koreasouth": 3,
+    "malaysiawest": 3,
+    "northeurope": 4,
+    "norwaye": 2,
+    "polandcentral": 4,
+    "qatarcentral": 2,
+    "southafricanorth": 3,
+    "southcentralus": 3,
+    "southindia": 4,
+    "southeastasia": 3,
+    "spaincentral": 3,
+    "swedencentral": 3,
+    "switzerlandn": 3,
+    "switzerlandw": 3,
+    "uaecentral": 3,
+    "uaenorth": 3,
+    "uksouth": 3,
+    "westcentralus": 3,
+    "westeurope": 3,
+    "westus2": 3,
+    "australiacentral": 1,
+    "australiacentral2": 1,
+    "austriaeast": 2,
+    "belgiumcentral": 1,
+    "brazilse": 1,
+    "centralus": 2,
+    "chilec": 3,
+    "denmarkeast": 2,
+    "southfrance": 2,
+    "germanyn": 2,
+    "israelnorthwest": 1,
+    "jioindiacentral": 1,
+    "mexicocentral": 2,
+    "newzealandnorth": 2,
+    "northcentralus": 3,
+    "norwayw": 1,
+    "southafricawest": 2,
+    "swedensouth": 1,
+    "taiwannorth": 1,
+    "taiwannorthwest": 2,
+    "ukwest": 1,
+    "westus": 3,
+    "westus3": 2,
+    "southeastus3": 1,
+    "westindia": 1
+  },
+  "top_active_services": [
+    {
+      "service": "AzureCloud",
+      "change_count": 244
+    },
+    {
+      "service": "AzureHealthcareAPIs",
+      "change_count": 84
+    },
+    {
+      "service": "AzureArcInfrastructure",
+      "change_count": 81
+    },
+    {
+      "service": "AzureMonitor",
+      "change_count": 79
+    },
+    {
+      "service": "AzureInformationProtection",
+      "change_count": 40
+    },
+    {
+      "service": "AzureCloud.centralus",
+      "change_count": 20
+    },
+    {
+      "service": "AzureCloud.israelcentral",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.newzealandnorth",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.malaysiawest",
+      "change_count": 11
+    },
+    {
+      "service": "AzureCloud.southcentralus",
+      "change_count": 11
+    }
+  ],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
