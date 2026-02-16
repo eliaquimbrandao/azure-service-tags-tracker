@@ -1,11 +1,16 @@
 {
-  "generated": "2026-02-12T13:18:57.776297+00:00",
-  "total_files": 19,
+  "generated": "2026-02-16T01:53:53.965928+00:00",
+  "total_files": 20,
   "date_range": {
     "oldest": "2025-10-08",
-    "newest": "2026-02-09"
+    "newest": "2026-02-16"
   },
   "files": [
+    {
+      "date": "2026-02-16",
+      "filename": "2026-02-16-changes.json",
+      "size": 77826
+    },
     {
       "date": "2026-02-09",
       "filename": "2026-02-09-changes.json",
@@ -54,7 +59,7 @@
     {
       "date": "2025-12-08",
       "filename": "2025-12-08-changes.json",
-      "size": 59872
+      "size": 64980
     },
     {
       "date": "2025-12-01",
@@ -64,7 +69,7 @@
     {
       "date": "2025-11-24",
       "filename": "2025-11-24-changes.json",
-      "size": 111814
+      "size": 116656
     },
     {
       "date": "2025-11-17",
@@ -74,7 +79,7 @@
     {
       "date": "2025-11-10",
       "filename": "2025-11-10-changes.json",
-      "size": 96449
+      "size": 96977
     },
     {
       "date": "2025-11-03",
@@ -99,7 +104,7 @@
     {
       "date": "2025-10-08",
       "filename": "2025-10-08-changes.json",
-      "size": 566962
+      "size": 3365490
     }
   ]
 }
