@@ -1,31 +1,34 @@
 {
-  "last_updated": "2026-02-23T01:54:12.888913+00:00",
+  "last_updated": "2026-03-02T01:51:34.218390+00:00",
   "total_services": 3128,
-  "total_ip_ranges": 99840,
-  "changes_this_week": 25,
-  "ip_changes": 25,
+  "total_ip_ranges": 100036,
+  "changes_this_week": 32,
+  "ip_changes": 32,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 2,
-    "australiasoutheast": 1,
-    "canadaeast": 1,
+    "": 4,
+    "eastus2": 2,
+    "japanwest": 2,
+    "australiaeast": 1,
+    "brazilsouth": 1,
+    "centralindia": 1,
     "centralus": 1,
-    "eastus2": 1,
     "eastus3": 1,
     "eastus": 1,
     "centralfrance": 1,
-    "germanywc": 1,
     "indonesiacentral": 1,
     "japaneast": 1,
-    "japanwest": 1,
     "koreacentral": 1,
-    "koreasouth": 1,
+    "mexicocentral": 1,
     "newzealandnorth": 1,
     "northcentralus": 1,
     "northeurope": 1,
-    "southcentralus2": 1,
-    "uksouth": 1,
+    "southcentralus": 1,
+    "southeastus3": 1,
+    "spaincentral": 1,
+    "swedencentral": 1,
+    "ukwest": 1,
     "westcentralus": 1,
     "westeurope": 1,
     "westus2": 1,
@@ -35,43 +38,43 @@
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 153
+      "change_count": 222
     },
     {
       "service": "AzureCloud.westus",
-      "change_count": 37
-    },
-    {
-      "service": "AzureCloud.eastus2",
-      "change_count": 13
+      "change_count": 28
     },
     {
       "service": "AzureCloud.eastus",
+      "change_count": 25
+    },
+    {
+      "service": "AzureCloud.mexicocentral",
+      "change_count": 14
+    },
+    {
+      "service": "AzureCloud.eastus3",
       "change_count": 13
     },
     {
-      "service": "AzureCloud.newzealandnorth",
-      "change_count": 12
+      "service": "AzureCloud.southcentralus",
+      "change_count": 11
     },
     {
-      "service": "AzureCloud.germanywc",
+      "service": "AzureCloud.centralus",
       "change_count": 9
     },
     {
-      "service": "AzureCloud.westeurope",
+      "service": "AzureCloud.eastus2",
       "change_count": 9
     },
     {
-      "service": "AzureActiveDirectory.ServiceEndpoint",
+      "service": "AzureCloud.japaneast",
+      "change_count": 9
+    },
+    {
+      "service": "AzureCloud.centralindia",
       "change_count": 8
-    },
-    {
-      "service": "AzureCloud.westus2",
-      "change_count": 7
-    },
-    {
-      "service": "AzureCloud.indonesiacentral",
-      "change_count": 6
     }
   ],
   "available_dates": [
@@ -90,6 +93,7 @@
     "2026-01-26",
     "2026-02-02",
     "2026-02-09",
-    "2026-02-16"
+    "2026-02-16",
+    "2026-02-23"
   ]
 }
