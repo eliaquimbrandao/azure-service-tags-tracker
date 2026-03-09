@@ -1,80 +1,123 @@
 {
-  "last_updated": "2026-03-02T01:51:34.218390+00:00",
+  "last_updated": "2026-03-09T01:52:41.234224+00:00",
   "total_services": 3128,
-  "total_ip_ranges": 100036,
-  "changes_this_week": 32,
-  "ip_changes": 32,
+  "total_ip_ranges": 100290,
+  "changes_this_week": 158,
+  "ip_changes": 158,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 4,
-    "eastus2": 2,
-    "japanwest": 2,
-    "australiaeast": 1,
-    "brazilsouth": 1,
-    "centralindia": 1,
-    "centralus": 1,
-    "eastus3": 1,
-    "eastus": 1,
-    "centralfrance": 1,
+    "": 3,
+    "belgiumcentral": 3,
+    "centralindia": 3,
+    "eastus": 4,
+    "southeastasia": 4,
+    "uksouth": 4,
+    "australiacentral": 2,
+    "australiacentral2": 1,
+    "australiaeast": 2,
+    "austriaeast": 2,
+    "brazilsouth": 3,
+    "brazilse": 1,
+    "canadacentral": 3,
+    "canadaeast": 2,
+    "centralus": 3,
+    "chilec": 2,
+    "denmarkeast": 1,
+    "eastus2": 3,
+    "eastus2euap": 1,
+    "eastus3": 2,
+    "centralfrance": 2,
+    "southfrance": 3,
+    "germanyn": 2,
+    "germanywc": 3,
     "indonesiacentral": 1,
-    "japaneast": 1,
-    "koreacentral": 1,
-    "mexicocentral": 1,
-    "newzealandnorth": 1,
+    "israelcentral": 3,
+    "israelnorthwest": 1,
+    "italynorth": 3,
+    "japaneast": 2,
+    "jioindiacentral": 1,
+    "jioindiawest": 2,
+    "koreasouth": 3,
+    "malaysiasouth": 1,
+    "malaysiawest": 2,
+    "mexicocentral": 3,
+    "newzealandnorth": 3,
+    "northeurope": 3,
+    "norwayw": 2,
+    "polandcentral": 3,
+    "qatarcentral": 1,
+    "southafricanorth": 3,
+    "southafricawest": 3,
+    "southcentralus": 3,
+    "southcentralus2": 1,
+    "usstagec": 1,
+    "southindia": 3,
+    "southeastus": 1,
+    "southeastus3": 2,
+    "spaincentral": 3,
+    "swedencentral": 2,
+    "swedensouth": 2,
+    "switzerlandw": 2,
+    "taiwannorth": 2,
+    "taiwannorthwest": 2,
+    "uaecentral": 2,
+    "uaenorth": 3,
+    "ukwest": 2,
+    "westcentralus": 3,
+    "westeurope": 2,
+    "westindia": 3,
+    "westus": 2,
+    "westus2": 3,
+    "westus3": 3,
+    "australiasoutheast": 2,
+    "eastasia": 2,
+    "japanwest": 2,
+    "koreacentral": 2,
     "northcentralus": 1,
-    "northeurope": 1,
-    "southcentralus": 1,
-    "southeastus3": 1,
-    "spaincentral": 1,
-    "swedencentral": 1,
-    "ukwest": 1,
-    "westcentralus": 1,
-    "westeurope": 1,
-    "westus2": 1,
-    "westus3": 1,
-    "westus": 1
+    "norwaye": 1,
+    "switzerlandn": 2
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 222
+      "change_count": 123
     },
     {
-      "service": "AzureCloud.westus",
-      "change_count": 28
-    },
-    {
-      "service": "AzureCloud.eastus",
-      "change_count": 25
-    },
-    {
-      "service": "AzureCloud.mexicocentral",
-      "change_count": 14
+      "service": "GatewayManager",
+      "change_count": 63
     },
     {
       "service": "AzureCloud.eastus3",
-      "change_count": 13
+      "change_count": 17
     },
     {
       "service": "AzureCloud.southcentralus",
+      "change_count": 12
+    },
+    {
+      "service": "AzureCloud.southeastus3",
       "change_count": 11
     },
     {
-      "service": "AzureCloud.centralus",
-      "change_count": 9
+      "service": "AzureCloud.westus3",
+      "change_count": 10
+    },
+    {
+      "service": "AzureCloud.brazilsouth",
+      "change_count": 7
+    },
+    {
+      "service": "AzureCloud.westcentralus",
+      "change_count": 7
     },
     {
       "service": "AzureCloud.eastus2",
-      "change_count": 9
+      "change_count": 5
     },
     {
-      "service": "AzureCloud.japaneast",
-      "change_count": 9
-    },
-    {
-      "service": "AzureCloud.centralindia",
-      "change_count": 8
+      "service": "WindowsVirtualDesktop.TaiwanNorth",
+      "change_count": 3
     }
   ],
   "available_dates": [
@@ -94,6 +137,7 @@
     "2026-02-02",
     "2026-02-09",
     "2026-02-16",
-    "2026-02-23"
+    "2026-02-23",
+    "2026-03-02"
   ]
 }
