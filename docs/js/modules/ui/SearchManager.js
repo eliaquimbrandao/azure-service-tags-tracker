@@ -201,6 +201,9 @@ export class SearchManager {
         }
 
         const queryLower = query.toLowerCase();
+        const queryCompact = queryLower.replace(/\s+/g, '');
+        const queryWords = queryLower.split(/\s+/).filter(w => w.length > 0);
+        const isMultiWord = queryWords.length > 1;
         const ipContext = this.parseIPAddress(query);
         const isPotentialIP = this.isIPAddressLike(query);
         const partialIPMode = !ipContext && isPotentialIP;
@@ -229,7 +232,18 @@ export class SearchManager {
                     // Service Search (normalize key to merge variants)
                     const serviceName = change.service || '';
                     const serviceKey = this.normalizeKey(serviceName, 'unknown');
-                    if (serviceName.toLowerCase().includes(queryLower)) {
+
+                    // Multi-word: match all words against combined service+region text
+                    const regionRaw = change.region || '';
+                    const regionKey = this.normalizeKey(regionRaw, 'global');
+                    const displayName = regionRaw ? this.regionMapper.getRegionDisplayName(regionRaw) : '\ud83c\udf10 Global';
+                    const combinedText = `${serviceName} ${regionRaw} ${displayName}`.toLowerCase();
+
+                    const serviceMatch = serviceName.toLowerCase().includes(queryLower) ||
+                        serviceName.toLowerCase().includes(queryCompact) ||
+                        (isMultiWord && queryWords.every(w => combinedText.includes(w)));
+
+                    if (serviceMatch) {
                         if (!serviceMatches.has(serviceKey)) {
                             serviceMatches.set(serviceKey, {
                                 type: 'service',
@@ -270,12 +284,11 @@ export class SearchManager {
                     }
 
                     // Region Search (aggregate normalized regions)
-                    const regionRaw = change.region || '';
-                    const regionKey = this.normalizeKey(regionRaw, 'global');
-                    const displayName = regionRaw ? this.regionMapper.getRegionDisplayName(regionRaw) : '🌐 Global';
-
                     if (regionRaw.toLowerCase().includes(queryLower) ||
-                        displayName.toLowerCase().includes(queryLower)) {
+                        regionRaw.toLowerCase().includes(queryCompact) ||
+                        displayName.toLowerCase().includes(queryLower) ||
+                        displayName.toLowerCase().includes(queryCompact) ||
+                        (isMultiWord && queryWords.every(w => combinedText.includes(w)))) {
                         if (!regionMatches.has(regionKey)) {
                             regionMatches.set(regionKey, {
                                 type: 'region',
@@ -393,9 +406,13 @@ export class SearchManager {
                     const region = props.region || '';
                     const serviceKey = this.normalizeKey(serviceName, 'unknown');
                     const regionKey = this.normalizeKey(region, 'global');
+                    const regionDisplay = this.regionMapper.getRegionDisplayName(region);
+                    const combinedText = `${serviceName} ${region} ${regionDisplay} ${tag.name || ''}`.toLowerCase();
                     
                     // Search Service Name in Current Data
-                    if (serviceName.toLowerCase().includes(queryLower)) {
+                    if (serviceName.toLowerCase().includes(queryLower) ||
+                        serviceName.toLowerCase().includes(queryCompact) ||
+                        (isMultiWord && queryWords.every(w => combinedText.includes(w)))) {
                         currentMatches.services.push({
                             name: serviceName,
                             region: region,

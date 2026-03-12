@@ -186,15 +186,18 @@ export class RegionalAnalysis {
                     const changeData = await changeResponse.json();
 
                     (changeData.changes || []).forEach(change => {
-                        const changeRegion = change.region || 'Global';
-                        if (changeRegion === regionKey) {
+                        const changeRegion = (change.region || '').toLowerCase();
+                        const matchKey = (regionKey || '').toLowerCase();
+                        if (changeRegion === matchKey) {
+                            const added = change.added_prefixes || [];
+                            const removed = change.removed_prefixes || [];
                             regionalChanges.push({
                                 date: fileInfo.date,
                                 service: change.service,
-                                addedCount: (change.addedIPs || []).length,
-                                removedCount: (change.removedIPs || []).length,
-                                addedIPs: change.addedIPs || [],
-                                removedIPs: change.removedIPs || []
+                                addedCount: change.added_count || added.length,
+                                removedCount: change.removed_count || removed.length,
+                                addedIPs: added,
+                                removedIPs: removed
                             });
                         }
                     });
@@ -215,7 +218,10 @@ export class RegionalAnalysis {
                 // Sort by date descending
                 regionalChanges.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                contentEl.innerHTML = regionalChanges.map(change => `
+                const pageSize = 50;
+                let shown = pageSize;
+
+                const renderItems = (items) => items.map(change => `
                     <div style="border-bottom: 1px solid var(--border-color); padding: 1rem 0;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                             <strong>${change.service}</strong>
@@ -227,6 +233,32 @@ export class RegionalAnalysis {
                         </div>
                     </div>
                 `).join('');
+
+                const summaryHtml = `
+                    <div style="display: flex; gap: 1.2rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                        <span>${regionalChanges.length} service changes found</span>
+                    </div>
+                `;
+
+                contentEl.innerHTML = summaryHtml + renderItems(regionalChanges.slice(0, pageSize));
+
+                if (regionalChanges.length > pageSize) {
+                    const loadMoreBtn = document.createElement('button');
+                    loadMoreBtn.style.cssText = 'display:block;margin:1rem auto;padding:0.5rem 1.5rem;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-color);color:var(--primary-color);cursor:pointer;font-size:0.9rem;';
+                    loadMoreBtn.textContent = `Show more (${regionalChanges.length - shown} remaining)`;
+                    contentEl.appendChild(loadMoreBtn);
+
+                    loadMoreBtn.addEventListener('click', () => {
+                        const next = regionalChanges.slice(shown, shown + pageSize);
+                        shown += pageSize;
+                        loadMoreBtn.remove();
+                        contentEl.insertAdjacentHTML('beforeend', renderItems(next));
+                        if (shown < regionalChanges.length) {
+                            loadMoreBtn.textContent = `Show more (${regionalChanges.length - shown} remaining)`;
+                            contentEl.appendChild(loadMoreBtn);
+                        }
+                    });
+                }
             }
 
         } catch (error) {

@@ -19,10 +19,6 @@ export class RegionMapper {
         }
     }
 
-    getDisplayName(programmaticName) {
-        return this.getRegionDisplayName(programmaticName);
-    }
-
     getRegionDisplayName(programmaticName) {
         if (!programmaticName || programmaticName === '') {
             return 'Global';

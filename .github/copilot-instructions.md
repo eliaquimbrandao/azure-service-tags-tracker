@@ -50,7 +50,7 @@ docs/                           # GitHub Pages root — everything here is serve
       visualizations/
         ChartManager.js          # Chart.js charts (timeline, trends, activity, regional)
         RegionalAnalysis.js      # Region-level change analysis
-        ServiceList.js           # Service listing with historical insights
+        ServiceList.js           # Activity scoring, bar chart + ranked table
       export/
         ExportManager.js         # JSON/CSV export functionality
   data/
@@ -75,7 +75,7 @@ dashboard.js (controller)
   ├── RegionMapper       — region code resolution
   ├── DataManager        — data loading, service prefix lookup
   ├── ChartManager       — all Chart.js visualizations
-  ├── ServiceList        — service listing + historical insights
+  ├── ServiceList        — service activity scoring, bar chart + table
   ├── ChangeRenderer     — renders IP change entries (added/removed/active, IPv4/IPv6)
   ├── ModalManager       — modal overlay management
   ├── RegionalAnalysis   — per-region change analysis
@@ -89,9 +89,12 @@ dashboard.js (controller)
 - **Module instantiation**: `dashboard.js` constructor creates all module instances and passes dependencies (no global state)
 - **Data flow**: `DataManager.loadAllData()` fetches all JSON upfront → passed to modules via setters
 - **Search modals**: `SearchManager` handles both "Active" (current state) and "History" (past changes) result modals with unified layout — both show top stat boxes (IP count, +added, -removed) and split IPs into IPv4/IPv6 sections
+- **Search matching**: Supports fuzzy matching (spaces stripped: "azure monitor" → "azuremonitor") and multi-word combined search ("monitor east us" matches service+region). All query words must match somewhere in the combined text.
 - **Change rendering**: `ChangeRenderer.renderIPList()` supports types: `added`, `removed`, `active`, `ipv4`, `ipv6`, `added-ipv4`, `added-ipv6`, `removed-ipv4`, `removed-ipv6` — each with appropriate styling, titles, and copy buttons
 - **Region mapping**: `RegionMapper.getRegionDisplayName(code)` resolves programmatic names; always use this instead of raw lookups
-- **Chart.js**: Version 4.4 via CDN, used for timeline, trends, weekly activity, and regional charts
+- **Chart.js**: Version 4.4 via CDN, used for timeline, weekly activity, regional, and service charts
+- **Activity scoring**: `ServiceList.js` scores services by Frequency 60% (absolute: weeks/totalWeeks), IP Volume 20% (relative to max), Recency 20% (absolute: recent 4 weeks). AzureCloud entries are excluded.
+- **Chart navigation**: Weekly Activity has month navigation, Timeline has batch pagination (4 per page), Regional Activity is horizontal bars with Global extracted to summary card
 - **HTML onclick handlers**: Some buttons use `onclick="dashboard.methodName()"` — the dashboard instance is exposed as `window.dashboard`
 
 ### ⚠️ Important: Do NOT duplicate module logic
@@ -148,6 +151,7 @@ Previous dead code was cleaned up — 13 methods (~1,300 lines) that were duplic
 ## Data Coverage & Known Gaps
 
 The project started in October 2025. Some early weeks were missed before the weekly schedule stabilized:
+
 - **Missing history snapshots** (no full JSON): 2025-10-13, 2025-10-17, 2025-10-27, 2025-11-03, 2025-11-10, 2025-11-17
 - **Change files exist** for those dates (some with 0 changes, some with real data) but the full Service Tags JSON was not downloaded
 - These gaps cause 404 errors in the browser console on the Analytics page — this is expected and harmless

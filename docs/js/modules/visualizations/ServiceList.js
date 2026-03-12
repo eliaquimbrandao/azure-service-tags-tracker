@@ -1,259 +1,223 @@
 export class ServiceList {
     constructor(dataManager) {
         this.dataManager = dataManager;
-        this.servicesContainer = null;
-        this.servicesPage = 1;
+        this.activeServicesChart = null;
+        this.allServices = [];
+        this.totalWeeks = 0;
     }
 
     async renderActiveServices() {
-        // Store container reference or find it
-        if (!this.servicesContainer) {
-            const chartElement = document.getElementById('activeServicesChart');
-            this.servicesContainer = chartElement ? chartElement.parentElement : null;
-        }
+        const canvas = document.getElementById('activeServicesChart');
+        if (!canvas) return;
 
-        const container = this.servicesContainer;
-        if (!container) {
-            console.error('Services container not found');
-            return;
-        }
-
-        // Load historical data to calculate true "activity" across ALL weeks
-        this.dataManager.loadHistoricalActivity().then(historicalActivity => {
-            // Build services list from ALL historical data, not just current week
-            const allServices = Object.entries(historicalActivity)
-                .map(([service, stats]) => {
-                    // Calculate activity score combining:
-                    // 1. Historical frequency (how many times this service changed across all weeks)
-                    // 2. Total IP impact (cumulative IPs changed across all weeks)
-                    const changeFrequency = stats.changeCount || 0;
-                    const totalIPChange = stats.totalIPChange || 0;
-                    const activityScore = (changeFrequency * 100) + (totalIPChange * 0.1);
-
-                    return {
-                        service,
-                        change_count: changeFrequency,
-                        ip_added: stats.totalIPsAdded || 0,
-                        ip_removed: stats.totalIPsRemoved || 0,
-                        net_ip_change: (stats.totalIPsAdded || 0) - (stats.totalIPsRemoved || 0),
-                        historical_weeks: changeFrequency,
-                        activity_score: activityScore
-                    };
-                })
-                // Sort by activity score (highest = most active over time)
-                .sort((a, b) => b.activity_score - a.activity_score);
-
-            console.log(`Rendering ${allServices.length} services from historical data`);
-            this.renderServicesList(container, allServices);
-        }).catch(error => {
-            console.error('Error loading historical activity:', error);
-            
-            // Fallback: use current week data only if historical loading fails
-            const changes = this.dataManager.changesData?.changes || [];
-            const serviceCounts = {};
-            const serviceIPCounts = {};
-
-            changes.forEach(change => {
-                const serviceName = change.service;
-
-                // Skip AzureCloud tags - they're infrastructure, not services
-                if (serviceName.startsWith('AzureCloud')) {
-                    return;
-                }
-
-                if (!serviceCounts[serviceName]) {
-                    serviceCounts[serviceName] = 0;
-                    serviceIPCounts[serviceName] = { added: 0, removed: 0 };
-                }
-                serviceCounts[serviceName]++;
-                serviceIPCounts[serviceName].added += (change.added_count || 0);
-                serviceIPCounts[serviceName].removed += (change.removed_count || 0);
-            });
-
-            const allServices = Object.keys(serviceCounts)
-                .map(service => ({
-                    service,
-                    change_count: serviceCounts[service],
-                    ip_added: serviceIPCounts[service].added,
-                    ip_removed: serviceIPCounts[service].removed,
-                    net_ip_change: serviceIPCounts[service].added - serviceIPCounts[service].removed
-                }))
-                .sort((a, b) => b.change_count - a.change_count);
-
-            this.renderServicesList(container, allServices);
-        });
-    }
-
-    renderServicesList(container, allServices) {
-        if (allServices.length === 0) {
-            // When no current data, show historical top services without "No Changes" header
-            this.showTopHistoricalServices(container);
-            return;
-        }
-
-        // Initialize pagination
-        if (!this.servicesPage) {
-            this.servicesPage = 1;
-        }
-        const itemsPerPage = 5;
-        const totalPages = Math.ceil(allServices.length / itemsPerPage);
-        const startIndex = (this.servicesPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const currentServices = allServices.slice(startIndex, endIndex);
-
-        // Create a simple list instead of a chart
-        const servicesHtml = currentServices.map((service, index) => {
-            const actualRank = startIndex + index + 1;
-
-            // Calculate total IPs changed (added + removed across all weeks)
-            const totalIPsChanged = service.ip_added + service.ip_removed;
-
-            // Show frequency with fire badge for visual emphasis and hover effect
-            const activityBadge = `<span class="frequency-badge activity-fire">🔥 ${service.change_count} week${service.change_count !== 1 ? 's' : ''}</span>`;
-
-            return `
-                <div class="service-rank-item-static">
-                    <div class="service-details">
-                        <div class="service-name">
-                            <span class="rank-number-inline">${actualRank}.</span> ${service.service}
-                            ${activityBadge}
-                        </div>
-                        <div class="change-count">
-                            ${totalIPsChanged.toLocaleString()} total IP changes across all updates
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        // Create pagination controls
-        const paginationHtml = totalPages > 1 ? `
-            <div class="pagination">
-                <button class="pagination-btn" ${this.servicesPage === 1 ? 'disabled' : ''} onclick="dashboard.serviceList.changePage(${this.servicesPage - 1})">
-                    ←
-                </button>
-                ${this.generatePageNumbers(this.servicesPage, totalPages)}
-                <button class="pagination-btn" ${this.servicesPage === totalPages ? 'disabled' : ''} onclick="dashboard.serviceList.changePage(${this.servicesPage + 1})">
-                    →
-                </button>
-            </div>
-            <div class="pagination-info">
-                Showing ${startIndex + 1}-${Math.min(endIndex, allServices.length)} of ${allServices.length} services
-            </div>
-        ` : '';
-
-        container.innerHTML = `
-            <h3>🏆 Most Active Services</h3>
-            <div class="services-rank-list">
-                ${servicesHtml}
-            </div>
-            ${paginationHtml}
-        `;
-    }
-
-    generatePageNumbers(currentPage, totalPages) {
-        let pages = [];
-        const maxVisible = 4;
-
-        if (totalPages <= maxVisible + 2) {
-            // Show all pages if total is small
-            for (let i = 1; i <= totalPages; i++) {
-                pages.push(i);
-            }
-        } else {
-            // Always show first page
-            pages.push(1);
-
-            // Calculate range around current page
-            let start = Math.max(2, currentPage - 1);
-            let end = Math.min(totalPages - 1, currentPage + 1);
-
-            // Add ellipsis if needed
-            if (start > 2) pages.push('...');
-
-            // Add pages around current
-            for (let i = start; i <= end; i++) {
-                pages.push(i);
-            }
-
-            // Add ellipsis if needed
-            if (end < totalPages - 1) pages.push('...');
-
-            // Always show last page
-            pages.push(totalPages);
-        }
-
-        return pages.map(page => {
-            if (page === '...') return '<span class="pagination-ellipsis">...</span>';
-            return `
-                <button class="pagination-btn ${page === currentPage ? 'active' : ''}" 
-                        onclick="dashboard.serviceList.changePage(${page})">
-                    ${page}
-                </button>
-            `;
-        }).join('');
-    }
-
-    async showTopHistoricalServices(container) {
-        // Show top historically active services without "No Changes" messaging
         try {
-            const historicalActivity = await this.dataManager.loadHistoricalActivity();
-            const services = Object.entries(historicalActivity)
-                .map(([service, stats]) => ({
-                    service,
-                    changeCount: stats.changeCount,
-                    totalIPsAdded: stats.totalIPsAdded,
-                    totalIPsRemoved: stats.totalIPsRemoved,
-                    totalIPChange: stats.totalIPChange
-                }))
-                .sort((a, b) => b.totalIPChange - a.totalIPChange)  // Sort by total IP changes (magnitude)
-                .slice(0, 5);  // Show top 5
+            // Load manifest to get total weeks and file list
+            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
+            const manifest = await manifestResponse.json();
+            const oldestDate = manifest.date_range?.oldest;
+            const changeFiles = manifest.files
+                .filter(f => f.date !== oldestDate)
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            if (services.length === 0) {
-                container.innerHTML = `
-                    <div class="analytics-card">
-                        <p style="text-align: center; color: var(--text-secondary);">
-                            📊 No historical data available yet. Check back after the next update.
-                        </p>
-                    </div>
-                `;
+            this.totalWeeks = changeFiles.length;
+            if (this.totalWeeks === 0) {
+                canvas.parentElement.innerHTML = '<p class="no-data">Not enough data yet</p>';
                 return;
             }
 
-            // Show ranked list of top services
-            const topServicesHtml = services.map((item, index) => `
-                <div class="service-rank-item" 
-                     onclick="dashboard.showServiceHistory('${item.service.replace(/'/g, "\\'")}')"
-                     title="Click to view ${item.service} history">
-                    <div class="rank-number">${index + 1}</div>
-                    <div class="service-details">
-                        <div class="service-name">${item.service}</div>
-                        <div class="service-meta">
-                            <span class="frequency-badge">🔥 ${item.changeCount} change${item.changeCount !== 1 ? 's' : ''}</span>
-                            <span class="ip-details" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem; display: block;">
-                                ${item.totalIPChange.toLocaleString()} total IPs affected
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+            // Determine recent window (last 4 weeks)
+            const recentDates = new Set(changeFiles.slice(-4).map(f => f.date));
 
-            container.innerHTML = `
-                <div class="analytics-card">
-                    <h4>🏆 Most Active Services (All Time)</h4>
-                    <div class="services-rank-list">
-                        ${topServicesHtml}
-                    </div>
-                </div>
-            `;
+            // Track rich per-service data
+            const serviceMap = {};
+
+            for (const fileInfo of changeFiles) {
+                try {
+                    const resp = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
+                    const data = await resp.json();
+
+                    (data.changes || []).forEach(change => {
+                        const name = change.service;
+                        if (!name || name.startsWith('AzureCloud')) return;
+
+                        if (!serviceMap[name]) {
+                            serviceMap[name] = { added: 0, removed: 0, weekDates: new Set(), recentWeeks: 0 };
+                        }
+                        const s = serviceMap[name];
+                        s.added += change.added_count || 0;
+                        s.removed += change.removed_count || 0;
+                        s.weekDates.add(fileInfo.date);
+                        if (recentDates.has(fileInfo.date)) {
+                            s.recentWeeks++;
+                        }
+                    });
+                } catch (err) {
+                    // skip failed files
+                }
+            }
+
+            // Build scored list
+            const services = Object.entries(serviceMap).map(([service, s]) => {
+                const weeks = s.weekDates.size;
+                const total = s.added + s.removed;
+                const avgPerWeek = weeks > 0 ? total / weeks : 0;
+                return {
+                    service,
+                    weeks,
+                    added: s.added,
+                    removed: s.removed,
+                    total,
+                    avgPerWeek: Math.round(avgPerWeek),
+                    recentWeeks: s.recentWeeks
+                };
+            });
+
+            // Compute normalized scores
+            const maxTotal = Math.max(...services.map(s => s.total), 1);
+
+            for (const s of services) {
+                // Frequency (60%) — absolute: weeks_active / total_weeks
+                const frequencyScore = (s.weeks / this.totalWeeks) * 60;
+
+                // IP Volume (20%) — relative to max
+                const magnitudeScore = (s.total / maxTotal) * 20;
+
+                // Recency (20%) — how many of last 4 weeks had changes (absolute)
+                const recencyScore = (Math.min(s.recentWeeks, 4) / 4) * 20;
+
+                s.score = Math.round(frequencyScore + magnitudeScore + recencyScore);
+                s.frequencyPct = Math.round((s.weeks / this.totalWeeks) * 100);
+            }
+
+            this.allServices = services.sort((a, b) => b.score - a.score);
+
+            this.renderChart(canvas);
+            this.renderTable();
         } catch (error) {
-            console.error('Error showing top historical services:', error);
-            container.innerHTML = '<p class="error">Failed to load historical data</p>';
+            console.error('Error rendering active services:', error);
+            canvas.parentElement.innerHTML = '<p class="no-data">Error loading service data</p>';
         }
     }
 
-    changePage(page) {
-        this.servicesPage = page;
-        this.renderActiveServices();
+    renderChart(canvas) {
+        const top15 = this.allServices.slice(0, 15);
+        if (top15.length === 0) return;
+
+        // Reverse for horizontal bar (top item at top)
+        const display = [...top15].reverse();
+
+        if (this.activeServicesChart) {
+            this.activeServicesChart.destroy();
+        }
+
+        const totalWeeks = this.totalWeeks;
+
+        this.activeServicesChart = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: display.map(s => s.service),
+                datasets: [
+                    {
+                        label: 'Added IPs',
+                        data: display.map(s => s.added),
+                        backgroundColor: 'rgba(76, 175, 80, 0.7)',
+                        borderColor: 'rgba(76, 175, 80, 1)',
+                        borderWidth: 1,
+                        borderRadius: 3
+                    },
+                    {
+                        label: 'Removed IPs',
+                        data: display.map(s => s.removed),
+                        backgroundColor: 'rgba(244, 67, 54, 0.7)',
+                        borderColor: 'rgba(244, 67, 54, 1)',
+                        borderWidth: 1,
+                        borderRadius: 3
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true, position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            afterBody: (items) => {
+                                const idx = items[0].dataIndex;
+                                const s = display[idx];
+                                return [
+                                    `Score: ${s.score}/100`,
+                                    `Frequency: ${s.weeks}/${totalWeeks} weeks (${s.frequencyPct}%)`,
+                                    `Avg: ${s.avgPerWeek} IPs/active week`
+                                ];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        title: { display: true, text: 'Number of IP Changes' },
+                        beginAtZero: true
+                    },
+                    y: {
+                        stacked: true,
+                        ticks: { font: { size: 11 } }
+                    }
+                }
+            }
+        });
+    }
+
+    renderTable() {
+        const container = document.getElementById('servicesTableContainer');
+        if (!container || this.allServices.length === 0) return;
+
+        const totalWeeks = this.totalWeeks;
+
+        const rows = this.allServices.map((s, i) => {
+            // Score bar visual
+            const barColor = s.score >= 70 ? 'var(--success-color)' : s.score >= 40 ? '#f59e0b' : 'var(--text-muted)';
+            const scoreBar = `<div class="score-cell"><div class="score-bar" style="width:${s.score}%;background:${barColor}"></div><span>${s.score}</span></div>`;
+
+            // Frequency badge
+            const freqClass = s.frequencyPct >= 80 ? 'freq-high' : s.frequencyPct >= 40 ? 'freq-med' : 'freq-low';
+
+            return `
+                <tr>
+                    <td class="svc-rank">${i + 1}</td>
+                    <td class="svc-name">${s.service}</td>
+                    <td class="svc-freq"><span class="freq-badge ${freqClass}">${s.weeks}/${totalWeeks}</span></td>
+                    <td class="svc-avg">${s.avgPerWeek.toLocaleString()}</td>
+                    <td class="svc-added">+${s.added.toLocaleString()}</td>
+                    <td class="svc-removed">-${s.removed.toLocaleString()}</td>
+                    <td class="svc-score">${scoreBar}</td>
+                </tr>
+            `;
+        }).join('');
+
+        container.innerHTML = `
+            <div class="services-table-wrapper">
+                <table class="services-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Service</th>
+                            <th>Frequency</th>
+                            <th>Avg/Wk</th>
+                            <th>Added</th>
+                            <th>Removed</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>
+            <div class="score-legend">
+                <span class="score-legend-title">Activity Score:</span>
+                <span>Frequency (60%) + IP Volume (20%) + Recent activity (20%)</span>
+            </div>
+        `;
     }
 }

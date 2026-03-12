@@ -6,6 +6,67 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-03-12
+
+### 📊 Analytics Dashboard Overhaul
+
+#### Changed
+- **Weekly Change Activity Chart**
+  - Added month-by-month navigation with previous/next controls
+  - Groups data by calendar month for focused viewing
+
+- **Microsoft Update Timeline**
+  - Replaced month-based pagination with update-batch pagination (4 updates per page)
+  - Uses real date x-axis within each page for accurate temporal spacing
+  - Keeps publish + collection date pairs together on the same page
+
+- **Regional Activity Distribution**
+  - Replaced doughnut chart with horizontal bar chart showing added/removed breakdown
+  - Extracted Global summary into a clickable stat card above the chart
+  - Fixed region click modal: corrected region key matching and field names
+  - Added pagination to regional modal (50 items per page with "Show more")
+
+- **Most Active Services**
+  - Replaced card-based paginated list with horizontal bar chart (top 15) + compact sortable table
+  - Implemented weighted activity scoring algorithm: Frequency 60% (absolute), IP Volume 20% (relative), Recency 20% (absolute)
+  - Frequency is absolute (weeks active / total tracked weeks), not relative to other services
+  - Added frequency badges (High/Medium/Low), avg IPs per week, and visual score bars
+  - Filters out AzureCloud entries to focus on actual services
+
+#### Removed
+- **Top 10 AzureCloud Regions pie chart** — redundant with improved Regional Activity horizontal bars
+- **Intensity per week scoring factor** — was redundant with IP Volume and rewarded one-time bursts
+
+### 🔍 Global Search Improvements
+
+#### Changed
+- **Fuzzy Matching**
+  - Search now strips spaces from query for matching ("azure monitor" finds "AzureMonitor")
+  - Works for both service names and region names ("east us" finds "eastus")
+
+- **Multi-Word Combined Search**
+  - Queries with multiple words match across service name + region combined
+  - "monitor east us" finds AzureMonitor entries in East US region
+  - "datafactory west europe" finds DataFactory entries in West Europe
+  - All words must match somewhere in the combined service + region text
+
+### 🧹 Dead Code Cleanup
+
+#### Removed
+- **dashboard.js** (~60 lines)
+  - Duplicate `parseDateOnly()` method — calls redirected to `DataManager`
+  - `fetchWithCacheBust()` wrapper — calls redirected to `DataManager`
+  - Unused constructor properties: `regionDisplayMap`, `cacheBust`, `timelinePageSize`, `timelineVisibleCount`
+  - Legacy `#serviceModal` close/escape event listeners (ModalManager handles modals dynamically)
+
+- **index.html & history.html** (~20 lines each)
+  - Unused `#serviceModal` HTML blocks — never opened; ModalManager creates dynamic modals
+
+- **RegionMapper.js**
+  - Removed `getDisplayName()` alias — single caller updated to use `getRegionDisplayName()`
+
+---
+
 ## [Unreleased] - 2026-02-12
 
 ### 🔍 Search & Modal Unification, Data Integrity & Collection Tracking

@@ -127,9 +127,10 @@ azure-service-tags-tracker/
 
 - **Modular Architecture**: ES6 modules for better maintainability (`TimelineManager`, `ChartManager`, `DataManager`, etc.)
 - `dashboard.js`: Main controller that coordinates modules
-- Pie charts for AzureCloud regional infrastructure
-- Timeline scatter plots for Microsoft update tracking
-- Bar charts for service activity and regional analysis
+- Horizontal bar charts for regional activity and service rankings
+- Paginated timeline for Microsoft update tracking
+- Monthly-navigable weekly activity charts
+- Activity scoring algorithm for service ranking (frequency, volume, recency)
 
 **Data Flow**
 
@@ -152,10 +153,10 @@ azure-service-tags-tracker/
 
 ### Analytics Page (`analytics.html`)
 
-- **🌍 AzureCloud Regional Infrastructure**: Pie chart showing top 10 most affected regions
-- **📅 Microsoft Update Timeline**: Timeline markers showing baseline, Microsoft publish dates, and collection dates
-- **🏆 Most Active Services**: Historical ranking by change frequency and magnitude
-- **📊 Regional Hotspots**: Bar chart of regions with most activity
+- **📊 Weekly Change Activity**: Monthly-navigable bar chart of added/removed IPs per week
+- **📅 Microsoft Update Timeline**: Paginated timeline with publish (blue) and collection (red) date markers
+- **🌍 Regional Activity Distribution**: Horizontal bar chart with added/removed breakdown per region, plus Global summary card
+- **🏆 Most Active Services**: Activity-scored ranking (Frequency 60%, IP Volume 20%, Recency 20%) with bar chart and sortable table
 
 ### History Page (`history.html`)
 

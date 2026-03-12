@@ -72,6 +72,18 @@
                             <h3>🔄 Weekly Change Activity</h3>
                             <p>IP changes per week (Added vs Removed)</p>
                         </div>
+                        <div class="month-nav" id="weeklyActivityNav">
+                            <button class="month-nav-btn" id="weeklyPrevMonth" onclick="dashboard.weeklyActivityPrevMonth()" title="Previous month">
+                                <span class="month-nav-arrow">‹</span>
+                            </button>
+                            <div class="month-nav-center">
+                                <span class="month-nav-label" id="weeklyMonthLabel">March 2026</span>
+                                <div class="month-nav-stats" id="weeklyMonthStats"></div>
+                            </div>
+                            <button class="month-nav-btn" id="weeklyNextMonth" onclick="dashboard.weeklyActivityNextMonth()" title="Next month">
+                                <span class="month-nav-arrow">›</span>
+                            </button>
+                        </div>
                         <div class="chart-container">
                             <canvas id="weeklyActivityChart"></canvas>
                         </div>
@@ -85,14 +97,14 @@
                         <article class="chart-card">
                             <div class="chart-header">
                                 <h3>🏆 Most Active Services</h3>
-                                <p>Based on historical activity (frequency and magnitude of IP changes)</p>
+                                <p>Ranked by activity score: consistency of changes, IP volume, intensity, and recency</p>
                             </div>
-                            <div class="chart-container">
+                            <div class="chart-container regional-bar-container">
                                 <canvas id="activeServicesChart"></canvas>
                             </div>
+                            <div id="servicesTableContainer"></div>
                             <div class="chart-footer">
-                                <span class="chart-hint">💡 Ranked by change frequency and total IP impact across all
-                                    tracked weeks</span>
+                                <span class="chart-hint">💡 Score combines: how often a service changes, how many IPs are affected, and recent activity</span>
                             </div>
                         </article>
 
@@ -100,13 +112,14 @@
                         <article class="chart-card">
                             <div class="chart-header">
                                 <h3>🌍 Regional Activity Distribution</h3>
-                                <p>Change distribution across Azure regions</p>
+                                <p>Top 15 regions by IP changes — added vs removed</p>
                             </div>
-                            <div class="chart-container">
+                            <div id="regionalGlobalSummary" class="regional-global-summary" style="display:none;"></div>
+                            <div class="chart-container regional-bar-container">
                                 <canvas id="regionalChart"></canvas>
                             </div>
                             <div class="chart-footer">
-                                <span class="chart-hint">💡 Click on regions to see detailed changes</span>
+                                <span class="chart-hint">💡 Click on a bar or the Global summary to see detailed changes</span>
                             </div>
                         </article>
                     </div>
@@ -117,28 +130,23 @@
                             <h3>📅 Microsoft Update Timeline</h3>
                             <p>Tracking Microsoft's Azure Service Tags releases and our collection timeline</p>
                         </div>
+                        <div class="month-nav" id="timelineNav">
+                            <button class="month-nav-btn" id="timelinePrevMonth" onclick="dashboard.timelinePrevMonth()" title="Older updates">
+                                <span class="month-nav-arrow">‹</span>
+                            </button>
+                            <div class="month-nav-center">
+                                <span class="month-nav-label" id="timelineMonthLabel"></span>
+                                <div class="month-nav-stats" id="timelineMonthStats"></div>
+                            </div>
+                            <button class="month-nav-btn" id="timelineNextMonth" onclick="dashboard.timelineNextMonth()" title="Newer updates">
+                                <span class="month-nav-arrow">›</span>
+                            </button>
+                        </div>
                         <div class="chart-container">
                             <canvas id="updateTimelineChart"></canvas>
                         </div>
                         <div class="chart-footer">
-                            <span class="chart-hint">💡 Green = Baseline start | Blue = Microsoft publishes update | Red
-                                = Data collected by our system</span>
-                        </div>
-                    </article>
-
-                    <!-- AzureCloud Regional Infrastructure Chart -->
-                    <article class="chart-card full-width">
-                        <div class="chart-header">
-                            <h3>🌍 Top 10 Most Affected AzureCloud Regions</h3>
-                            <p>Azure global infrastructure regions with the most IP range changes</p>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="serviceTrendsChart"></canvas>
-                        </div>
-                        <div class="chart-footer">
-                            <span class="chart-hint">💡 Shows which Azure regional infrastructure zones had the most IP
-                                address changes. Numbers represent total IPs added and removed across all tracked
-                                weeks.</span>
+                            <span class="chart-hint">💡 Green = Baseline start | Blue = Microsoft publishes update | Red = Data collected by our system | Dashed line = collection lag</span>
                         </div>
                     </article>
 

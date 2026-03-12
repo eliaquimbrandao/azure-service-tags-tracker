@@ -38,11 +38,7 @@ class AzureServiceTagsDashboard {
         this.currentData = null;
         this.summaryData = null;
         this.changesData = null;
-        this.regionDisplayMap = {}; // Will be loaded from regions.json
         this.isRendered = false;
-        this.cacheBust = Date.now();
-        this.timelinePageSize = 5;
-        this.timelineVisibleCount = this.timelinePageSize;
 
         this.init();
     }
@@ -64,7 +60,6 @@ class AzureServiceTagsDashboard {
 
     async loadRegions() {
         await this.regionMapper.loadRegions();
-        this.regionDisplayMap = this.regionMapper.getAllRegions();
     }
 
     hideAllModals() {
@@ -89,40 +84,12 @@ class AzureServiceTagsDashboard {
             this.regionalAnalysis.setSummaryData(this.summaryData);
             this.regionalAnalysis.setChangesData(this.changesData);
 
-            // Ensure region map is up to date if needed, though loadRegions called it.
-            this.regionDisplayMap = this.regionMapper.getAllRegions();
-
         } catch (error) {
             console.error('Error loading data:', error);
             throw error;
         } finally {
             loadingEl.classList.add('hidden');
         }
-    }
-
-    /**
-     * Parse a YYYY-MM-DD string without shifting days across time zones.
-     * Anchors at noon UTC so local offsets do not roll the calendar backward/forward.
-     */
-    parseDateOnly(dateString) {
-        if (!dateString) return null;
-
-        const parts = dateString.split('-').map(Number);
-        if (parts.length === 3 && parts.every(n => !Number.isNaN(n))) {
-            const [year, month, day] = parts;
-            return new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
-        }
-
-        const parsed = Date.parse(dateString);
-        return Number.isNaN(parsed) ? null : new Date(parsed);
-    }
-
-
-
-
-
-    fetchWithCacheBust(url) {
-        return this.dataManager.fetchWithCacheBust(url);
     }
 
 
@@ -233,7 +200,6 @@ class AzureServiceTagsDashboard {
         // Check if we're on the analytics page
         if (document.querySelector('.analytics-section')) {
             this.chartManager.renderUpdateTimeline();
-            this.chartManager.renderServiceTrendsChart();
             this.chartManager.renderWeeklyActivityChart();
             this.serviceList.renderActiveServices();
             this.chartManager.renderRegionalChart();
@@ -254,7 +220,7 @@ class AzureServiceTagsDashboard {
         if (dataPointsEl || durationEl) {
             try {
                 // Load manifest to get actual data coverage
-                const manifestResponse = await this.fetchWithCacheBust('data/changes/manifest.json');
+                const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
                 const manifest = await manifestResponse.json();
 
                 // Exclude baseline (oldest date) from counts
@@ -271,11 +237,11 @@ class AzureServiceTagsDashboard {
                     if (dateRange && actualDataWeeks > 0) {
                         // Get the second oldest date (first actual change, not baseline)
                         const files = manifest.files || [];
-                        const sortedFiles = files.sort((a, b) => this.parseDateOnly(a.date) - this.parseDateOnly(b.date));
+                        const sortedFiles = files.sort((a, b) => this.dataManager.parseDateOnly(a.date) - this.dataManager.parseDateOnly(b.date));
 
                         // Skip the oldest (baseline) and use the second oldest as start
-                        const firstChangeDate = sortedFiles.length > 1 ? this.parseDateOnly(sortedFiles[1].date) : this.parseDateOnly(dateRange.oldest);
-                        const newestDate = this.parseDateOnly(dateRange.newest);
+                        const firstChangeDate = sortedFiles.length > 1 ? this.dataManager.parseDateOnly(sortedFiles[1].date) : this.dataManager.parseDateOnly(dateRange.oldest);
+                        const newestDate = this.dataManager.parseDateOnly(dateRange.newest);
 
                         const daysDiff = Math.floor((newestDate - firstChangeDate) / (1000 * 60 * 60 * 24));
                         const weeksDiff = Math.max(1, Math.ceil(daysDiff / 7));
@@ -309,7 +275,7 @@ class AzureServiceTagsDashboard {
         if (!summaryEl) return;
 
         try {
-            const manifestResponse = await this.fetchWithCacheBust('data/changes/manifest.json');
+            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
             const manifest = await manifestResponse.json();
             const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
 
@@ -497,7 +463,7 @@ class AzureServiceTagsDashboard {
         const { date, filename, changes, metadata = {} } = weekData;
 
         // Format the date
-        const changeDate = this.parseDateOnly(date) || new Date(date);
+        const changeDate = this.dataManager.parseDateOnly(date) || new Date(date);
         const formattedDate = changeDate.toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',
@@ -584,39 +550,6 @@ class AzureServiceTagsDashboard {
 
 
     setupEventListeners() {
-        // Modal close events
-        const modal = document.getElementById('serviceModal');
-        const closeBtn = document.getElementById('closeModal');
-
-        // Ensure modal is hidden initially
-        if (modal) {
-            modal.classList.add('hidden');
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-        }
-
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-                modal.classList.add('hidden');
-            }
-        });
-
         // Event delegation for copy IP buttons
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('copy-ips-btn') || e.target.closest('.copy-ips-btn')) {
@@ -833,7 +766,7 @@ class AzureServiceTagsDashboard {
             if (!hasChangesThisWeek) {
                 // Load manifest to find the last week with actual changes
                 try {
-                    const manifestResponse = await this.fetchWithCacheBust('data/changes/manifest.json');
+                    const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
                     const manifest = await manifestResponse.json();
 
                     // Sort files by date (newest first)
@@ -842,7 +775,7 @@ class AzureServiceTagsDashboard {
 
                     // Look through previous weeks to find the last one with changes
                     for (const file of sortedFiles) {
-                        const fileResponse = await this.fetchWithCacheBust(`data/changes/${file.filename}`);
+                        const fileResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${file.filename}`);
                         const fileData = await fileResponse.json();
 
                         // Calculate IP changes for this week
@@ -1184,6 +1117,30 @@ class AzureServiceTagsDashboard {
     exportSelectedWeeksCSV() {
         if (this.exportManager) {
             this.exportManager.exportSelectedWeeksCSV();
+        }
+    }
+
+    weeklyActivityPrevMonth() {
+        if (this.chartManager) {
+            this.chartManager.weeklyActivityPrevMonth();
+        }
+    }
+
+    weeklyActivityNextMonth() {
+        if (this.chartManager) {
+            this.chartManager.weeklyActivityNextMonth();
+        }
+    }
+
+    timelinePrevMonth() {
+        if (this.chartManager) {
+            this.chartManager.timelinePrevMonth();
+        }
+    }
+
+    timelineNextMonth() {
+        if (this.chartManager) {
+            this.chartManager.timelineNextMonth();
         }
     }
 
