@@ -19,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Replaced month-based pagination with update-batch pagination (4 updates per page)
   - Uses real date x-axis within each page for accurate temporal spacing
   - Keeps publish + collection date pairs together on the same page
+  - Added dashed connector lines between Microsoft Published → Data Collected points showing collection lag
+  - Lag days label (e.g. "6d") drawn on each dashed line for at-a-glance visibility
+  - Improved description text to clearly state what the chart shows
+  - Removed redundant footer legend — Chart.js legend and inline labels are sufficient
 
 - **Regional Activity Distribution**
   - Replaced doughnut chart with horizontal bar chart showing added/removed breakdown
@@ -32,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Frequency is absolute (weeks active / total tracked weeks), not relative to other services
   - Added frequency badges (High/Medium/Low), avg IPs per week, and visual score bars
   - Filters out AzureCloud entries to focus on actual services
+  - Aggregates by base service name (system_service) instead of service+region variants
 
 #### Removed
 - **Top 10 AzureCloud Regions pie chart** — redundant with improved Regional Activity horizontal bars

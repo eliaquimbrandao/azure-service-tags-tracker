@@ -128,7 +128,7 @@
                     <article class="chart-card full-width">
                         <div class="chart-header">
                             <h3>📅 Microsoft Update Timeline</h3>
-                            <p>Tracking Microsoft's Azure Service Tags releases and our collection timeline</p>
+                            <p>When Microsoft publishes Service Tags updates vs. when our system collects them</p>
                         </div>
                         <div class="month-nav" id="timelineNav">
                             <button class="month-nav-btn" id="timelinePrevMonth" onclick="dashboard.timelinePrevMonth()" title="Older updates">
@@ -144,9 +144,6 @@
                         </div>
                         <div class="chart-container">
                             <canvas id="updateTimelineChart"></canvas>
-                        </div>
-                        <div class="chart-footer">
-                            <span class="chart-hint">💡 Green = Baseline start | Blue = Microsoft publishes update | Red = Data collected by our system | Dashed line = collection lag</span>
                         </div>
                     </article>
 

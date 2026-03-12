@@ -37,8 +37,11 @@ export class ServiceList {
                     const data = await resp.json();
 
                     (data.changes || []).forEach(change => {
-                        const name = change.service;
-                        if (!name || name.startsWith('AzureCloud')) return;
+                        const rawName = change.service;
+                        if (!rawName || rawName.startsWith('AzureCloud')) return;
+
+                        // Use system_service for clean base name, fallback to splitting on '.'
+                        const name = change.system_service || rawName.split('.')[0];
 
                         if (!serviceMap[name]) {
                             serviceMap[name] = { added: 0, removed: 0, weekDates: new Set(), recentWeeks: 0 };

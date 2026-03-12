@@ -242,6 +242,18 @@ export class ChartManager {
 
         const metadata = sortedDates.map(dateKey => eventsByDate[dateKey] || []);
 
+        // Build lag pairs for dashed connector lines (Microsoft Published → Data Collected)
+        const lagPairs = [];
+        for (const u of pageUpdates) {
+            if (!u.isBaseline && u.microsoftDateKey && u.collectionDateKey) {
+                const msIndex = sortedDates.indexOf(u.microsoftDateKey);
+                const colIndex = sortedDates.indexOf(u.collectionDateKey);
+                if (msIndex >= 0 && colIndex >= 0) {
+                    lagPairs.push({ msIndex, colIndex, lagDays: u.lagDays });
+                }
+            }
+        }
+
         // Destroy existing chart
         if (this.updateTimelineChart) {
             this.updateTimelineChart.destroy();
@@ -284,6 +296,53 @@ export class ChartManager {
                     showLine: false
                 }]
             },
+            plugins: [{
+                id: 'lagConnector',
+                afterDatasetsDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    const xScale = chart.scales.x;
+                    const yScale = chart.scales.y;
+
+                    ctx.save();
+                    ctx.setLineDash([6, 4]);
+                    ctx.lineWidth = 1.5;
+
+                    for (const pair of lagPairs) {
+                        const x1 = xScale.getPixelForValue(pair.msIndex);
+                        const y1 = yScale.getPixelForValue(1);
+                        const x2 = xScale.getPixelForValue(pair.colIndex);
+                        const y2 = yScale.getPixelForValue(2);
+
+                        ctx.strokeStyle = 'rgba(107, 114, 128, 0.45)';
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+
+                        // Draw lag days label on the line
+                        if (pair.lagDays !== undefined) {
+                            const midX = (x1 + x2) / 2;
+                            const midY = (y1 + y2) / 2;
+                            const label = `${pair.lagDays}d`;
+
+                            ctx.setLineDash([]);
+                            ctx.font = '10px system-ui, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+
+                            const textWidth = ctx.measureText(label).width;
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                            ctx.fillRect(midX - textWidth / 2 - 3, midY - 14, textWidth + 6, 14);
+
+                            ctx.fillStyle = '#6b7280';
+                            ctx.fillText(label, midX, midY - 2);
+                            ctx.setLineDash([6, 4]);
+                        }
+                    }
+
+                    ctx.restore();
+                }
+            }],
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -329,10 +388,6 @@ export class ChartManager {
                 },
                 scales: {
                     x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        },
                         grid: {
                             display: true,
                             color: 'rgba(0, 0, 0, 0.05)'
@@ -586,11 +641,7 @@ export class ChartManager {
                 },
                 scales: {
                     x: {
-                        stacked: false,
-                        title: {
-                            display: true,
-                            text: 'Week'
-                        }
+                        stacked: false
                     },
                     y: {
                         stacked: false,
