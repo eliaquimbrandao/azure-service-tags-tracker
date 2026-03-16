@@ -1,123 +1,81 @@
 {
-  "last_updated": "2026-03-09T01:52:41.234224+00:00",
-  "total_services": 3128,
-  "total_ip_ranges": 100290,
-  "changes_this_week": 158,
-  "ip_changes": 158,
-  "service_additions": 0,
+  "last_updated": "2026-03-16T02:05:01.112636+00:00",
+  "total_services": 3130,
+  "total_ip_ranges": 100346,
+  "changes_this_week": 39,
+  "ip_changes": 37,
+  "service_additions": 2,
   "service_removals": 0,
   "regional_changes": {
-    "": 3,
-    "belgiumcentral": 3,
-    "centralindia": 3,
-    "eastus": 4,
-    "southeastasia": 4,
-    "uksouth": 4,
-    "australiacentral": 2,
-    "australiacentral2": 1,
-    "australiaeast": 2,
-    "austriaeast": 2,
-    "brazilsouth": 3,
+    "": 7,
+    "canadaeast": 3,
+    "ukwest": 1,
     "brazilse": 1,
-    "canadacentral": 3,
-    "canadaeast": 2,
-    "centralus": 3,
-    "chilec": 2,
+    "eastus2": 2,
+    "northcentralus": 2,
+    "westus2": 2,
+    "austriaeast": 1,
+    "belgiumcentral": 1,
+    "brazilsouth": 1,
     "denmarkeast": 1,
-    "eastus2": 3,
-    "eastus2euap": 1,
-    "eastus3": 2,
-    "centralfrance": 2,
-    "southfrance": 3,
-    "germanyn": 2,
-    "germanywc": 3,
+    "eastus": 1,
+    "centralfrance": 1,
+    "germanywc": 1,
     "indonesiacentral": 1,
-    "israelcentral": 3,
-    "israelnorthwest": 1,
-    "italynorth": 3,
-    "japaneast": 2,
-    "jioindiacentral": 1,
-    "jioindiawest": 2,
-    "koreasouth": 3,
-    "malaysiasouth": 1,
-    "malaysiawest": 2,
-    "mexicocentral": 3,
-    "newzealandnorth": 3,
-    "northeurope": 3,
-    "norwayw": 2,
-    "polandcentral": 3,
-    "qatarcentral": 1,
-    "southafricanorth": 3,
-    "southafricawest": 3,
-    "southcentralus": 3,
+    "israelcentral": 1,
+    "italynorth": 1,
+    "northeurope": 1,
+    "polandcentral": 1,
     "southcentralus2": 1,
-    "usstagec": 1,
-    "southindia": 3,
-    "southeastus": 1,
-    "southeastus3": 2,
-    "spaincentral": 3,
-    "swedencentral": 2,
-    "swedensouth": 2,
-    "switzerlandw": 2,
-    "taiwannorth": 2,
-    "taiwannorthwest": 2,
-    "uaecentral": 2,
-    "uaenorth": 3,
-    "ukwest": 2,
-    "westcentralus": 3,
-    "westeurope": 2,
-    "westindia": 3,
-    "westus": 2,
-    "westus2": 3,
-    "westus3": 3,
-    "australiasoutheast": 2,
-    "eastasia": 2,
-    "japanwest": 2,
-    "koreacentral": 2,
-    "northcentralus": 1,
-    "norwaye": 1,
-    "switzerlandn": 2
+    "southcentralus": 1,
+    "southeastus3": 1,
+    "spaincentral": 1,
+    "swedencentral": 1,
+    "taiwannorth": 1,
+    "westcentralus": 1,
+    "westeurope": 1,
+    "westus3": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 123
+      "change_count": 152
     },
     {
-      "service": "GatewayManager",
-      "change_count": 63
+      "service": "SecurityCopilot",
+      "change_count": 18
     },
     {
-      "service": "AzureCloud.eastus3",
-      "change_count": 17
+      "service": "AzureCloud.indonesiacentral",
+      "change_count": 13
     },
     {
-      "service": "AzureCloud.southcentralus",
+      "service": "AzureAdvancedThreatProtection",
       "change_count": 12
     },
     {
-      "service": "AzureCloud.southeastus3",
+      "service": "AzureCloud.spaincentral",
       "change_count": 11
     },
     {
-      "service": "AzureCloud.westus3",
+      "service": "AzureCloud.southcentralus2",
       "change_count": 10
     },
     {
-      "service": "AzureCloud.brazilsouth",
-      "change_count": 7
+      "service": "AzureCloud.belgiumcentral",
+      "change_count": 9
+    },
+    {
+      "service": "AzureCloud.eastus",
+      "change_count": 9
     },
     {
       "service": "AzureCloud.westcentralus",
-      "change_count": 7
+      "change_count": 9
     },
     {
-      "service": "AzureCloud.eastus2",
-      "change_count": 5
-    },
-    {
-      "service": "WindowsVirtualDesktop.TaiwanNorth",
-      "change_count": 3
+      "service": "AzureCloud.brazilsouth",
+      "change_count": 8
     }
   ],
   "available_dates": [
@@ -138,6 +96,7 @@
     "2026-02-09",
     "2026-02-16",
     "2026-02-23",
-    "2026-03-02"
+    "2026-03-02",
+    "2026-03-09"
   ]
 }
