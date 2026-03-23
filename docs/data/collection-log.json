@@ -255,13 +255,25 @@
         "version": "2026.03.09",
         "date_published": "3/10/2026"
       }
+    },
+    {
+      "date": "2026-03-23",
+      "timestamp": "2026-03-23T01:58:23.236172+00:00",
+      "change_number": 392,
+      "changes_detected": 34,
+      "total_services": 3136,
+      "total_ip_ranges": 100391,
+      "metadata": {
+        "version": "2026.03.16",
+        "date_published": "3/18/2026"
+      }
     }
   ],
   "coverage": {
     "first_collection": "2025-10-08",
-    "latest_collection": "2026-03-16",
-    "total_runs": 20,
-    "expected_runs": 24,
+    "latest_collection": "2026-03-23",
+    "total_runs": 21,
+    "expected_runs": 25,
     "missing_dates": [
       "2025-10-06",
       "2025-10-13",
@@ -271,6 +283,6 @@
       "2025-11-17"
     ],
     "missing_count": 6,
-    "coverage_pct": 83.3
+    "coverage_pct": 84.0
   }
 }
