@@ -1,75 +1,107 @@
 {
-  "last_updated": "2026-03-23T01:58:23.089516+00:00",
+  "last_updated": "2026-03-30T02:07:48.149546+00:00",
   "total_services": 3136,
-  "total_ip_ranges": 100391,
-  "changes_this_week": 34,
-  "ip_changes": 28,
-  "service_additions": 6,
+  "total_ip_ranges": 101456,
+  "changes_this_week": 92,
+  "ip_changes": 92,
+  "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
     "": 7,
-    "indonesiacentral": 1,
-    "malaysiawest": 1,
-    "swedensouth": 1,
+    "swedencentral": 4,
+    "australiaeast": 3,
+    "australiasoutheast": 2,
+    "brazilsouth": 2,
+    "canadacentral": 2,
+    "canadaeast": 1,
+    "centralindia": 1,
+    "centralus": 3,
+    "eastasia": 1,
+    "eastus": 4,
     "eastus2": 2,
-    "japaneast": 2,
-    "southeastasia": 2,
-    "swedencentral": 3,
-    "germanywc": 2,
-    "koreacentral": 1,
-    "norwaye": 1,
-    "belgiumcentral": 1,
-    "centralus": 1,
-    "eastus3": 1,
-    "eastus": 1,
     "centralfrance": 1,
-    "italynorth": 1,
-    "northcentralus": 1,
-    "southcentralus2": 1,
-    "southcentralus": 1,
-    "taiwannorth": 1,
-    "westus2": 1
+    "germanyn": 1,
+    "germanywc": 1,
+    "indonesiacentral": 1,
+    "israelcentral": 1,
+    "italynorth": 2,
+    "japaneast": 2,
+    "japanwest": 2,
+    "jioindiawest": 1,
+    "koreacentral": 1,
+    "malaysiawest": 1,
+    "northcentralus": 2,
+    "northeurope": 1,
+    "norwaye": 1,
+    "norwayw": 1,
+    "polandcentral": 1,
+    "qatarcentral": 1,
+    "southafricanorth": 2,
+    "southafricawest": 1,
+    "southcentralus": 3,
+    "southindia": 1,
+    "southeastasia": 1,
+    "spaincentral": 1,
+    "switzerlandn": 1,
+    "switzerlandw": 1,
+    "taiwannorth": 2,
+    "uaenorth": 1,
+    "uksouth": 1,
+    "ukwest": 1,
+    "westcentralus": 2,
+    "westeurope": 3,
+    "westus": 2,
+    "westus2": 2,
+    "westus3": 2,
+    "brazilse": 1,
+    "taiwannorthwest": 1,
+    "belgiumcentral": 2,
+    "centraluseuap": 2,
+    "eastus3": 2,
+    "israelnorthwest": 2,
+    "eastus2euap": 1,
+    "southcentralus2": 1
   },
   "top_active_services": [
     {
-      "service": "AzureCloud",
-      "change_count": 83
+      "service": "AzureMachineLearning",
+      "change_count": 464
     },
     {
-      "service": "AzureCloud.eastus2",
+      "service": "AzureMachineLearningInference",
+      "change_count": 141
+    },
+    {
+      "service": "AzureCloud",
+      "change_count": 105
+    },
+    {
+      "service": "SCCservice",
+      "change_count": 37
+    },
+    {
+      "service": "SCCservice.EastUS",
+      "change_count": 26
+    },
+    {
+      "service": "AzureMachineLearning.EastUS2",
+      "change_count": 14
+    },
+    {
+      "service": "AzureCloud.southcentralus",
       "change_count": 13
     },
     {
-      "service": "AzureCloud.taiwannorth",
+      "service": "AzureMachineLearning.AustraliaEast",
       "change_count": 10
     },
     {
-      "service": "AzureCloud.italynorth",
-      "change_count": 8
+      "service": "AzureMachineLearning.AustraliaSoutheast",
+      "change_count": 10
     },
     {
-      "service": "AzureCloud.northcentralus",
-      "change_count": 7
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 6
-    },
-    {
-      "service": "AzureCloud.eastus",
-      "change_count": 6
-    },
-    {
-      "service": "Dynamics365ForMarketingEmail",
-      "change_count": 5
-    },
-    {
-      "service": "AzureArcInfrastructure",
-      "change_count": 4
-    },
-    {
-      "service": "VideoIndexer",
-      "change_count": 4
+      "service": "AzureMachineLearning.BrazilSouth",
+      "change_count": 10
     }
   ],
   "available_dates": [
@@ -92,6 +124,7 @@
     "2026-02-23",
     "2026-03-02",
     "2026-03-09",
-    "2026-03-16"
+    "2026-03-16",
+    "2026-03-23"
   ]
 }
