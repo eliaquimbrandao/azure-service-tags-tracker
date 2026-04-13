@@ -1,13 +1,95 @@
 {
-  "last_updated": "2026-04-06T02:08:28.257966+00:00",
+  "last_updated": "2026-04-13T02:24:41.080293+00:00",
   "total_services": 3136,
-  "total_ip_ranges": 101456,
-  "changes_this_week": 0,
-  "ip_changes": 0,
+  "total_ip_ranges": 101866,
+  "changes_this_week": 90,
+  "ip_changes": 90,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {},
-  "top_active_services": [],
+  "regional_changes": {
+    "": 16,
+    "australiaeast": 2,
+    "brazilsouth": 2,
+    "brazilse": 1,
+    "canadacentral": 2,
+    "centralus": 5,
+    "eastus": 3,
+    "eastus2": 5,
+    "eastus2euap": 1,
+    "usstagee": 1,
+    "centralfrance": 2,
+    "germanywc": 3,
+    "japaneast": 2,
+    "northeurope": 2,
+    "southafricanorth": 2,
+    "southafricawest": 1,
+    "southcentralus": 2,
+    "southeastasia": 1,
+    "uksouth": 2,
+    "westcentralus": 2,
+    "westeurope": 5,
+    "westus2": 2,
+    "belgiumcentral": 2,
+    "denmarkeast": 3,
+    "westus3": 2,
+    "germanyn": 2,
+    "koreacentral": 3,
+    "koreasouth": 2,
+    "australiasoutheast": 1,
+    "centralindia": 1,
+    "centraluseuap": 1,
+    "eastasia": 1,
+    "israelnorthwest": 1,
+    "mexicocentral": 1,
+    "northcentralus": 1,
+    "polandcentral": 1,
+    "southeastus3": 1,
+    "spaincentral": 1,
+    "swedencentral": 1,
+    "westus": 1
+  },
+  "top_active_services": [
+    {
+      "service": "AzureCloud",
+      "change_count": 248
+    },
+    {
+      "service": "AzureSiteRecovery",
+      "change_count": 144
+    },
+    {
+      "service": "AzureBackup",
+      "change_count": 21
+    },
+    {
+      "service": "AzureCloud.spaincentral",
+      "change_count": 21
+    },
+    {
+      "service": "AzureCloud.swedencentral",
+      "change_count": 16
+    },
+    {
+      "service": "AzureCloud.centralfrance",
+      "change_count": 15
+    },
+    {
+      "service": "AzureCloud.centralus",
+      "change_count": 14
+    },
+    {
+      "service": "AzureCloud.belgiumcentral",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.eastus2",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.mexicocentral",
+      "change_count": 11
+    }
+  ],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -30,6 +112,7 @@
     "2026-03-09",
     "2026-03-16",
     "2026-03-23",
-    "2026-03-30"
+    "2026-03-30",
+    "2026-04-06"
   ]
 }
