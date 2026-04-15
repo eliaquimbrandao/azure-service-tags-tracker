@@ -176,7 +176,21 @@ cd docs && python -m http.server 8000     # Serve on localhost:8000
 - **Microsoft API**: Downloads from dynamic URLs found on the Azure service tags download page
 - **GitHub Actions**: Requires `contents: write` permission for committing data updates
 - **GitHub Pages**: Serves from `docs/` folder on `main` branch, rebuilds automatically on push
-- **Chart.js 4.4 CDN**: Dashboard depends on `https://cdn.jsdelivr.net/npm/chart.js` for visualizations
+- **Chart.js 4.4 CDN**: Dashboard depends on `https://cdn.jsdelivr.net/npm/chart.js` for visualizations (loaded with `defer`)
+- **date-fns CDN**: `https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js` (loaded with `defer`)
+
+## Performance Optimizations
+
+PageSpeed score target: 95+ (desktop). Key optimizations applied:
+
+- **Preconnect hints**: `<link rel="preconnect">` for jsdelivr, cloudflare, and unsplash CDN origins
+- **Module preloading**: All 11 JS modules have `<link rel="modulepreload">` to eliminate the serial import waterfall (was 1,940ms critical path)
+- **Deferred scripts**: Chart.js, date-fns, and scroll-handler.js all use `defer` to avoid render-blocking
+- **LCP preload**: Hero background image preloaded with `fetchpriority="high"` for early discovery
+- **CLS prevention**: `#dashboard` uses `visibility: hidden` + `min-height: 50vh` instead of `display: none` so the footer doesn't shift when content loads
+- **GPU-compositable animations**: Hero animations (`ringPulse`, `connectionPulse`) only animate `opacity` and `transform` — no `stroke-width` which forces CPU paint
+- **Image optimization**: Hero Unsplash image uses `w=1280` (not 2000) since it's behind an 85% dark gradient overlay
+- **Accessibility**: Footer link color is `#34d399` (5.5:1 contrast ratio) instead of `#10b981` (4.2:1) to pass WCAG AA
 
 ## Project Conventions
 
@@ -186,6 +200,8 @@ cd docs && python -m http.server 8000     # Serve on localhost:8000
 - **Data Persistence**: All data stored in `docs/data/` for GitHub Pages access — NEVER delete historical data
 - **Module boundaries**: Each module is self-contained with its own class. Dependencies are injected via constructor. Don't create circular dependencies.
 - **CSS**: Main styles in `style.css`, page-specific in `history-controls.css` and `navigation.css`
+- **Animations**: Hero section uses `ringPulse` and `connectionPulse` keyframes (GPU-compositable, opacity+transform only). Generic `pulse` keyframe still exists for other uses but should NOT animate `stroke-width`.
+- **Script loading**: CDN scripts use `defer`, modules use `<link rel="modulepreload">` + `<script type="module">`. Never add render-blocking `<script>` tags without `defer` or `async`.
 
 ## Common Debugging Scenarios
 

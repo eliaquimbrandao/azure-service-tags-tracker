@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-15
+
+### ⚡ PageSpeed Performance & Accessibility Improvements
+
+#### Added
+- **Preconnect hints** for CDN origins (`cdn.jsdelivr.net`, `cdnjs.cloudflare.com`, `images.unsplash.com`) on all 3 pages
+- **Module preloading** — `<link rel="modulepreload">` for all 11 JS modules to eliminate serial import waterfall (was 1,940ms critical path)
+- **LCP image preload** with `fetchpriority="high"` for early hero background discovery
+- **GPU-compositable animation keyframes** (`ringPulse`, `connectionPulse`) using only `opacity` and `transform`
+
+#### Changed
+- **Script loading** — Chart.js, date-fns, and `scroll-handler.js` now use `defer` attribute (previously render-blocking, ~300ms savings)
+- **CLS fix** — `#dashboard` element uses `visibility: hidden` + `min-height: 50vh` instead of `display: none` to reserve layout space and prevent footer shift (CLS 0.198 → ~0)
+- **Hero image** — Reduced Unsplash image from `w=2000` to `w=1280` (~30% smaller, image is behind 85% dark overlay)
+- **Footer link contrast** — Changed from `#10b981` (4.2:1 ratio) to `#34d399` (5.5:1 ratio) for WCAG AA compliance
+- **Non-composited animations** — Replaced `pulse` animation on `.ring` and `.connection` elements to avoid animating `stroke-width` (not GPU-compositable, caused jank + CLS)
+
+---
+
 ## [Unreleased] - 2026-03-12
 
 ### 📊 Analytics Dashboard Overhaul
