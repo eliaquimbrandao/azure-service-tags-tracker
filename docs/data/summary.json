@@ -1,93 +1,93 @@
 {
-  "last_updated": "2026-04-13T02:24:41.080293+00:00",
+  "last_updated": "2026-04-20T02:24:56.583940+00:00",
   "total_services": 3136,
-  "total_ip_ranges": 101866,
-  "changes_this_week": 90,
-  "ip_changes": 90,
+  "total_ip_ranges": 101842,
+  "changes_this_week": 83,
+  "ip_changes": 83,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 16,
+    "": 10,
+    "canadacentral": 4,
+    "japaneast": 3,
+    "taiwannorth": 1,
     "australiaeast": 2,
     "brazilsouth": 2,
-    "brazilse": 1,
-    "canadacentral": 2,
+    "centralindia": 2,
     "centralus": 5,
-    "eastus": 3,
-    "eastus2": 5,
-    "eastus2euap": 1,
-    "usstagee": 1,
-    "centralfrance": 2,
-    "germanywc": 3,
-    "japaneast": 2,
-    "northeurope": 2,
-    "southafricanorth": 2,
-    "southafricawest": 1,
-    "southcentralus": 2,
-    "southeastasia": 1,
-    "uksouth": 2,
-    "westcentralus": 2,
-    "westeurope": 5,
-    "westus2": 2,
-    "belgiumcentral": 2,
-    "denmarkeast": 3,
-    "westus3": 2,
-    "germanyn": 2,
-    "koreacentral": 3,
-    "koreasouth": 2,
-    "australiasoutheast": 1,
-    "centralindia": 1,
-    "centraluseuap": 1,
     "eastasia": 1,
-    "israelnorthwest": 1,
-    "mexicocentral": 1,
-    "northcentralus": 1,
-    "polandcentral": 1,
-    "southeastus3": 1,
-    "spaincentral": 1,
+    "eastus": 5,
+    "eastus2": 3,
+    "eastus2euap": 2,
+    "centralfrance": 1,
+    "japanwest": 1,
+    "northcentralus": 2,
+    "northeurope": 3,
+    "southafricanorth": 2,
+    "southcentralus": 2,
+    "southeastasia": 2,
+    "uksouth": 2,
+    "westeurope": 4,
+    "westus": 3,
+    "westus2": 2,
+    "westcentralus": 2,
+    "centraluseuap": 2,
+    "australiasoutheast": 1,
+    "austriaeast": 1,
+    "belgiumcentral": 1,
+    "denmarkeast": 1,
+    "eastus3": 1,
+    "usstagee": 1,
+    "germanywc": 1,
+    "indonesiacentral": 1,
+    "italynorth": 1,
+    "koreacentral": 1,
+    "malaysiawest": 1,
+    "newzealandnorth": 1,
+    "usstagec": 1,
     "swedencentral": 1,
-    "westus": 1
+    "westus3": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 248
+      "change_count": 312
     },
     {
-      "service": "AzureSiteRecovery",
-      "change_count": 144
+      "service": "AzureCognitiveSearch",
+      "change_count": 66
     },
     {
-      "service": "AzureBackup",
-      "change_count": 21
-    },
-    {
-      "service": "AzureCloud.spaincentral",
-      "change_count": 21
-    },
-    {
-      "service": "AzureCloud.swedencentral",
-      "change_count": 16
-    },
-    {
-      "service": "AzureCloud.centralfrance",
-      "change_count": 15
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 14
-    },
-    {
-      "service": "AzureCloud.belgiumcentral",
-      "change_count": 13
+      "service": "AzureCloud.centraluseuap",
+      "change_count": 29
     },
     {
       "service": "AzureCloud.eastus2",
-      "change_count": 13
+      "change_count": 23
     },
     {
-      "service": "AzureCloud.mexicocentral",
-      "change_count": 11
+      "service": "AzureCloud.indonesiacentral",
+      "change_count": 22
+    },
+    {
+      "service": "AzureCloud.italynorth",
+      "change_count": 17
+    },
+    {
+      "service": "AzureCloud.denmarkeast",
+      "change_count": 16
+    },
+    {
+      "service": "PowerBI",
+      "change_count": 15
+    },
+    {
+      "service": "AzureCloud.eastus2euap",
+      "change_count": 15
+    },
+    {
+      "service": "AzureCloud.westeurope",
+      "change_count": 14
     }
   ],
   "available_dates": [
@@ -113,6 +113,7 @@
     "2026-03-16",
     "2026-03-23",
     "2026-03-30",
-    "2026-04-06"
+    "2026-04-06",
+    "2026-04-13"
   ]
 }
