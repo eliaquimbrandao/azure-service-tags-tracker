@@ -1,95 +1,13 @@
 {
-  "last_updated": "2026-04-20T02:24:56.583940+00:00",
+  "last_updated": "2026-04-27T02:29:37.918156+00:00",
   "total_services": 3136,
   "total_ip_ranges": 101842,
-  "changes_this_week": 83,
-  "ip_changes": 83,
+  "changes_this_week": 0,
+  "ip_changes": 0,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {
-    "": 10,
-    "canadacentral": 4,
-    "japaneast": 3,
-    "taiwannorth": 1,
-    "australiaeast": 2,
-    "brazilsouth": 2,
-    "centralindia": 2,
-    "centralus": 5,
-    "eastasia": 1,
-    "eastus": 5,
-    "eastus2": 3,
-    "eastus2euap": 2,
-    "centralfrance": 1,
-    "japanwest": 1,
-    "northcentralus": 2,
-    "northeurope": 3,
-    "southafricanorth": 2,
-    "southcentralus": 2,
-    "southeastasia": 2,
-    "uksouth": 2,
-    "westeurope": 4,
-    "westus": 3,
-    "westus2": 2,
-    "westcentralus": 2,
-    "centraluseuap": 2,
-    "australiasoutheast": 1,
-    "austriaeast": 1,
-    "belgiumcentral": 1,
-    "denmarkeast": 1,
-    "eastus3": 1,
-    "usstagee": 1,
-    "germanywc": 1,
-    "indonesiacentral": 1,
-    "italynorth": 1,
-    "koreacentral": 1,
-    "malaysiawest": 1,
-    "newzealandnorth": 1,
-    "usstagec": 1,
-    "swedencentral": 1,
-    "westus3": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureCloud",
-      "change_count": 312
-    },
-    {
-      "service": "AzureCognitiveSearch",
-      "change_count": 66
-    },
-    {
-      "service": "AzureCloud.centraluseuap",
-      "change_count": 29
-    },
-    {
-      "service": "AzureCloud.eastus2",
-      "change_count": 23
-    },
-    {
-      "service": "AzureCloud.indonesiacentral",
-      "change_count": 22
-    },
-    {
-      "service": "AzureCloud.italynorth",
-      "change_count": 17
-    },
-    {
-      "service": "AzureCloud.denmarkeast",
-      "change_count": 16
-    },
-    {
-      "service": "PowerBI",
-      "change_count": 15
-    },
-    {
-      "service": "AzureCloud.eastus2euap",
-      "change_count": 15
-    },
-    {
-      "service": "AzureCloud.westeurope",
-      "change_count": 14
-    }
-  ],
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -114,6 +32,7 @@
     "2026-03-23",
     "2026-03-30",
     "2026-04-06",
-    "2026-04-13"
+    "2026-04-13",
+    "2026-04-20"
   ]
 }
