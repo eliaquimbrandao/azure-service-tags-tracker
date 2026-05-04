@@ -1,13 +1,89 @@
 {
-  "last_updated": "2026-04-27T02:29:37.918156+00:00",
+  "last_updated": "2026-05-04T02:34:12.187666+00:00",
   "total_services": 3136,
-  "total_ip_ranges": 101842,
-  "changes_this_week": 0,
-  "ip_changes": 0,
+  "total_ip_ranges": 101516,
+  "changes_this_week": 57,
+  "ip_changes": 57,
   "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {},
-  "top_active_services": [],
+  "regional_changes": {
+    "": 12,
+    "brazilsouth": 1,
+    "italynorth": 1,
+    "japanwest": 1,
+    "koreacentral": 1,
+    "norwaye": 1,
+    "polandcentral": 2,
+    "southafricanorth": 1,
+    "southcentralus": 2,
+    "spaincentral": 2,
+    "swedencentral": 2,
+    "switzerlandn": 1,
+    "westus2": 3,
+    "malaysiawest": 2,
+    "centralus": 1,
+    "eastus3": 2,
+    "westus3": 2,
+    "centraluseuap": 1,
+    "eastus": 2,
+    "eastus2": 2,
+    "southeastasia": 1,
+    "qatarcentral": 2,
+    "australiaeast": 1,
+    "belgiumcentral": 1,
+    "centralindia": 1,
+    "eastasia": 1,
+    "eastus2euap": 1,
+    "taiwannorthwest": 1,
+    "uaecentral": 1,
+    "uaenorth": 1,
+    "uksouth": 1,
+    "westcentralus": 1,
+    "westeurope": 1,
+    "westus": 1
+  },
+  "top_active_services": [
+    {
+      "service": "AzureSpringCloud",
+      "change_count": 495
+    },
+    {
+      "service": "AzureCloud",
+      "change_count": 173
+    },
+    {
+      "service": "EOPExternalPublishedIPs",
+      "change_count": 51
+    },
+    {
+      "service": "AzureBackup",
+      "change_count": 27
+    },
+    {
+      "service": "AzureCloud.eastus2",
+      "change_count": 22
+    },
+    {
+      "service": "AzureCloud.eastasia",
+      "change_count": 18
+    },
+    {
+      "service": "AzureCloud.malaysiawest",
+      "change_count": 14
+    },
+    {
+      "service": "AzureCloud.spaincentral",
+      "change_count": 13
+    },
+    {
+      "service": "AzureCloud.westeurope",
+      "change_count": 10
+    },
+    {
+      "service": "AzureCloud.southcentralus",
+      "change_count": 8
+    }
+  ],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -33,6 +109,7 @@
     "2026-03-30",
     "2026-04-06",
     "2026-04-13",
-    "2026-04-20"
+    "2026-04-20",
+    "2026-04-27"
   ]
 }
