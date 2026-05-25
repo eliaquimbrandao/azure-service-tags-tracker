@@ -1,87 +1,13 @@
 {
-  "last_updated": "2026-05-18T02:56:01.659080+00:00",
+  "last_updated": "2026-05-25T03:29:00.138275+00:00",
   "total_services": 3172,
   "total_ip_ranges": 103021,
-  "changes_this_week": 85,
-  "ip_changes": 49,
-  "service_additions": 36,
+  "changes_this_week": 0,
+  "ip_changes": 0,
+  "service_additions": 0,
   "service_removals": 0,
-  "regional_changes": {
-    "": 8,
-    "indiasouthcentral": 36,
-    "indonesiacentral": 3,
-    "australiacentral": 1,
-    "australiacentral2": 1,
-    "austriaeast": 1,
-    "belgiumcentral": 1,
-    "canadaeast": 1,
-    "centralindia": 1,
-    "centralus": 2,
-    "centraluseuap": 1,
-    "chilec": 2,
-    "denmarkeast": 1,
-    "eastus3": 3,
-    "usstagee": 1,
-    "israelnorthwest": 1,
-    "malaysiawest": 2,
-    "qatarcentral": 1,
-    "usstagec": 1,
-    "southeastus": 1,
-    "southeastus3": 1,
-    "eastus": 2,
-    "eastus2euap": 2,
-    "westeurope": 2,
-    "westus": 2,
-    "eastus2": 1,
-    "israelcentral": 1,
-    "newzealandnorth": 1,
-    "polandcentral": 1,
-    "southcentralus": 1,
-    "westus2": 1,
-    "westus3": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureCloud",
-      "change_count": 296
-    },
-    {
-      "service": "AzureAttestation",
-      "change_count": 50
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 49
-    },
-    {
-      "service": "AzureCloud.westus",
-      "change_count": 35
-    },
-    {
-      "service": "AzureCloud.polandcentral",
-      "change_count": 34
-    },
-    {
-      "service": "AzureCloud.westeurope",
-      "change_count": 34
-    },
-    {
-      "service": "AzureCloud.chilec",
-      "change_count": 33
-    },
-    {
-      "service": "AzureCloud.israelcentral",
-      "change_count": 19
-    },
-    {
-      "service": "AzureCloud.indonesiacentral",
-      "change_count": 18
-    },
-    {
-      "service": "AzureCloud.eastus3",
-      "change_count": 13
-    }
-  ],
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -110,6 +36,7 @@
     "2026-04-20",
     "2026-04-27",
     "2026-05-04",
-    "2026-05-11"
+    "2026-05-11",
+    "2026-05-18"
   ]
 }
