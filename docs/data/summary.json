@@ -1,115 +1,117 @@
 {
-  "last_updated": "2026-06-08T03:37:24.479852+00:00",
-  "total_services": 3231,
-  "total_ip_ranges": 105346,
-  "changes_this_week": 92,
-  "ip_changes": 92,
-  "service_additions": 0,
+  "last_updated": "2026-06-15T03:53:17.602669+00:00",
+  "total_services": 3233,
+  "total_ip_ranges": 106274,
+  "changes_this_week": 129,
+  "ip_changes": 127,
+  "service_additions": 2,
   "service_removals": 0,
   "regional_changes": {
-    "": 5,
-    "southcentralus": 3,
-    "australiacentral": 2,
+    "": 9,
+    "germanywc": 3,
+    "uaecentral": 4,
+    "australiacentral": 1,
     "australiacentral2": 1,
-    "australiaeast": 1,
-    "australiasoutheast": 3,
-    "austriaeast": 1,
-    "belgiumcentral": 2,
-    "brazilsouth": 3,
-    "brazilse": 1,
-    "canadacentral": 1,
-    "canadaeast": 1,
-    "centralindia": 1,
-    "centraluseuap": 1,
-    "chilec": 1,
-    "denmarkeast": 2,
-    "eastasia": 1,
-    "eastus": 2,
-    "eastus2": 2,
-    "eastus2euap": 1,
-    "eastus3": 2,
-    "centralfrance": 1,
-    "southfrance": 1,
-    "germanyn": 1,
-    "germanywc": 2,
-    "indiasouthcentral": 1,
-    "indonesiacentral": 2,
-    "israelcentral": 1,
-    "israelnorthwest": 2,
-    "italynorth": 2,
-    "japaneast": 1,
-    "japanwest": 1,
-    "jioindiacentral": 1,
-    "jioindiawest": 1,
-    "koreacentral": 1,
+    "australiaeast": 2,
+    "australiasoutheast": 2,
+    "brazilsouth": 2,
+    "canadacentral": 2,
+    "canadaeast": 2,
+    "centralindia": 3,
+    "centralus": 2,
+    "centraluseuap": 2,
+    "eastasia": 2,
+    "eastus": 4,
+    "eastus2": 3,
+    "eastus2euap": 2,
+    "centralfrance": 2,
+    "southfrance": 2,
+    "germanyn": 2,
+    "japaneast": 2,
+    "japanwest": 2,
+    "koreacentral": 2,
     "koreasouth": 2,
-    "malaysiasouth": 1,
-    "malaysiawest": 2,
-    "mexicocentral": 1,
-    "newzealandnorth": 2,
     "northcentralus": 2,
     "northeurope": 2,
-    "northeastus5": 1,
-    "norwaye": 1,
-    "norwayw": 1,
-    "polandcentral": 2,
-    "qatarcentral": 1,
-    "southafricanorth": 1,
+    "norwaye": 2,
+    "norwayw": 2,
+    "qatarcentral": 2,
+    "southafricanorth": 2,
     "southafricawest": 2,
-    "southcentralus2": 1,
-    "usstagec": 1,
-    "southindia": 1,
-    "southeastasia": 1,
+    "southcentralus": 2,
+    "southindia": 2,
+    "southeastasia": 2,
+    "switzerlandn": 2,
+    "switzerlandw": 2,
+    "uaenorth": 2,
+    "uksouth": 2,
+    "ukwest": 2,
+    "westcentralus": 2,
     "westeurope": 2,
-    "westus3": 2,
-    "centralus": 2,
+    "westus": 2,
+    "westus2": 4,
+    "westus3": 4,
+    "austriaeast": 2,
+    "belgiumcentral": 2,
+    "brazilse": 1,
+    "chilec": 3,
+    "denmarkeast": 2,
+    "indiasouthcentral": 1,
+    "indonesiacentral": 1,
+    "israelcentral": 1,
+    "italynorth": 1,
+    "jioindiacentral": 1,
+    "jioindiawest": 1,
+    "malaysiasouth": 1,
+    "mexicocentral": 1,
+    "newzealandnorth": 1,
+    "polandcentral": 1,
+    "usstagec": 1,
+    "spaincentral": 1,
     "swedencentral": 1,
-    "switzerlandn": 1,
-    "uksouth": 1,
-    "westcentralus": 1,
-    "westus2": 1,
-    "westus": 1
+    "swedensouth": 1,
+    "northeastus5": 1
   },
   "top_active_services": [
     {
+      "service": "AzureIoTHub",
+      "change_count": 304
+    },
+    {
+      "service": "AzureMonitor",
+      "change_count": 113
+    },
+    {
+      "service": "M365ManagementActivityApiWebhook",
+      "change_count": 53
+    },
+    {
       "service": "AzureCloud",
-      "change_count": 253
+      "change_count": 53
     },
     {
-      "service": "AzureEventGrid",
-      "change_count": 132
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 105
-    },
-    {
-      "service": "AzureCloud.malaysiawest",
-      "change_count": 21
+      "service": "AzureMonitor.Core",
+      "change_count": 25
     },
     {
       "service": "AzureCloud.eastus2",
-      "change_count": 16
+      "change_count": 21
     },
     {
-      "service": "AzureCloud.northcentralus",
+      "service": "AzureIoTHub.WestEurope",
+      "change_count": 14
+    },
+    {
+      "service": "AzureIoTHub.CentralUS",
       "change_count": 12
     },
     {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 10
+      "service": "AzureIoTHub.EastUS",
+      "change_count": 12
     },
     {
-      "service": "AzureCloud.eastus3",
-      "change_count": 9
-    },
-    {
-      "service": "AzureCloud.belgiumcentral",
-      "change_count": 8
-    },
-    {
-      "service": "AzureCloud.denmarkeast",
-      "change_count": 8
+      "service": "AzureIoTHub.NorthEurope",
+      "change_count": 12
     }
   ],
   "available_dates": [
@@ -143,6 +145,7 @@
     "2026-05-11",
     "2026-05-18",
     "2026-05-25",
-    "2026-06-01"
+    "2026-06-01",
+    "2026-06-08"
   ]
 }
