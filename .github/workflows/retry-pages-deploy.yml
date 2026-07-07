@@ -1,0 +1,38 @@
+name: Retry failed Pages deploy
+
+on:
+  workflow_run:
+    workflows:
+      - pages build and deployment # Verify in Actions tab / actions API if this internal name ever changes
+    types:
+      - completed
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  retry-failed-deploy:
+    # Retry only once per original failed run to avoid retry loops.
+    if: contains(fromJSON('["failure","timed_out"]'), github.event.workflow_run.conclusion) && github.event.workflow_run.run_attempt == 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Retry failed jobs once
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+
+          echo "Retrying failed jobs for Pages workflow run ${RUN_ID}"
+
+          if gh api \
+            --method POST \
+            "/repos/${REPO}/actions/runs/${RUN_ID}/rerun-failed-jobs"; then
+            echo "Successfully requested rerun of failed jobs."
+          else
+            echo "Failed to request rerun of failed jobs."
+            exit 1
+          fi
