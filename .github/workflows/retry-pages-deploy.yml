@@ -4,7 +4,6 @@ on:
   workflow_run:
     workflows:
       - pages build and deployment
-      - pages-build-deployment
     types:
       - completed
 
@@ -28,8 +27,11 @@ jobs:
 
           echo "Retrying failed jobs for Pages workflow run ${RUN_ID}"
 
-          gh api \
+          if gh api \
             --method POST \
-            "/repos/${REPO}/actions/runs/${RUN_ID}/rerun-failed-jobs"
-
-          echo "Successfully requested rerun of failed jobs."
+            "/repos/${REPO}/actions/runs/${RUN_ID}/rerun-failed-jobs"; then
+            echo "Successfully requested rerun of failed jobs."
+          else
+            echo "Failed to request rerun of failed jobs."
+            exit 1
+          fi
