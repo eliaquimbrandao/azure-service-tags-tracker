@@ -1,82 +1,89 @@
 {
-  "last_updated": "2026-07-20T03:28:11.616781+00:00",
+  "last_updated": "2026-07-27T02:34:04.058316+00:00",
   "total_services": 3321,
-  "total_ip_ranges": 107262,
-  "changes_this_week": 102,
-  "ip_changes": 15,
-  "service_additions": 87,
+  "total_ip_ranges": 107588,
+  "changes_this_week": 45,
+  "ip_changes": 45,
+  "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 5,
-    "southeastus5": 35,
-    "southwestus": 35,
-    "indiasouthcentral": 1,
+    "": 4,
     "australiaeast": 1,
-    "canadaeast": 1,
-    "southfrance": 1,
-    "germanyn": 1,
-    "italynorth": 1,
-    "japanwest": 1,
-    "koreasouth": 1,
-    "newzealandnorth": 1,
-    "norwayw": 1,
-    "polandcentral": 1,
-    "southafricawest": 1,
-    "southindia": 2,
-    "switzerlandw": 1,
-    "uaecentral": 1,
-    "ukwest": 1,
-    "westeurope": 1,
-    "westus": 1,
-    "brazilse": 1,
-    "centralus": 1,
-    "chilec": 1,
+    "australiasoutheast": 1,
+    "brazilsouth": 1,
+    "canadacentral": 1,
+    "centralindia": 1,
+    "centralus": 2,
+    "centraluseuap": 1,
+    "eastasia": 1,
+    "eastus": 1,
     "eastus2": 1,
-    "malaysiawest": 1,
-    "swedencentral": 1,
-    "uaenorth": 1,
-    "westcentralus": 1
+    "centralfrance": 1,
+    "southfrance": 1,
+    "germanywc": 2,
+    "japaneast": 1,
+    "japanwest": 1,
+    "koreacentral": 1,
+    "koreasouth": 1,
+    "northcentralus": 2,
+    "southafricanorth": 1,
+    "southcentralus": 2,
+    "southindia": 1,
+    "southeastasia": 1,
+    "uaecentral": 1,
+    "uksouth": 1,
+    "ukwest": 1,
+    "westcentralus": 1,
+    "westindia": 1,
+    "westus": 1,
+    "uaenorth": 2,
+    "westus3": 2,
+    "eastus2euap": 1,
+    "eastus3": 1,
+    "indiasouthcentral": 1,
+    "newzealandnorth": 1,
+    "northeurope": 1
   },
   "top_active_services": [
     {
+      "service": "AzureActiveDirectory",
+      "change_count": 153
+    },
+    {
+      "service": "ApiManagement",
+      "change_count": 84
+    },
+    {
       "service": "AzureCloud",
-      "change_count": 51
-    },
-    {
-      "service": "AzureCloud.eastus2",
-      "change_count": 27
-    },
-    {
-      "service": "Dynamics365ForMarketingEmail",
-      "change_count": 17
-    },
-    {
-      "service": "AzureCloud.swedencentral",
-      "change_count": 7
-    },
-    {
-      "service": "AzureCloud.chilec",
-      "change_count": 6
+      "change_count": 47
     },
     {
       "service": "AzureCloud.centralus",
+      "change_count": 14
+    },
+    {
+      "service": "AzureCloud.eastus3",
+      "change_count": 7
+    },
+    {
+      "service": "AzureCloud.northcentralus",
+      "change_count": 6
+    },
+    {
+      "service": "AzureCloud.southcentralus",
+      "change_count": 6
+    },
+    {
+      "service": "AzureCloud.indiasouthcentral",
+      "change_count": 5
+    },
+    {
+      "service": "ApiManagement.AustraliaEast",
       "change_count": 3
     },
     {
-      "service": "PowerBI",
-      "change_count": 2
-    },
-    {
-      "service": "AzureCloud.brazilse",
-      "change_count": 2
-    },
-    {
-      "service": "AzureMonitor",
-      "change_count": 1
-    },
-    {
-      "service": "AzureMonitor.IndiaSouthCentral",
-      "change_count": 1
+      "service": "ApiManagement.AustraliaSoutheast",
+      "change_count": 3
     }
   ],
   "available_dates": [
@@ -116,6 +123,7 @@
     "2026-06-22",
     "2026-06-29",
     "2026-07-06",
-    "2026-07-13"
+    "2026-07-13",
+    "2026-07-20"
   ]
 }
