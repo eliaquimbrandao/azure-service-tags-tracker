@@ -17,7 +17,6 @@ export class SearchManager {
     }
 
     initializeGlobalSearch() {
-        console.log('Initializing Global Search...');
         const searchInput = document.getElementById('globalSearch');
         const searchClear = document.getElementById('searchClear');
         const searchResults = document.getElementById('searchResults');
@@ -61,6 +60,12 @@ export class SearchManager {
                 }
             }
         });
+    }
+
+    escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str ?? '';
+        return div.innerHTML;
     }
 
     normalizeKey(key, defaultValue = '') {
@@ -190,7 +195,6 @@ export class SearchManager {
     }
 
     async performGlobalSearch(query) {
-        console.log('Performing global search for:', query);
         const searchResults = document.getElementById('searchResults');
         const searchClear = document.getElementById('searchClear');
 
@@ -562,7 +566,7 @@ export class SearchManager {
             searchResults.innerHTML = `
                 <div class="search-no-results">
                     <div class="search-no-results-icon">🔍</div>
-                    <div>No results found for "<strong>${query}</strong>"</div>
+                    <div>No results found for "<strong>${this.escapeHtml(query)}</strong>"</div>
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
                         Try searching for service names like "Storage", regions like "East US", or specific IP addresses (e.g., "13.68.")
                     </div>

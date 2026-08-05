@@ -106,10 +106,6 @@ export class RegionalAnalysis {
             (change.region || '') === region
         );
 
-        console.log(`Region: ${region}, Display: ${displayName}`);
-        console.log(`Found ${regionChanges.length} changes for this region`);
-        console.log('Sample change:', regionChanges[0]);
-
         if (regionChanges.length === 0) {
             alert(`No detailed changes available for ${displayName}`);
             return;

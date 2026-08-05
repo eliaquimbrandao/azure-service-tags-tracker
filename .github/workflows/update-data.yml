@@ -17,6 +17,9 @@ on:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    concurrency:
+      group: update-azure-service-tags
+      cancel-in-progress: false
     permissions:
       contents: write # allow pushing branches
       pull-requests: write # allow opening PRs

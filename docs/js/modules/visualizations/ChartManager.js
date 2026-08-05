@@ -75,7 +75,7 @@ export class ChartManager {
                                         }
                                     }
                                 } catch (err) {
-                                    console.log(`Could not parse changes file for ${fileInfo.date}`);
+                                    console.warn(`Could not parse changes file for ${fileInfo.date}:`, err.message);
                                 }
                             }
 
@@ -83,7 +83,7 @@ export class ChartManager {
                         }
                     }
                 } catch (err) {
-                    console.log(`Could not load history file for ${fileInfo.date}`);
+                    console.warn(`Could not load history file for ${fileInfo.date}:`, err.message);
                 }
             }
 
@@ -451,7 +451,7 @@ export class ChartManager {
                         removed: removedIPs
                     });
                 } catch (err) {
-                    console.log(`Could not load ${fileInfo.filename}`);
+                    console.warn(`Could not load ${fileInfo.filename}:`, err.message);
                 }
             }
 
@@ -686,7 +686,7 @@ export class ChartManager {
                         regionalData[region].removed += change.removed_count || 0;
                     });
                 } catch (err) {
-                    console.log(`Could not load ${fileInfo.filename}`);
+                    console.warn(`Could not load ${fileInfo.filename}:`, err.message);
                 }
             }
 

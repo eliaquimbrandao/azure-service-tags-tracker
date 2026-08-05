@@ -592,8 +592,6 @@ export class ExportManager {
 
         const blob = new Blob([csv], { type: 'text/csv' });
         this.downloadFile(blob, `azure-service-tags-selected-weeks-${this.getDateString()}.csv`);
-
-        console.log(`Exported ${rowCount} IP change records from ${selectedData.length} weeks to CSV`);
     }
 
     // Legacy function for backwards compatibility
@@ -690,8 +688,6 @@ export class ExportManager {
         const blob = new Blob([csv], { type: 'text/csv' });
         const filterSuffix = regionFilter ? `-${regionFilter}` : (searchTerm ? '-filtered' : '');
         this.downloadFile(blob, `azure-service-tags-details${filterSuffix}-${this.getDateString()}.csv`);
-
-        console.log(`Exported ${rowCount} IP change records to CSV`);
     }
 
     // Helper to escape CSV fields

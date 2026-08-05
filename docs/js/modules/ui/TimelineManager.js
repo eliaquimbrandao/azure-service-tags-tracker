@@ -144,8 +144,6 @@ export class TimelineManager {
     }
 
     initializeHistoryFilters(allData) {
-        console.log('🔧 initializeHistoryFilters called with', allData.length, 'items');
-
         // Extract and group regions (merge numbered variants under one entry)
         const regionGroups = new Map();
         const dates = [];

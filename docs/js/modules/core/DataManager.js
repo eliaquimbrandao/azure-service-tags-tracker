@@ -86,7 +86,6 @@ export class DataManager {
             // Load manifest to get list of all change files
             const manifestResponse = await this.fetchWithCacheBust('data/changes/manifest.json');
             if (!manifestResponse.ok) {
-                console.log('Manifest not found, falling back to known files');
                 // Fallback to known files if manifest doesn't exist
                 return this.loadHistoricalActivityFallback();
             }
@@ -96,8 +95,6 @@ export class DataManager {
             // Filter out baseline/initial data files (oldest date)
             const oldestDate = manifest.date_range?.oldest;
             const changeFiles = manifest.files.filter(fileInfo => fileInfo.date !== oldestDate);
-
-            console.log(`Loading ${changeFiles.length} actual change files (excluding baseline)...`);
 
             // Load each historical change file (excluding baseline)
             for (const fileInfo of changeFiles) {
@@ -132,16 +129,11 @@ export class DataManager {
                                 historicalActivity[serviceName].totalIPChange += (change.added_count || 0) + (change.removed_count || 0);
                             }
                         });
-
-                        console.log(`Loaded ${fileInfo.filename}: ${data.changes?.length || 0} changes`);
                     }
                 } catch (err) {
-                    console.log(`Could not load ${fileInfo.filename}:`, err.message);
+                    console.warn(`Could not load ${fileInfo.filename}:`, err.message);
                 }
             }
-
-            const totalServices = Object.keys(historicalActivity).length;
-            console.log(`Historical analysis complete: ${totalServices} services tracked`);
 
             return historicalActivity;
         } catch (error) {
@@ -151,32 +143,28 @@ export class DataManager {
     }
 
     async loadHistoricalActivityFallback() {
-        // Fallback method when manifest is not available
+        // Fallback method when the manifest is not available: use latest-changes.json,
+        // which loadAllData() already relies on and is always kept up to date.
         const historicalActivity = {};
-        const changeFiles = ['2025-10-08-changes.json', '2025-10-10-changes.json'];
 
-        console.log('Using fallback method to load historical data');
+        try {
+            const response = await this.fetchWithCacheBust('data/changes/latest-changes.json');
+            if (response.ok) {
+                const data = await response.json();
+                const services = new Set();
 
-        for (const fileName of changeFiles) {
-            try {
-                const response = await fetch(`data/changes/${fileName}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    const services = new Set();
+                (data.changes || []).forEach(change => {
+                    if (change.service) {
+                        services.add(change.service);
+                    }
+                });
 
-                    (data.changes || []).forEach(change => {
-                        if (change.service) {
-                            services.add(change.service);
-                        }
-                    });
-
-                    services.forEach(service => {
-                        historicalActivity[service] = (historicalActivity[service] || 0) + 1;
-                    });
-                }
-            } catch (err) {
-                console.log(`Could not load ${fileName}:`, err.message);
+                services.forEach(service => {
+                    historicalActivity[service] = (historicalActivity[service] || 0) + 1;
+                });
             }
+        } catch (err) {
+            console.warn('Could not load latest-changes.json:', err.message);
         }
 
         return historicalActivity;

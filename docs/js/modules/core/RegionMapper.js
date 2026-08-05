@@ -8,7 +8,6 @@ export class RegionMapper {
             const response = await fetch('data/regions.json');
             if (response.ok) {
                 this.regionDisplayMap = await response.json();
-                console.log('Regions data loaded:', Object.keys(this.regionDisplayMap).length, 'regions');
             } else {
                 console.warn('Failed to load regions.json, using fallback');
                 this.regionDisplayMap = {};
