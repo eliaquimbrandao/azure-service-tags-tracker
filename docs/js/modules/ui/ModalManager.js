@@ -11,13 +11,8 @@ export class ModalManager {
         const modal = document.createElement('div');
         modal.className = 'changes-modal-overlay';
 
-        // Limit display for performance
-        const displayLimit = 50;
-        const displayChanges = changes.slice(0, displayLimit);
-
-        const changesHtml = displayChanges.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
+        // Rendered a page at a time — see renderPaged below
+        const pageSize = 10;
 
         // Show search bar only for "All Changes This Week" card (type='all') or "Region Changes This Week" (type='region')
         // Don't show for specific region from search (type='region-specific') or individual service details (type='service')
@@ -40,15 +35,10 @@ export class ModalManager {
                         <div class="search-results-count" id="searchResultsCount" style="display: none;"></div>
                     </div>
                     ` : ''}
-                    <div class="changes-list" id="changesList">
-                        ${changesHtml}
+                    <div class="changes-list" id="changesList"></div>
+                    <div class="changes-footer">
+                        <a href="./data/changes/latest-changes.json" target="_blank" class="view-all-link">📄 View complete data file</a>
                     </div>
-                    ${changes.length > displayLimit ?
-                `<div class="changes-footer">
-                            <p><strong>Showing ${displayLimit} of ${changes.length.toLocaleString()} total changes</strong></p>
-                            <a href="./data/changes/latest-changes.json" target="_blank" class="view-all-link">📄 View complete data file</a>
-                        </div>` : ''
-            }
                 </div>
             </div>
         `;
@@ -56,7 +46,7 @@ export class ModalManager {
         // Store data for filtering (only if search is enabled)
         if (showSearch) {
             modal.allChanges = changes;
-            modal.displayLimit = displayLimit;
+            modal.pageSize = pageSize;
         }
 
         // Close modal when clicking overlay
@@ -84,6 +74,13 @@ export class ModalManager {
 
         document.body.appendChild(modal);
         this.currentModal = modal;
+
+        this.changeRenderer.renderPaged(
+            modal.querySelector('#changesList'),
+            changes,
+            change => this.changeRenderer.renderChangeItemDetailed(change),
+            pageSize
+        );
     }
 
     filterChanges(searchTerm) {
@@ -91,45 +88,28 @@ export class ModalManager {
 
         const modal = this.currentModal;
         const allChanges = modal.allChanges;
-        const displayLimit = modal.displayLimit;
+        const pageSize = modal.pageSize;
 
         let filteredChanges = allChanges;
 
         if (searchTerm.trim()) {
             const searchLower = searchTerm.toLowerCase();
-            filteredChanges = allChanges.filter(change => {
-                // Search in service name
-                if (change.service && change.service.toLowerCase().includes(searchLower)) return true;
-
-                // Search in region
-                const regionDisplay = this.regionMapper.getRegionDisplayName(change.region || '');
-                if (regionDisplay.toLowerCase().includes(searchLower)) return true;
-
-                // Search in IP addresses (for ip_changes)
-                if (change.type === 'ip_changes' || change.change_type === 'ip_changes') {
-                    const addedIPs = change.added_prefixes || change.added || [];
-                    const removedIPs = change.removed_prefixes || change.removed || [];
-                    const allIPs = [...addedIPs, ...removedIPs];
-
-                    if (allIPs.some(ip => ip.toLowerCase().includes(searchLower))) return true;
-                }
-
-                return false;
-            });
+            filteredChanges = allChanges.filter(change => this.changeMatches(change, searchLower));
         }
 
         // Update the display
-        const changesList = modal.querySelector('#changesList');
         const resultsCount = modal.querySelector('#searchResultsCount');
 
-        const displayChanges = filteredChanges.slice(0, displayLimit);
-        const changesHtml = displayChanges.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
+        this.changeRenderer.renderPaged(
+            modal.querySelector('#changesList'),
+            filteredChanges,
+            change => this.changeRenderer.renderChangeItemDetailed(change),
+            pageSize,
+            'No changes found matching your search.'
+        );
 
-        changesList.innerHTML = changesHtml || '<div class="no-results">No changes found matching your search.</div>';
         resultsCount.style.display = 'block';
-        resultsCount.textContent = `Showing ${Math.min(displayLimit, filteredChanges.length)} of ${filteredChanges.length.toLocaleString()} changes${searchTerm.trim() ? ` (filtered from ${allChanges.length.toLocaleString()})` : ''}`;
+        resultsCount.textContent = `${filteredChanges.length.toLocaleString()} change${filteredChanges.length !== 1 ? 's' : ''}${searchTerm.trim() ? ` (filtered from ${allChanges.length.toLocaleString()})` : ''}`;
     }
 
     showIPChangesModal(title, ipChanges) {
@@ -234,20 +214,19 @@ export class ModalManager {
         );
         if (clickedBtn) clickedBtn.classList.add('active');
 
-        // Render changes
-        const changesHtml = changesToShow.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
-
         container.innerHTML = `
             <div class="region-changes-header">
                 <h4>${regionName}</h4>
                 <span class="change-count">${changesToShow.length} changes</span>
             </div>
-            <div class="changes-list">
-                ${changesHtml}
-            </div>
+            <div class="changes-list"></div>
         `;
+
+        this.changeRenderer.renderPaged(
+            container.querySelector('.changes-list'),
+            changesToShow,
+            change => this.changeRenderer.renderChangeItemDetailed(change)
+        );
     }
 
     showRegionChangesModal(title, ipChanges) {
@@ -379,11 +358,6 @@ export class ModalManager {
         modal.querySelector('.region-list').style.display = 'none';
         modal.querySelector('.services-for-region').style.display = 'block';
 
-        // Render all services with full IP details using renderChangeItemDetailed
-        const servicesHtml = regionChanges.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
-
         const container = modal.querySelector('#regionServicesContainer');
         container.innerHTML = `
             <div class="region-services-header">
@@ -393,10 +367,14 @@ export class ModalManager {
                     <span class="stat">📊 ${regionChanges.length} total changes</span>
                 </div>
             </div>
-            <div class="changes-list">
-                ${servicesHtml}
-            </div>
+            <div class="changes-list"></div>
         `;
+
+        this.changeRenderer.renderPaged(
+            container.querySelector('.changes-list'),
+            regionChanges,
+            change => this.changeRenderer.renderChangeItemDetailed(change)
+        );
     }
 
     generateIPChangeStats(changes) {
@@ -452,6 +430,7 @@ export class ModalManager {
 
         document.body.appendChild(modal);
         this.currentModal = modal;
+        return modal;
     }
 
     showTimelineNavigationModal(formattedDate, changes) {
@@ -594,44 +573,54 @@ export class ModalManager {
         // Sort changes alphabetically by service
         const sortedChanges = changes.sort((a, b) => a.service.localeCompare(b.service));
 
-        // Render all services with full details
-        const servicesHtml = sortedChanges.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
-
         const container = modal.querySelector('#timelineDetailContainer');
         container.innerHTML = `
             <div class="region-services-header">
                 <h4>🔧 All Services - ${date}</h4>
                 <div class="search-section">
-                    <input type="text" 
-                           id="timelineServiceSearch" 
-                           placeholder="🔍 Search by service name or IP..." 
+                    <input type="text"
+                           id="timelineServiceSearch"
+                           placeholder="🔍 Search by service name or IP..."
                            class="changes-search-input">
                 </div>
             </div>
-            <div class="changes-list" id="timelineServicesList">
-                ${servicesHtml}
-            </div>
+            <div class="changes-list" id="timelineServicesList"></div>
         `;
 
-        // Add search functionality
+        const list = container.querySelector('#timelineServicesList');
+        const renderList = (items) => this.changeRenderer.renderPaged(
+            list,
+            items,
+            change => this.changeRenderer.renderChangeItemDetailed(change),
+            10,
+            'No services found matching your search.'
+        );
+
+        renderList(sortedChanges);
+
+        // Search filters the full set, not just the rendered page
         const searchInput = container.querySelector('#timelineServiceSearch');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const changeItems = container.querySelectorAll('.change-item');
-
-                changeItems.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(searchTerm)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+                const searchTerm = e.target.value.trim().toLowerCase();
+                renderList(searchTerm ? sortedChanges.filter(c => this.changeMatches(c, searchTerm)) : sortedChanges);
             });
         }
+    }
+
+    // Shared matcher for the in-modal search boxes: service name, region, or IP.
+    changeMatches(change, searchLower) {
+        if (change.service && change.service.toLowerCase().includes(searchLower)) return true;
+
+        const regionDisplay = this.regionMapper.getRegionDisplayName(change.region || '');
+        if (regionDisplay.toLowerCase().includes(searchLower)) return true;
+
+        const ips = [
+            ...(change.added_prefixes || change.added || []),
+            ...(change.removed_prefixes || change.removed || []),
+            ...(change.prefixes || [])
+        ];
+        return ips.some(ip => ip.toLowerCase().includes(searchLower));
     }
 
     showTimelineRegionView(modal, date, ipChanges) {
@@ -722,11 +711,6 @@ export class ModalManager {
         container.querySelector('.region-list-container').style.display = 'none';
         container.querySelector('.services-for-region-nested').style.display = 'block';
 
-        // Render all services with full IP details
-        const servicesHtml = regionChanges.map(change => {
-            return this.changeRenderer.renderChangeItemDetailed(change);
-        }).join('');
-
         const servicesContainer = container.querySelector('#timelineRegionServicesContainer');
         servicesContainer.innerHTML = `
             <div class="region-services-header">
@@ -735,9 +719,13 @@ export class ModalManager {
                     <span class="stat">🔧 ${regionChanges.length} services affected</span>
                 </div>
             </div>
-            <div class="changes-list">
-                ${servicesHtml}
-            </div>
+            <div class="changes-list"></div>
         `;
+
+        this.changeRenderer.renderPaged(
+            servicesContainer.querySelector('.changes-list'),
+            regionChanges,
+            change => this.changeRenderer.renderChangeItemDetailed(change)
+        );
     }
 }
