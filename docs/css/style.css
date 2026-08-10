@@ -1200,6 +1200,13 @@ body {
     background: #f8f9fa;
 }
 
+/* Keyboard selection (arrow keys) — mirrors :hover so both cues read the same */
+.search-result-item.active {
+    background: #f8f9fa;
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
 .search-result-info {
     flex: 1;
 }

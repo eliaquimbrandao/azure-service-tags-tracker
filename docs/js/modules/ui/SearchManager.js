@@ -5,6 +5,9 @@ export class SearchManager {
         this.changeRenderer = changeRenderer;
         this.modalManager = modalManager;
         this.historicalSearchData = null;
+        this.allChangesPromise = null;  // the change archive is fetched once per page load
+        this.searchSeq = 0;             // guards against out-of-order async results
+        this.activeIndex = -1;
     }
 
     clearSearchUI(searchResultsEl, searchClearEl) {
@@ -14,6 +17,15 @@ export class SearchManager {
             searchResultsEl.classList.add('hidden');
         }
         this.historicalSearchData = null;
+        this.activeIndex = -1;
+        this.searchSeq++;  // any in-flight search is now stale
+        this.syncQueryParam('');
+
+        const searchInput = document.getElementById('globalSearch');
+        if (searchInput) {
+            searchInput.setAttribute('aria-expanded', 'false');
+            searchInput.removeAttribute('aria-activedescendant');
+        }
     }
 
     initializeGlobalSearch() {
@@ -22,6 +34,13 @@ export class SearchManager {
         const searchResults = document.getElementById('searchResults');
 
         if (!searchInput || !searchResults) return;
+
+        searchResults.setAttribute('role', 'listbox');
+        searchResults.setAttribute('aria-label', 'Search results');
+        searchInput.setAttribute('role', 'combobox');
+        searchInput.setAttribute('aria-controls', 'searchResults');
+        searchInput.setAttribute('aria-autocomplete', 'list');
+        searchInput.setAttribute('aria-expanded', 'false');
 
         let searchTimeout;
 
@@ -51,15 +70,94 @@ export class SearchManager {
             searchInput.focus();
         });
 
-        // Handle Enter key
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const query = searchInput.value.trim();
-                if (query) {
-                    this.performGlobalSearch(query);
-                }
-            }
+        // Arrow keys / Enter / Escape over the result list
+        searchInput.addEventListener('keydown', (e) => {
+            this.handleSearchKeydown(e, searchInput, searchResults, searchClear);
         });
+
+        // "/" or Cmd/Ctrl-K jumps to search from anywhere on the page
+        document.addEventListener('keydown', (e) => {
+            const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
+            const isSlash = e.key === '/' && !typing && !e.metaKey && !e.ctrlKey;
+            const isCmdK = (e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey);
+            if (!isSlash && !isCmdK) return;
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+        });
+
+        // Deep link: ?q=... runs on load, so a search can be shared or bookmarked
+        const initialQuery = (new URLSearchParams(window.location.search).get('q') || '').trim();
+        if (initialQuery) {
+            searchInput.value = initialQuery;
+            searchClear.classList.add('visible');
+            this.performGlobalSearch(initialQuery);
+        }
+    }
+
+    handleSearchKeydown(e, searchInput, searchResults, searchClear) {
+        // Queried live: "Show more" adds rows after the initial render
+        const options = searchResults.classList.contains('hidden')
+            ? []
+            : Array.from(searchResults.querySelectorAll('.search-result-item'));
+
+        if (e.key === 'Escape') {
+            this.clearSearchUI(searchResults, searchClear);
+            searchInput.blur();
+            return;
+        }
+
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (this.activeIndex >= 0 && options[this.activeIndex]) {
+                options[this.activeIndex].click();
+                return;
+            }
+            const query = searchInput.value.trim();
+            if (query) this.performGlobalSearch(query);
+            return;
+        }
+
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        if (options.length === 0) return;
+
+        e.preventDefault();
+        const delta = e.key === 'ArrowDown' ? 1 : -1;
+        const next = Math.max(0, Math.min(options.length - 1, this.activeIndex + delta));
+        this.setActiveOption(options, next, searchInput);
+    }
+
+    setActiveOption(options, index, searchInput) {
+        options.forEach(el => {
+            el.classList.remove('active');
+            el.setAttribute('role', 'option');  // rows from "Show more" arrive without it
+            el.setAttribute('aria-selected', 'false');
+        });
+
+        this.activeIndex = index;
+        const el = options[index];
+        if (!el) {
+            if (searchInput) searchInput.removeAttribute('aria-activedescendant');
+            return;
+        }
+
+        if (!el.id) el.id = `search-opt-${index}`;
+        el.classList.add('active');
+        el.setAttribute('aria-selected', 'true');
+        el.scrollIntoView({ block: 'nearest' });
+        if (searchInput) searchInput.setAttribute('aria-activedescendant', el.id);
+    }
+
+    syncQueryParam(query) {
+        if (!window.history?.replaceState) return;
+        const url = new URL(window.location.href);
+        if (query) {
+            url.searchParams.set('q', query);
+        } else {
+            url.searchParams.delete('q');
+        }
+        // replaceState, not pushState — a debounced search must not spam history
+        window.history.replaceState(null, '', url);
     }
 
     escapeHtml(str) {
@@ -74,29 +172,41 @@ export class SearchManager {
     }
 
     isIPAddressLike(input) {
-        return /^[\d\.:]+$/.test(input || '');
+        const value = input || '';
+        // Needs a separator, so hex-ish words ("added", "cafe") don't qualify as IPv6
+        return /[.:]/.test(value) && /^[0-9a-f.:/]+$/i.test(value);
     }
 
-    parseIPAddress(input) {
+    /** Parse "1.2.3.4", "1.2.3.0/24" or "2603:1030::/64" into a comparable network. */
+    parseCIDR(input) {
         if (!input) return null;
-        const trimmed = input.trim();
+        const trimmed = String(input).trim();
         if (!trimmed) return null;
 
-        if (trimmed.includes(':')) {
-            return this.parseIPv6(trimmed);
-        }
-        if (trimmed.includes('.')) {
-            return this.parseIPv4(trimmed);
-        }
-        return null;
+        const [addr, maskStr, extra] = trimmed.split('/');
+        if (!addr || extra !== undefined) return null;
+
+        const ctx = addr.includes(':') ? this.parseIPv6(addr)
+            : addr.includes('.') ? this.parseIPv4(addr)
+                : null;
+        if (!ctx) return null;
+
+        if (maskStr === undefined || maskStr === '') return { ...ctx, mask: ctx.maxBits };
+        if (!/^\d{1,3}$/.test(maskStr)) return null;
+
+        const mask = parseInt(maskStr, 10);
+        if (mask > ctx.maxBits) return null;
+
+        return { ...ctx, mask };
     }
 
     parseIPv4(ip) {
+        // Strict digits per octet: parseInt would accept "116/30" and "4abc"
         const parts = ip.split('.');
-        if (parts.length !== 4) return null;
+        if (parts.length !== 4 || !parts.every(p => /^\d{1,3}$/.test(p))) return null;
 
-        const octets = parts.map(p => parseInt(p, 10));
-        if (octets.some(o => Number.isNaN(o) || o < 0 || o > 255)) return null;
+        const octets = parts.map(Number);
+        if (octets.some(o => o > 255)) return null;
 
         let value = 0n;
         octets.forEach(o => {
@@ -113,11 +223,13 @@ export class SearchManager {
 
         const head = parts[0] ? parts[0].split(':').filter(Boolean) : [];
         const tail = parts[1] ? parts[1].split(':').filter(Boolean) : [];
-        const missing = 8 - (head.length + tail.length);
-        if (missing < 0) return null;
+        if (![...head, ...tail].every(h => /^[0-9a-f]{1,4}$/i.test(h))) return null;
 
-        const full = [...head, ...Array(missing).fill('0'), ...tail].map(p => parseInt(p || '0', 16));
-        if (full.length !== 8 || full.some(v => Number.isNaN(v) || v < 0 || v > 0xffff)) return null;
+        const missing = 8 - (head.length + tail.length);
+        // "::" stands for at least one zero group; without it all 8 must be spelled out
+        if (parts.length === 2 ? missing < 1 : missing !== 0) return null;
+
+        const full = [...head, ...Array(missing).fill('0'), ...tail].map(h => parseInt(h, 16));
 
         let value = 0n;
         full.forEach(v => {
@@ -127,26 +239,44 @@ export class SearchManager {
         return { version: 6, value, maxBits: 128 };
     }
 
-    cidrContains(ipContext, cidr) {
-        if (!ipContext || !cidr) return false;
-        const [base, maskStr] = cidr.split('/');
-        if (!base) return false;
-
-        const baseCtx = base.includes(':') ? this.parseIPv6(base) : this.parseIPv4(base);
-        if (!baseCtx || baseCtx.version !== ipContext.version) return false;
-
-        const mask = maskStr ? parseInt(maskStr, 10) : baseCtx.maxBits;
-        if (Number.isNaN(mask) || mask < 0 || mask > baseCtx.maxBits) return false;
-
-        const shift = BigInt(baseCtx.maxBits - mask);
-        const baseNet = baseCtx.value >> shift;
-        const targetNet = ipContext.value >> shift;
-        return baseNet === targetNet;
+    /** Two networks overlap iff they share a prefix at the shorter of the two masks. */
+    rangesOverlap(a, b) {
+        if (!a || !b || a.version !== b.version) return false;
+        const shift = BigInt(a.maxBits - Math.min(a.mask, b.mask));
+        return (a.value >> shift) === (b.value >> shift);
     }
 
-    matchingPrefixesForIP(ipContext, prefixes = []) {
-        if (!ipContext) return [];
-        return (prefixes || []).filter(prefix => this.cidrContains(ipContext, prefix));
+    matchingPrefixesForIP(queryNet, prefixes = []) {
+        if (!queryNet) return [];
+        const wantsIPv6 = queryNet.version === 6;
+        return (prefixes || []).filter(prefix => {
+            // Cheap version pre-filter before the BigInt parse
+            if (prefix.includes(':') !== wantsIPv6) return false;
+            return this.rangesOverlap(queryNet, this.parseCIDR(prefix));
+        });
+    }
+
+    /** Relevance for one field: exact > prefix > early substring. 0 means no match. */
+    scoreText(text, ctx) {
+        const value = (text || '').toLowerCase();
+        if (!value) return 0;
+
+        for (const needle of [ctx.queryLower, ctx.queryCompact]) {
+            if (!needle) continue;
+            if (value === needle) return 100;
+            if (value.startsWith(needle)) return 80;
+            const at = value.indexOf(needle);
+            if (at > 0) return Math.max(30, 60 - at);
+        }
+        return 0;
+    }
+
+    /** Score a record, falling back to an all-words match over its combined text. */
+    matchScore(ctx, primaryText, combinedText) {
+        const direct = this.scoreText(primaryText, ctx);
+        if (direct) return direct;
+        if (ctx.isMultiWord && ctx.queryWords.every(w => combinedText.includes(w))) return 20;
+        return 0;
     }
 
     isAdditiveChange(type) {
@@ -204,13 +334,21 @@ export class SearchManager {
             return;
         }
 
+        const seq = ++this.searchSeq;
+
         const queryLower = query.toLowerCase();
-        const queryCompact = queryLower.replace(/\s+/g, '');
-        const queryWords = queryLower.split(/\s+/).filter(w => w.length > 0);
-        const isMultiWord = queryWords.length > 1;
-        const ipContext = this.parseIPAddress(query);
-        const isPotentialIP = this.isIPAddressLike(query);
-        const partialIPMode = !ipContext && isPotentialIP;
+        const ctx = {
+            queryLower,
+            queryCompact: queryLower.replace(/\s+/g, ''),
+            queryWords: queryLower.split(/\s+/).filter(w => w.length > 0)
+        };
+        ctx.isMultiWord = ctx.queryWords.length > 1;
+
+        // A full address or CIDR gets range matching; anything else IP-ish is a substring scan
+        const queryNet = this.parseCIDR(query);
+        const isPotentialIP = !!queryNet || this.isIPAddressLike(query);
+
+        this.syncQueryParam(query);
 
         // Show loading state
         searchResults.innerHTML = `
@@ -222,8 +360,12 @@ export class SearchManager {
         searchResults.classList.remove('hidden');
 
         try {
-            // Load all historical changes from manifest
+            // Load all historical changes from manifest (cached after the first search)
             const allChanges = await this.loadAllHistoricalChanges();
+
+            // A newer query started while we were awaiting — its results win.
+            if (seq !== this.searchSeq) return;
+
             const ipHistoryEvents = [];
 
             const serviceMatches = new Map();
@@ -243,16 +385,15 @@ export class SearchManager {
                     const displayName = regionRaw ? this.regionMapper.getRegionDisplayName(regionRaw) : '\ud83c\udf10 Global';
                     const combinedText = `${serviceName} ${regionRaw} ${displayName}`.toLowerCase();
 
-                    const serviceMatch = serviceName.toLowerCase().includes(queryLower) ||
-                        serviceName.toLowerCase().includes(queryCompact) ||
-                        (isMultiWord && queryWords.every(w => combinedText.includes(w)));
+                    const serviceScore = this.matchScore(ctx, serviceName, combinedText);
 
-                    if (serviceMatch) {
+                    if (serviceScore > 0) {
                         if (!serviceMatches.has(serviceKey)) {
                             serviceMatches.set(serviceKey, {
                                 type: 'service',
                                 name: serviceName,
                                 key: serviceKey,
+                                score: serviceScore,
                                 occurrences: [],
                                 totalChanges: 0,
                                 totalIPAdded: 0,
@@ -262,6 +403,7 @@ export class SearchManager {
                         const match = serviceMatches.get(serviceKey);
                         // Keep the prettiest name (first occurrence)
                         if (!match.name && serviceName) match.name = serviceName;
+                        match.score = Math.max(match.score, serviceScore);
 
                         // Calculate added/removed IPs based on change type
                         let added = 0;
@@ -288,16 +430,18 @@ export class SearchManager {
                     }
 
                     // Region Search (aggregate normalized regions)
-                    if (regionRaw.toLowerCase().includes(queryLower) ||
-                        regionRaw.toLowerCase().includes(queryCompact) ||
-                        displayName.toLowerCase().includes(queryLower) ||
-                        displayName.toLowerCase().includes(queryCompact) ||
-                        (isMultiWord && queryWords.every(w => combinedText.includes(w)))) {
+                    const regionScore = Math.max(
+                        this.matchScore(ctx, regionRaw, combinedText),
+                        this.scoreText(displayName, ctx)
+                    );
+
+                    if (regionScore > 0) {
                         if (!regionMatches.has(regionKey)) {
                             regionMatches.set(regionKey, {
                                 type: 'region',
                                 name: regionRaw,
                                 key: regionKey,
+                                score: regionScore,
                                 displayName: displayName,
                                 baseKey: this.regionMapper.getBaseRegionKey(regionRaw),
                                 variants: new Set(),
@@ -308,6 +452,7 @@ export class SearchManager {
                         const match = regionMatches.get(regionKey);
                         // Keep canonical display name
                         if (!match.displayName && displayName) match.displayName = displayName;
+                        match.score = Math.max(match.score, regionScore);
                         match.variants.add(displayName);
                         match.occurrences.push({
                             date: date,
@@ -318,6 +463,8 @@ export class SearchManager {
                     }
 
                     // IP Search (aggregate by service+region key)
+                    if (!isPotentialIP) return;
+
                     const addedPrefixes = [...(change.added_prefixes || [])];
                     const removedPrefixes = [...(change.removed_prefixes || [])];
 
@@ -328,71 +475,53 @@ export class SearchManager {
                         removedPrefixes.push(...change.prefixes);
                     }
 
-                    const combinedPrefixes = [...addedPrefixes, ...removedPrefixes];
+                    const addedMatches = queryNet
+                        ? this.matchingPrefixesForIP(queryNet, addedPrefixes)
+                        : addedPrefixes.filter(prefix => prefix.includes(query));
+                    const removedMatches = queryNet
+                        ? this.matchingPrefixesForIP(queryNet, removedPrefixes)
+                        : removedPrefixes.filter(prefix => prefix.includes(query));
 
-                    let matchingPrefixes = [];
-                    let addedMatches = [];
-                    let removedMatches = [];
+                    const matchingPrefixes = [...addedMatches, ...removedMatches];
+                    if (matchingPrefixes.length === 0) return;
 
-                    if (ipContext) {
-                        addedMatches = this.matchingPrefixesForIP(ipContext, addedPrefixes);
-                        removedMatches = this.matchingPrefixesForIP(ipContext, removedPrefixes);
-                        matchingPrefixes = [...addedMatches, ...removedMatches];
-                    } else if (partialIPMode) {
-                        addedMatches = addedPrefixes.filter(prefix => prefix.includes(query));
-                        removedMatches = removedPrefixes.filter(prefix => prefix.includes(query));
-                        matchingPrefixes = [...addedMatches, ...removedMatches];
-                    }
-
-                    if (matchingPrefixes.length > 0) {
-                        const regionKeyIP = this.normalizeKey(change.region || '', 'global');
-                        const serviceKeyIP = this.normalizeKey(change.service || '', 'unknown');
-                        const key = `${serviceKeyIP}-${regionKeyIP}`;
-                        if (!ipMatches.has(key)) {
-                            ipMatches.set(key, {
-                                type: 'ip',
-                                service: change.service,
-                                region: change.region,
-                                displayName: this.regionMapper.getRegionDisplayName(change.region || ''),
-                                occurrences: [],
-                                totalMatches: 0
-                            });
-                        }
-                        const match = ipMatches.get(key);
-                        match.occurrences.push({
-                            date: date,
-                            change: change,
-                            matches: matchingPrefixes
+                    const regionKeyIP = this.normalizeKey(change.region || '', 'global');
+                    const serviceKeyIP = this.normalizeKey(change.service || '', 'unknown');
+                    const key = `${serviceKeyIP}-${regionKeyIP}`;
+                    if (!ipMatches.has(key)) {
+                        ipMatches.set(key, {
+                            type: 'ip',
+                            service: change.service,
+                            region: change.region,
+                            displayName: this.regionMapper.getRegionDisplayName(change.region || ''),
+                            occurrences: [],
+                            totalMatches: 0
                         });
-                        match.totalMatches += matchingPrefixes.length;
-
-                        if (ipContext) {
-                            if (addedMatches.length > 0) {
-                                ipHistoryEvents.push({
-                                    date,
-                                    action: 'added',
-                                    matches: addedMatches,
-                                    change,
-                                    serviceKey: serviceKeyIP,
-                                    regionKey: regionKeyIP,
-                                    service: change.service,
-                                    region: change.region
-                                });
-                            }
-                            if (removedMatches.length > 0) {
-                                ipHistoryEvents.push({
-                                    date,
-                                    action: 'removed',
-                                    matches: removedMatches,
-                                    change,
-                                    serviceKey: serviceKeyIP,
-                                    regionKey: regionKeyIP,
-                                    service: change.service,
-                                    region: change.region
-                                });
-                            }
-                        }
                     }
+                    const ipMatch = ipMatches.get(key);
+                    ipMatch.occurrences.push({
+                        date: date,
+                        change: change,
+                        matches: matchingPrefixes
+                    });
+                    ipMatch.totalMatches += matchingPrefixes.length;
+
+                    if (!queryNet) return;
+
+                    // "Added on / last changed" needs exact ranges, so only for real networks
+                    [['added', addedMatches], ['removed', removedMatches]].forEach(([action, matches]) => {
+                        if (matches.length === 0) return;
+                        ipHistoryEvents.push({
+                            date,
+                            action,
+                            matches,
+                            change,
+                            serviceKey: serviceKeyIP,
+                            regionKey: regionKeyIP,
+                            service: change.service,
+                            region: change.region
+                        });
+                    });
                 });
             });
 
@@ -413,14 +542,21 @@ export class SearchManager {
                     const regionDisplay = this.regionMapper.getRegionDisplayName(region);
                     const combinedText = `${serviceName} ${region} ${regionDisplay} ${tag.name || ''}`.toLowerCase();
 
-                    // Search Service Name in Current Data
-                    if (serviceName.toLowerCase().includes(queryLower) ||
-                        serviceName.toLowerCase().includes(queryCompact) ||
-                        (isMultiWord && queryWords.every(w => combinedText.includes(w)))) {
+                    // Match service, tag name and region — a single-word region query
+                    // like "eastus" used to miss every tag in that region.
+                    const score = Math.max(
+                        this.matchScore(ctx, serviceName, combinedText),
+                        this.scoreText(tag.name, ctx),
+                        this.scoreText(region, ctx),
+                        this.scoreText(regionDisplay, ctx)
+                    );
+
+                    if (score > 0) {
                         currentMatches.services.push({
                             name: serviceName,
                             region: region,
-                            displayName: this.regionMapper.getRegionDisplayName(region),
+                            score,
+                            displayName: regionDisplay,
                             prefixCount: (props.addressPrefixes || []).length,
                             prefixes: props.addressPrefixes || []
                         });
@@ -429,19 +565,19 @@ export class SearchManager {
                     // Search IPs in Current Data
                     if (isPotentialIP) {
                         const prefixes = props.addressPrefixes || [];
-                        const matchingPrefixes = ipContext
-                            ? this.matchingPrefixesForIP(ipContext, prefixes)
-                            : partialIPMode ? prefixes.filter(prefix => prefix.includes(query)) : [];
+                        const matchingPrefixes = queryNet
+                            ? this.matchingPrefixesForIP(queryNet, prefixes)
+                            : prefixes.filter(prefix => prefix.includes(query));
 
                         if (matchingPrefixes.length > 0) {
-                            const historyMeta = ipContext
+                            const historyMeta = queryNet
                                 ? this.summarizeRangeHistory(matchingPrefixes, serviceKey, regionKey, ipHistoryEvents)
                                 : {};
 
                             currentMatches.ips.push({
                                 service: serviceName,
                                 region: region,
-                                displayName: this.regionMapper.getRegionDisplayName(region),
+                                displayName: regionDisplay,
                                 matches: matchingPrefixes,
                                 addedOn: historyMeta.addedOn || null,
                                 lastEvent: historyMeta.lastEvent || null,
@@ -454,11 +590,19 @@ export class SearchManager {
 
             // Convert Maps to Arrays and sort occurrences by date desc
             const sortByDateDesc = (a, b) => (this.dataManager.parseDateOnly(b.date) || 0) - (this.dataManager.parseDateOnly(a.date) || 0);
+            const latestDate = (item) => this.dataManager.parseDateOnly(item.occurrences[0]?.date) || 0;
+
+            // Best score first, shorter name breaks ties — "Storage" outranks "StorageSyncService".
+            // Paging shows 25 at a time, so the ordering is what makes page one useful.
+            const byRelevance = (nameOf) => (a, b) =>
+                (b.score - a.score) ||
+                (nameOf(a).length - nameOf(b).length) ||
+                nameOf(a).localeCompare(nameOf(b));
 
             const services = Array.from(serviceMatches.values()).map(item => {
                 item.occurrences.sort(sortByDateDesc);
                 return item;
-            });
+            }).sort(byRelevance(item => item.name || ''));
 
             const regions = (() => {
                 const consolidated = new Map();
@@ -476,39 +620,57 @@ export class SearchManager {
                         const existing = consolidated.get(baseKey);
                         existing.occurrences.push(...item.occurrences);
                         existing.totalChanges += item.totalChanges || item.occurrences.length;
-                        (item.variants || []).forEach ? item.variants.forEach(v => existing.variants.add(v)) : null;
+                        existing.score = Math.max(existing.score, item.score);
+                        (item.variants || new Set()).forEach(v => existing.variants.add(v));
                         if (!existing.displayName && item.displayName) existing.displayName = item.displayName;
                     }
                 });
                 return Array.from(consolidated.values()).map(item => {
                     item.occurrences.sort(sortByDateDesc);
                     return item;
-                });
+                }).sort(byRelevance(item => item.displayName || item.name || ''));
             })();
 
+            // IP hits have no name to score — most recent activity first
             const ips = Array.from(ipMatches.values()).map(item => {
                 item.occurrences.sort(sortByDateDesc);
                 return item;
-            });
+            }).sort((a, b) => latestDate(b) - latestDate(a) || b.totalMatches - a.totalMatches);
+
+            currentMatches.services.sort(byRelevance(item => item.name || ''));
+            currentMatches.ips.sort((a, b) => b.matches.length - a.matches.length);
 
             // Display results
             this.displayHistoricalSearchResults(services, regions, ips, query, currentMatches);
 
         } catch (error) {
+            if (seq !== this.searchSeq) return;
             console.error('Error searching historical data:', error);
             searchResults.innerHTML = `
                 <div class="search-no-results">
                     <div class="search-no-results-icon">⚠️</div>
                     <div>Error searching historical data</div>
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
-                        ${error.message}
+                        ${this.escapeHtml(error.message)}
                     </div>
                 </div>
             `;
         }
     }
 
-    async loadAllHistoricalChanges() {
+    loadAllHistoricalChanges() {
+        // The archive can't change while the page is open, so fetch it once and reuse.
+        // Previously every keystroke-triggered search re-downloaded ~5 MB, serially.
+        if (!this.allChangesPromise) {
+            this.allChangesPromise = this.fetchAllHistoricalChanges().catch(error => {
+                this.allChangesPromise = null;  // let the next search retry
+                throw error;
+            });
+        }
+        return this.allChangesPromise;
+    }
+
+    async fetchAllHistoricalChanges() {
         // Load manifest to get all change files
         const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
 
@@ -517,42 +679,28 @@ export class SearchManager {
         }
 
         const manifest = await manifestResponse.json();
-        const files = manifest.files || [];
-
-        if (files.length === 0) {
-            return [];
-        }
 
         // Filter out baseline/initial data files
-        const changeFiles = files.filter(fileInfo => {
-            const oldestDate = manifest.date_range?.oldest;
-            return fileInfo.date !== oldestDate;
-        });
+        const oldestDate = manifest.date_range?.oldest;
+        const changeFiles = (manifest.files || []).filter(fileInfo => fileInfo.date !== oldestDate);
 
-        if (changeFiles.length === 0) {
-            return [];
-        }
-
-        // Load all change files
-        const allChanges = [];
-
-        for (const fileInfo of changeFiles) {
+        const loaded = await Promise.all(changeFiles.map(async (fileInfo) => {
             try {
                 const response = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    allChanges.push({
-                        date: fileInfo.date,
-                        filename: fileInfo.filename,
-                        changes: data.changes || []
-                    });
-                }
+                if (!response.ok) return null;
+                const data = await response.json();
+                return {
+                    date: fileInfo.date,
+                    filename: fileInfo.filename,
+                    changes: data.changes || []
+                };
             } catch (error) {
                 console.error(`Error loading ${fileInfo.filename}:`, error);
+                return null;
             }
-        }
+        }));
 
-        return allChanges;
+        return loaded.filter(Boolean);
     }
 
     displayHistoricalSearchResults(services, regions, ips, query, currentMatches = null) {
@@ -598,9 +746,9 @@ export class SearchManager {
                     return `
                         <div class="search-result-item current" data-type="current-service" data-index="${index}">
                             <div class="search-result-info">
-                                <div class="search-result-name">${service.name}</div>
+                                <div class="search-result-name">${this.escapeHtml(service.name)}</div>
                                 <div class="search-result-meta">
-                                    📍 Region: ${service.displayName}
+                                    📍 Region: ${this.escapeHtml(service.displayName)}
                                     <br>
                                     <span style="color: var(--success-color);">+${service.prefixCount} IPs</span> • 
                                     <span style="color: var(--text-secondary);">-0 IPs</span> • 
@@ -622,13 +770,13 @@ export class SearchManager {
                     render: (match, index) => `
                         <div class="search-result-item current" data-type="current-ip" data-index="${index}">
                             <div class="search-result-info">
-                                <div class="search-result-name">${match.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${match.displayName})</span></div>
+                                <div class="search-result-name">${this.escapeHtml(match.service)} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${this.escapeHtml(match.displayName)})</span></div>
                                 <div class="search-result-meta">
                                     🎯 Contains IP in ${match.matches.length} active range${match.matches.length !== 1 ? 's' : ''}
                                     <br>
-                                    <span class="search-preview-ip">${match.matches.slice(0, 3).join(', ')}${match.matches.length > 3 ? '...' : ''}</span>
+                                    <span class="search-preview-ip">${this.escapeHtml(match.matches.slice(0, 3).join(', ') + (match.matches.length > 3 ? '...' : ''))}</span>
                                     ${match.addedOn ? `<br>➕ Added ${this.formatDateShort(match.addedOn)}` : ''}
-                                    ${match.lastEvent ? `<br>🕓 Last change ${this.formatDateShort(match.lastEvent)} (${match.lastEventAction || 'updated'})` : ''}
+                                    ${match.lastEvent ? `<br>🕓 Last change ${this.formatDateShort(match.lastEvent)} (${this.escapeHtml(match.lastEventAction || 'updated')})` : ''}
                                 </div>
                             </div>
                             <span class="search-result-badge ip">Active IP</span>
@@ -660,11 +808,11 @@ export class SearchManager {
                     return `
                         <div class="search-result-item historical" data-type="region" data-index="${index}">
                             <div class="search-result-info">
-                                <div class="search-result-name">${region.displayName}</div>
+                                <div class="search-result-name">${this.escapeHtml(region.displayName)}</div>
                                 <div class="search-result-meta">
                                     📊 ${region.totalChanges} change${region.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
                                     • Latest: ${this.formatDateShort(latestDate)}
-                                    ${variantText ? `<br><span class="search-variant">${variantText}</span>` : ''}
+                                    ${variantText ? `<br><span class="search-variant">${this.escapeHtml(variantText)}</span>` : ''}
                                 </div>
                             </div>
                             <span class="search-result-badge region">History</span>
@@ -686,7 +834,7 @@ export class SearchManager {
                     return `
                         <div class="search-result-item historical" data-type="service" data-index="${index}">
                             <div class="search-result-info">
-                                <div class="search-result-name">${service.name}</div>
+                                <div class="search-result-name">${this.escapeHtml(service.name)}</div>
                                 <div class="search-result-meta">
                                     📊 ${service.totalChanges} change${service.totalChanges !== 1 ? 's' : ''} across ${occurrenceCount} date${occurrenceCount !== 1 ? 's' : ''}
                                     <br>
@@ -714,7 +862,7 @@ export class SearchManager {
                     return `
                         <div class="search-result-item historical" data-type="ip" data-index="${index}">
                             <div class="search-result-info">
-                                <div class="search-result-name">${ipMatch.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${ipMatch.displayName})</span></div>
+                                <div class="search-result-name">${this.escapeHtml(ipMatch.service)} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${this.escapeHtml(ipMatch.displayName)})</span></div>
                                 <div class="search-result-meta">
                                     🎯 IP landed in ${ipMatch.totalMatches} historical change${ipMatch.totalMatches !== 1 ? 's' : ''}
                                     <br>
@@ -743,6 +891,20 @@ export class SearchManager {
                 25
             );
         });
+
+        // Reset keyboard selection; rows get ids lazily in setActiveOption so that
+        // pages added later by "Show more" are navigable too.
+        this.activeIndex = -1;
+        searchResults.querySelectorAll('.search-result-item').forEach(item => {
+            item.setAttribute('role', 'option');
+            item.setAttribute('aria-selected', 'false');
+        });
+
+        const searchInput = document.getElementById('globalSearch');
+        if (searchInput) {
+            searchInput.setAttribute('aria-expanded', 'true');
+            searchInput.removeAttribute('aria-activedescendant');
+        }
 
         // Delegated so rows added by "Show more" stay clickable
         if (!searchResults.dataset.clickDelegated) {
@@ -806,7 +968,7 @@ export class SearchManager {
         const modalContent = `
             <div class="changes-modal">
                 <div class="changes-modal-header">
-                    <h3>✅ ${serviceName} (Current State)</h3>
+                    <h3>✅ ${this.escapeHtml(serviceName)} (Current State)</h3>
                     <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
                 </div>
                 <div class="changes-modal-body">
@@ -827,7 +989,7 @@ export class SearchManager {
                     <div class="historical-events-list">
                         <div class="historical-event-item">
                             <div class="historical-event-header">
-                                <span class="historical-event-date">📍 Region: ${region}</span>
+                                <span class="historical-event-date">📍 Region: ${this.escapeHtml(region)}</span>
                                 <span style="color: var(--success-color); font-weight: 600;">Active</span>
                             </div>
                             ${ipContentHtml}
@@ -892,7 +1054,7 @@ export class SearchManager {
         const modalContent = `
             <div class="changes-modal">
                 <div class="changes-modal-header">
-                    <h3>🔧 ${serviceName} - Historical Changes</h3>
+                    <h3>🔧 ${this.escapeHtml(serviceName)} - Historical Changes</h3>
                     <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
                 </div>
                 <div class="changes-modal-body">
@@ -935,7 +1097,7 @@ export class SearchManager {
         const modalContent = `
             <div class="changes-modal">
                 <div class="changes-modal-header">
-                    <h3>🌍 ${displayName} - Historical Changes</h3>
+                    <h3>🌍 ${this.escapeHtml(displayName)} - Historical Changes</h3>
                     <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
                 </div>
                 <div class="changes-modal-body">
@@ -967,7 +1129,7 @@ export class SearchManager {
                 const renderIpItem = (ip) => {
                     const isMatch = matches.includes(ip);
                     const className = `ip-item ${type === 'added' ? 'added-ip' : 'removed-ip'} ${isMatch ? 'ip-match-highlight' : ''}`;
-                    return `<div class="${className}">${ip}</div>`;
+                    return `<div class="${className}">${this.escapeHtml(ip)}</div>`;
                 };
 
                 const visibleIPs = ips.slice(0, collapseThreshold);
@@ -1009,8 +1171,8 @@ export class SearchManager {
                     <div class="change-item detailed ip-changes">
                         <div class="change-header">
                             <div class="change-service">
-                                <strong>${change.service}</strong>
-                                <span class="change-region">${this.regionMapper.getRegionDisplayName(change.region)}</span>
+                                <strong>${this.escapeHtml(change.service)}</strong>
+                                <span class="change-region">${this.escapeHtml(this.regionMapper.getRegionDisplayName(change.region))}</span>
                             </div>
                             <div class="change-type-badge">IP Changes</div>
                         </div>
@@ -1030,7 +1192,7 @@ export class SearchManager {
         const modalContent = `
             <div class="changes-modal">
                 <div class="changes-modal-header">
-                    <h3>🔢 IP Search Results: ${ipMatch.service}</h3>
+                    <h3>🔢 IP Search Results: ${this.escapeHtml(ipMatch.service)}</h3>
                     <button onclick="this.closest('.changes-modal-overlay').remove()" class="close-modal-btn">&times;</button>
                 </div>
                 <div class="changes-modal-body">
@@ -1051,28 +1213,6 @@ export class SearchManager {
 
         const modal = this.modalManager.showCustomModal(modalContent);
         this.changeRenderer.renderPaged(modal.querySelector('.historical-events-list'), ipMatch.occurrences, renderEvent);
-    }
-
-    showRegionDetailsFromSearch(regionName, changesData) {
-        const changes = changesData.changes || [];
-        const baseKey = this.regionMapper.getBaseRegionKey(regionName);
-        const grouped = this.regionMapper.groupChangesByRegion(changes);
-        const targetGroup = grouped[baseKey];
-        const regionChanges = targetGroup ? targetGroup.changes : changes.filter(change => this.regionMapper.getBaseRegionKey(change.region) === baseKey);
-
-        if (regionChanges.length > 0) {
-            const displayName = targetGroup ? this.regionMapper.formatRegionGroupLabel(targetGroup) : this.regionMapper.getRegionDisplayName(regionName);
-            this.modalManager.showChangesModal(`🗺️ ${displayName} - Changes This Week`, regionChanges, 'region-specific');
-        }
-
-        // Clear search
-        const searchInput = document.getElementById('globalSearch');
-        const searchClear = document.getElementById('searchClear');
-        const searchResults = document.getElementById('searchResults');
-
-        if (searchInput) searchInput.value = '';
-        if (searchClear) searchClear.classList.remove('visible');
-        if (searchResults) searchResults.classList.add('hidden');
     }
 
     searchExample(query) {

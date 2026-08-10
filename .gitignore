@@ -87,6 +87,9 @@ ENV/
 test-output/
 *.tmp
 
+# Local tooling output
+graphify-out/
+
 # Keep data structure but ignore large JSON files in development
 # (GitHub Actions will populate these)
 # data/current.json
