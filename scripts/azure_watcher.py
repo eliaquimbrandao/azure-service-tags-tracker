@@ -444,12 +444,22 @@ def generate_changes_manifest():
                 # Extract date from filename (YYYY-MM-DD-changes.json)
                 date_match = re.match(r'(\d{4}-\d{2}-\d{2})-changes\.json', filename)
                 if date_match:
-                    file_size = file_path.stat().st_size
-                    change_files.append({
-                        'date': date_match.group(1),
+                    date = date_match.group(1)
+                    entry = {
+                        'date': date,
                         'filename': filename,
-                        'size': file_size
-                    })
+                        'size': file_path.stat().st_size
+                    }
+                    # Carry the snapshot's changeNumber so the analytics timeline
+                    # doesn't have to download 4.5MB history files to read it.
+                    history_file = Path('docs/data/history') / f'{date}.json'
+                    if history_file.exists():
+                        try:
+                            with open(history_file) as hf:
+                                entry['change_number'] = json.load(hf).get('changeNumber')
+                        except (OSError, json.JSONDecodeError) as e:
+                            logging.warning(f"Could not read changeNumber for {date}: {e}")
+                    change_files.append(entry)
         
         # Sort by date (newest first)
         change_files.sort(key=lambda x: x['date'], reverse=True)

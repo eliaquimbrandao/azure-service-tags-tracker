@@ -12,8 +12,7 @@ export class ServiceList {
 
         try {
             // Load manifest to get total weeks and file list
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
             const oldestDate = manifest.date_range?.oldest;
             const changeFiles = manifest.files
                 .filter(f => f.date !== oldestDate)
@@ -31,33 +30,28 @@ export class ServiceList {
             // Track rich per-service data
             const serviceMap = {};
 
-            for (const fileInfo of changeFiles) {
-                try {
-                    const resp = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                    const data = await resp.json();
+            const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
 
-                    (data.changes || []).forEach(change => {
-                        const rawName = change.service;
-                        if (!rawName || rawName.startsWith('AzureCloud')) return;
+            changeFiles.forEach((fileInfo, i) => {
+                (changeDatas[i]?.changes || []).forEach(change => {
+                    const rawName = change.service;
+                    if (!rawName || rawName.startsWith('AzureCloud')) return;
 
-                        // Use system_service for clean base name, fallback to splitting on '.'
-                        const name = change.system_service || rawName.split('.')[0];
+                    // Use system_service for clean base name, fallback to splitting on '.'
+                    const name = change.system_service || rawName.split('.')[0];
 
-                        if (!serviceMap[name]) {
-                            serviceMap[name] = { added: 0, removed: 0, weekDates: new Set(), recentWeeks: 0 };
-                        }
-                        const s = serviceMap[name];
-                        s.added += change.added_count || 0;
-                        s.removed += change.removed_count || 0;
-                        s.weekDates.add(fileInfo.date);
-                        if (recentDates.has(fileInfo.date)) {
-                            s.recentWeeks++;
-                        }
-                    });
-                } catch (err) {
-                    // skip failed files
-                }
-            }
+                    if (!serviceMap[name]) {
+                        serviceMap[name] = { added: 0, removed: 0, weekDates: new Set(), recentWeeks: 0 };
+                    }
+                    const s = serviceMap[name];
+                    s.added += change.added_count || 0;
+                    s.removed += change.removed_count || 0;
+                    s.weekDates.add(fileInfo.date);
+                    if (recentDates.has(fileInfo.date)) {
+                        s.recentWeeks++;
+                    }
+                });
+            });
 
             // Build scored list
             const services = Object.entries(serviceMap).map(([service, s]) => {

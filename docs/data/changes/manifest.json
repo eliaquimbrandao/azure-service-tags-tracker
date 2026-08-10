@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-10T01:23:07.208942+00:00",
+  "generated": "2026-08-10T14:21:33.826941+00:00",
   "total_files": 45,
   "date_range": {
     "oldest": "2025-10-08",
@@ -9,192 +9,230 @@
     {
       "date": "2026-08-10",
       "filename": "2026-08-10-changes.json",
-      "size": 66544
+      "size": 66544,
+      "change_number": 412
     },
     {
       "date": "2026-08-03",
       "filename": "2026-08-03-changes.json",
-      "size": 41134
+      "size": 41134,
+      "change_number": 411
     },
     {
       "date": "2026-07-27",
       "filename": "2026-07-27-changes.json",
-      "size": 24585
+      "size": 24585,
+      "change_number": 410
     },
     {
       "date": "2026-07-20",
       "filename": "2026-07-20-changes.json",
-      "size": 37587
+      "size": 37587,
+      "change_number": 409
     },
     {
       "date": "2026-07-13",
       "filename": "2026-07-13-changes.json",
-      "size": 28444
+      "size": 28444,
+      "change_number": 408
     },
     {
       "date": "2026-07-06",
       "filename": "2026-07-06-changes.json",
-      "size": 41298
+      "size": 41298,
+      "change_number": 407
     },
     {
       "date": "2026-06-29",
       "filename": "2026-06-29-changes.json",
-      "size": 31043
+      "size": 31043,
+      "change_number": 406
     },
     {
       "date": "2026-06-22",
       "filename": "2026-06-22-changes.json",
-      "size": 66920
+      "size": 66920,
+      "change_number": 405
     },
     {
       "date": "2026-06-15",
       "filename": "2026-06-15-changes.json",
-      "size": 67030
+      "size": 67030,
+      "change_number": 404
     },
     {
       "date": "2026-06-08",
       "filename": "2026-06-08-changes.json",
-      "size": 46980
+      "size": 46980,
+      "change_number": 403
     },
     {
       "date": "2026-06-01",
       "filename": "2026-06-01-changes.json",
-      "size": 184179
+      "size": 184179,
+      "change_number": 402
     },
     {
       "date": "2026-05-25",
       "filename": "2026-05-25-changes.json",
-      "size": 249
+      "size": 249,
+      "change_number": 400
     },
     {
       "date": "2026-05-18",
       "filename": "2026-05-18-changes.json",
-      "size": 48111
+      "size": 48111,
+      "change_number": 400
     },
     {
       "date": "2026-05-11",
       "filename": "2026-05-11-changes.json",
-      "size": 73180
+      "size": 73180,
+      "change_number": 399
     },
     {
       "date": "2026-05-04",
       "filename": "2026-05-04-changes.json",
-      "size": 41974
+      "size": 41974,
+      "change_number": 398
     },
     {
       "date": "2026-04-27",
       "filename": "2026-04-27-changes.json",
-      "size": 249
+      "size": 249,
+      "change_number": 397
     },
     {
       "date": "2026-04-20",
       "filename": "2026-04-20-changes.json",
-      "size": 45353
+      "size": 45353,
+      "change_number": 396
     },
     {
       "date": "2026-04-13",
       "filename": "2026-04-13-changes.json",
-      "size": 46571
+      "size": 46571,
+      "change_number": 394
     },
     {
       "date": "2026-04-06",
       "filename": "2026-04-06-changes.json",
-      "size": 249
+      "size": 249,
+      "change_number": 393
     },
     {
       "date": "2026-03-30",
       "filename": "2026-03-30-changes.json",
-      "size": 67508
+      "size": 67508,
+      "change_number": 393
     },
     {
       "date": "2026-03-23",
       "filename": "2026-03-23-changes.json",
-      "size": 14596
+      "size": 14596,
+      "change_number": 392
     },
     {
       "date": "2026-03-16",
       "filename": "2026-03-16-changes.json",
-      "size": 20131
+      "size": 20131,
+      "change_number": 391
     },
     {
       "date": "2026-03-09",
       "filename": "2026-03-09-changes.json",
-      "size": 55283
+      "size": 55283,
+      "change_number": 390
     },
     {
       "date": "2026-03-02",
       "filename": "2026-03-02-changes.json",
-      "size": 19908
+      "size": 19908,
+      "change_number": 389
     },
     {
       "date": "2026-02-23",
       "filename": "2026-02-23-changes.json",
-      "size": 15379
+      "size": 15379,
+      "change_number": 388
     },
     {
       "date": "2026-02-16",
       "filename": "2026-02-16-changes.json",
-      "size": 77826
+      "size": 77826,
+      "change_number": 387
     },
     {
       "date": "2026-02-09",
       "filename": "2026-02-09-changes.json",
-      "size": 249
+      "size": 249,
+      "change_number": 386
     },
     {
       "date": "2026-02-02",
       "filename": "2026-02-02-changes.json",
-      "size": 35577
+      "size": 35577,
+      "change_number": 386
     },
     {
       "date": "2026-01-26",
       "filename": "2026-01-26-changes.json",
-      "size": 40968
+      "size": 40968,
+      "change_number": 385
     },
     {
       "date": "2026-01-19",
       "filename": "2026-01-19-changes.json",
-      "size": 27199
+      "size": 27199,
+      "change_number": 384
     },
     {
       "date": "2026-01-12",
       "filename": "2026-01-12-changes.json",
-      "size": 248
+      "size": 248,
+      "change_number": 383
     },
     {
       "date": "2026-01-05",
       "filename": "2026-01-05-changes.json",
-      "size": 20372
+      "size": 20372,
+      "change_number": 382
     },
     {
       "date": "2025-12-29",
       "filename": "2025-12-29-changes.json",
-      "size": 250
+      "size": 250,
+      "change_number": 380
     },
     {
       "date": "2025-12-22",
       "filename": "2025-12-22-changes.json",
-      "size": 52702
+      "size": 52702,
+      "change_number": 380
     },
     {
       "date": "2025-12-15",
       "filename": "2025-12-15-changes.json",
-      "size": 31852
+      "size": 31852,
+      "change_number": 379
     },
     {
       "date": "2025-12-08",
       "filename": "2025-12-08-changes.json",
-      "size": 64980
+      "size": 64980,
+      "change_number": 378
     },
     {
       "date": "2025-12-01",
       "filename": "2025-12-01-changes.json",
-      "size": 250
+      "size": 250,
+      "change_number": 377
     },
     {
       "date": "2025-11-24",
       "filename": "2025-11-24-changes.json",
-      "size": 116656
+      "size": 116656,
+      "change_number": 377
     },
     {
       "date": "2025-11-17",
@@ -224,12 +262,14 @@
     {
       "date": "2025-10-10",
       "filename": "2025-10-10-changes.json",
-      "size": 52523
+      "size": 52523,
+      "change_number": 372
     },
     {
       "date": "2025-10-08",
       "filename": "2025-10-08-changes.json",
-      "size": 3365490
+      "size": 3365490,
+      "change_number": 371
     }
   ]
 }

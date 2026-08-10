@@ -5,11 +5,34 @@ export class DataManager {
         this.changesData = null;
         this.servicePrefixLookup = {};
         this.cacheBust = Date.now();
+        this.manifestPromise = null;
+        this.changeFileCache = {};
     }
 
     fetchWithCacheBust(url) {
         const separator = url.includes('?') ? '&' : '?';
         return fetch(`${url}${separator}t=${this.cacheBust}`);
+    }
+
+    /** Manifest is fetched once per page load and shared by every chart. */
+    async getManifest() {
+        this.manifestPromise ??= this.fetchWithCacheBust('data/changes/manifest.json').then(r => r.json());
+        return this.manifestPromise;
+    }
+
+    /**
+     * Load dated change files in parallel, once each.
+     * Dated files never change after publication, so no cache-busting: repeat
+     * visits hit the browser cache. Returns results aligned with fileInfos
+     * (null for anything that failed).
+     */
+    async getChangeFiles(fileInfos) {
+        return Promise.all(fileInfos.map(f => {
+            this.changeFileCache[f.filename] ??= fetch(`data/changes/${f.filename}`)
+                .then(r => (r.ok ? r.json() : null))
+                .catch(() => null);
+            return this.changeFileCache[f.filename];
+        }));
     }
 
     /**
@@ -30,21 +53,27 @@ export class DataManager {
     }
 
     async loadAllData() {
-        const timestamp = this.cacheBust;
-        
-        const [currentResponse, summaryResponse, changesResponse] = await Promise.all([
-            fetch(`./data/current.json?t=${timestamp}`),
-            fetch(`./data/summary.json?t=${timestamp}`),
-            fetch(`./data/changes/latest-changes.json?t=${timestamp}`)
+        // Fetch the small summary first, then key the big files off its
+        // last_updated so the 4.5MB current.json comes from browser cache
+        // until the data actually changes.
+        const summaryResponse = await fetch(`./data/summary.json?t=${this.cacheBust}`);
+        if (!summaryResponse.ok) {
+            throw new Error('Failed to load required data files');
+        }
+        this.summaryData = await summaryResponse.json();
+
+        const version = encodeURIComponent(this.summaryData.last_updated || this.cacheBust);
+        const [currentResponse, changesResponse] = await Promise.all([
+            fetch(`./data/current.json?v=${version}`),
+            fetch(`./data/changes/latest-changes.json?v=${version}`)
         ]);
 
-        if (!currentResponse.ok || !summaryResponse.ok) {
+        if (!currentResponse.ok) {
             throw new Error('Failed to load required data files');
         }
 
         this.currentData = await currentResponse.json();
-        this.summaryData = await summaryResponse.json();
-        
+
         if (changesResponse.ok) {
             this.changesData = await changesResponse.json();
         } else {

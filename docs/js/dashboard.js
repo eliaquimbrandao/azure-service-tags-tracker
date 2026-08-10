@@ -220,8 +220,7 @@ class AzureServiceTagsDashboard {
         if (dataPointsEl || durationEl) {
             try {
                 // Load manifest to get actual data coverage
-                const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-                const manifest = await manifestResponse.json();
+                const manifest = await this.dataManager.getManifest();
 
                 // Exclude baseline (oldest date) from counts
                 const totalFiles = manifest.total_files || 0;
@@ -237,7 +236,7 @@ class AzureServiceTagsDashboard {
                     if (dateRange && actualDataWeeks > 0) {
                         // Get the second oldest date (first actual change, not baseline)
                         const files = manifest.files || [];
-                        const sortedFiles = files.sort((a, b) => this.dataManager.parseDateOnly(a.date) - this.dataManager.parseDateOnly(b.date));
+                        const sortedFiles = [...files].sort((a, b) => this.dataManager.parseDateOnly(a.date) - this.dataManager.parseDateOnly(b.date));
 
                         // Skip the oldest (baseline) and use the second oldest as start
                         const firstChangeDate = sortedFiles.length > 1 ? this.dataManager.parseDateOnly(sortedFiles[1].date) : this.dataManager.parseDateOnly(dateRange.oldest);
@@ -275,45 +274,38 @@ class AzureServiceTagsDashboard {
         if (!summaryEl) return;
 
         try {
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
             const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
+            const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
 
             let azureCloudTotal = 0;
             let azureCloudGlobal = 0;
             const regionStats = {};
 
-            for (const fileInfo of changeFiles) {
-                try {
-                    const changeResponse = await fetch(`data/changes/${fileInfo.filename}`);
-                    const changeData = await changeResponse.json();
+            changeDatas.forEach(changeData => {
+                (changeData?.changes || []).forEach(change => {
+                    const serviceName = change.service;
 
-                    (changeData.changes || []).forEach(change => {
-                        const serviceName = change.service;
+                    // Only count AzureCloud tags
+                    if (serviceName.startsWith('AzureCloud')) {
+                        const addedCount = (change.added_prefixes || change.added || []).length;
+                        const removedCount = (change.removed_prefixes || change.removed || []).length;
+                        const totalChange = addedCount + removedCount;
+                        azureCloudTotal += totalChange;
 
-                        // Only count AzureCloud tags
-                        if (serviceName.startsWith('AzureCloud')) {
-                            const addedCount = (change.added_prefixes || change.added || []).length;
-                            const removedCount = (change.removed_prefixes || change.removed || []).length;
-                            const totalChange = addedCount + removedCount;
-                            azureCloudTotal += totalChange;
-
-                            if (serviceName === 'AzureCloud') {
-                                azureCloudGlobal += totalChange;
-                            } else {
-                                // Extract region from service name (e.g., AzureCloud.WestUS2 -> WestUS2)
-                                const region = serviceName.replace('AzureCloud.', '');
-                                if (!regionStats[region]) {
-                                    regionStats[region] = 0;
-                                }
-                                regionStats[region] += totalChange;
+                        if (serviceName === 'AzureCloud') {
+                            azureCloudGlobal += totalChange;
+                        } else {
+                            // Extract region from service name (e.g., AzureCloud.WestUS2 -> WestUS2)
+                            const region = serviceName.replace('AzureCloud.', '');
+                            if (!regionStats[region]) {
+                                regionStats[region] = 0;
                             }
+                            regionStats[region] += totalChange;
                         }
-                    });
-                } catch (err) {
-                    console.log(`Could not load ${fileInfo.filename}`);
-                }
-            }
+                    }
+                });
+            });
 
             const regionCount = Object.keys(regionStats).length;
 

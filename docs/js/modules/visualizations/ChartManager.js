@@ -13,79 +13,59 @@ export class ChartManager {
         if (!canvas) return;
 
         try {
-            // Load all historical data files to get changeNumber timeline
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            // changeNumber comes from the manifest; the 4.5MB history snapshots
+            // are never downloaded just to read one field.
+            const manifest = await this.dataManager.getManifest();
+            const files = manifest.files.filter(f => f.change_number);
+            const changeDatas = await this.dataManager.getChangeFiles(files);
 
-            const timelineData = [];
+            const timelineData = files.map((fileInfo, i) => {
+                const item = {
+                    date: fileInfo.date,
+                    changeNumber: parseInt(fileInfo.change_number),
+                    collectionDate: this.dataManager.parseDateOnly(fileInfo.date)
+                };
 
-            // Load historical files with Microsoft metadata
-            for (const fileInfo of manifest.files) {
-                try {
-                    const historyResponse = await this.dataManager.fetchWithCacheBust(`data/history/${fileInfo.date}.json`);
-                    const changesResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.date}-changes.json`);
+                const dateStr = changeDatas[i]?.metadata?.date_published;
+                if (dateStr) {
+                    let parsedDate = null;
 
-                    if (historyResponse.ok) {
-                        const historyData = await historyResponse.json();
-                        if (historyData.changeNumber) {
-                            const item = {
-                                date: fileInfo.date,
-                                changeNumber: parseInt(historyData.changeNumber),
-                                collectionDate: this.dataManager.parseDateOnly(fileInfo.date)
-                            };
-
-                            if (changesResponse.ok) {
-                                try {
-                                    const changesData = await changesResponse.json();
-                                    if (changesData.metadata && changesData.metadata.date_published) {
-                                        const dateStr = changesData.metadata.date_published;
-                                        let parsedDate = null;
-
-                                        const partsSlash = dateStr.split('/');
-                                        if (partsSlash.length === 3) {
-                                            const month = parseInt(partsSlash[0], 10) - 1;
-                                            const day = parseInt(partsSlash[1], 10);
-                                            const year = parseInt(partsSlash[2], 10);
-                                            if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
-                                                parsedDate = new Date(Date.UTC(year, month, day));
-                                            }
-                                        }
-
-                                        if (!parsedDate) {
-                                            const partsDash = dateStr.split('-');
-                                            if (partsDash.length === 3) {
-                                                const year = parseInt(partsDash[0], 10);
-                                                const month = parseInt(partsDash[1], 10) - 1;
-                                                const day = parseInt(partsDash[2], 10);
-                                                if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
-                                                    parsedDate = new Date(Date.UTC(year, month, day));
-                                                }
-                                            }
-                                        }
-
-                                        if (!parsedDate) {
-                                            const timestamp = Date.parse(dateStr);
-                                            if (!isNaN(timestamp)) {
-                                                parsedDate = new Date(timestamp);
-                                            }
-                                        }
-
-                                        if (parsedDate) {
-                                            item.microsoftPublished = parsedDate;
-                                        }
-                                    }
-                                } catch (err) {
-                                    console.warn(`Could not parse changes file for ${fileInfo.date}:`, err.message);
-                                }
-                            }
-
-                            timelineData.push(item);
+                    const partsSlash = dateStr.split('/');
+                    if (partsSlash.length === 3) {
+                        const month = parseInt(partsSlash[0], 10) - 1;
+                        const day = parseInt(partsSlash[1], 10);
+                        const year = parseInt(partsSlash[2], 10);
+                        if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
+                            parsedDate = new Date(Date.UTC(year, month, day));
                         }
                     }
-                } catch (err) {
-                    console.warn(`Could not load history file for ${fileInfo.date}:`, err.message);
+
+                    if (!parsedDate) {
+                        const partsDash = dateStr.split('-');
+                        if (partsDash.length === 3) {
+                            const year = parseInt(partsDash[0], 10);
+                            const month = parseInt(partsDash[1], 10) - 1;
+                            const day = parseInt(partsDash[2], 10);
+                            if (!isNaN(month) && !isNaN(day) && !isNaN(year)) {
+                                parsedDate = new Date(Date.UTC(year, month, day));
+                            }
+                        }
+                    }
+
+                    if (!parsedDate) {
+                        const timestamp = Date.parse(dateStr);
+                        if (!isNaN(timestamp)) {
+                            parsedDate = new Date(timestamp);
+                        }
+                    }
+
+                    if (parsedDate) {
+                        item.microsoftPublished = parsedDate;
+                    }
                 }
-            }
+
+                return item;
+            });
 
             // Sort by collection date
             timelineData.sort((a, b) => a.collectionDate - b.collectionDate);
@@ -419,8 +399,7 @@ export class ChartManager {
 
         try {
             // Load all historical changes
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
 
             // Exclude baseline
             const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
@@ -430,30 +409,26 @@ export class ChartManager {
                 return;
             }
 
+            const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
             const weeklyData = [];
 
-            for (const fileInfo of changeFiles) {
-                try {
-                    const changeResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                    const changeData = await changeResponse.json();
+            changeFiles.forEach((fileInfo, i) => {
+                if (!changeDatas[i]) return;
 
-                    let addedIPs = 0;
-                    let removedIPs = 0;
+                let addedIPs = 0;
+                let removedIPs = 0;
 
-                    (changeData.changes || []).forEach(change => {
-                        addedIPs += change.added_count || 0;
-                        removedIPs += change.removed_count || 0;
-                    });
+                (changeDatas[i].changes || []).forEach(change => {
+                    addedIPs += change.added_count || 0;
+                    removedIPs += change.removed_count || 0;
+                });
 
-                    weeklyData.push({
-                        date: fileInfo.date,
-                        added: addedIPs,
-                        removed: removedIPs
-                    });
-                } catch (err) {
-                    console.warn(`Could not load ${fileInfo.filename}:`, err.message);
-                }
-            }
+                weeklyData.push({
+                    date: fileInfo.date,
+                    added: addedIPs,
+                    removed: removedIPs
+                });
+            });
 
             // Sort by date
             weeklyData.sort((a, b) => this.dataManager.parseDateOnly(a.date) - this.dataManager.parseDateOnly(b.date));
@@ -664,31 +639,24 @@ export class ChartManager {
 
         try {
             // Load all historical changes to get regional distribution
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
 
             // Exclude baseline
             const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
+            const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
 
             const regionalData = {};
 
-            for (const fileInfo of changeFiles) {
-                try {
-                    const changeResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                    const changeData = await changeResponse.json();
-
-                    (changeData.changes || []).forEach(change => {
-                        const region = change.region || 'global';
-                        if (!regionalData[region]) {
-                            regionalData[region] = { added: 0, removed: 0 };
-                        }
-                        regionalData[region].added += change.added_count || 0;
-                        regionalData[region].removed += change.removed_count || 0;
-                    });
-                } catch (err) {
-                    console.warn(`Could not load ${fileInfo.filename}:`, err.message);
-                }
-            }
+            changeDatas.forEach(changeData => {
+                (changeData?.changes || []).forEach(change => {
+                    const region = change.region || 'global';
+                    if (!regionalData[region]) {
+                        regionalData[region] = { added: 0, removed: 0 };
+                    }
+                    regionalData[region].added += change.added_count || 0;
+                    regionalData[region].removed += change.removed_count || 0;
+                });
+            });
 
             // Separate Global from regional data
             const globalData = regionalData['global'] || { added: 0, removed: 0 };
