@@ -127,6 +127,44 @@ export class ChangeRenderer {
         }
     }
 
+    // Renders items into a container one page at a time, with a running count and
+    // a "Show more" button. renderItem(item, absoluteIndex) returns an HTML string.
+    // Re-callable: each call resets the container back to page one.
+    renderPaged(container, items, renderItem, pageSize = 10, emptyMessage = 'No results found.') {
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (!items || items.length === 0) {
+            container.innerHTML = `<div class="no-results">${emptyMessage}</div>`;
+            return;
+        }
+
+        const status = document.createElement('div');
+        status.className = 'paged-status';
+
+        const moreBtn = document.createElement('button');
+        moreBtn.className = 'show-more-btn paged-more-btn';
+        moreBtn.type = 'button';
+
+        container.append(status, moreBtn);
+
+        let shown = 0;
+        const renderNextPage = () => {
+            const page = items.slice(shown, shown + pageSize);
+            status.insertAdjacentHTML('beforebegin', page.map((item, i) => renderItem(item, shown + i)).join(''));
+            shown += page.length;
+
+            const remaining = items.length - shown;
+            status.textContent = `Showing ${shown} of ${items.length}`;
+            moreBtn.textContent = `Show more (${remaining} remaining)`;
+            moreBtn.hidden = remaining === 0;
+        };
+
+        moreBtn.addEventListener('click', renderNextPage);
+        renderNextPage();
+    }
+
     renderIPList(ips, type, uniqueId, label) {
         if (!ips || ips.length === 0) return '';
         

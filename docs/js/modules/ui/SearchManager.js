@@ -412,7 +412,7 @@ export class SearchManager {
                     const regionKey = this.normalizeKey(region, 'global');
                     const regionDisplay = this.regionMapper.getRegionDisplayName(region);
                     const combinedText = `${serviceName} ${region} ${regionDisplay} ${tag.name || ''}`.toLowerCase();
-                    
+
                     // Search Service Name in Current Data
                     if (serviceName.toLowerCase().includes(queryLower) ||
                         serviceName.toLowerCase().includes(queryCompact) ||
@@ -579,19 +579,23 @@ export class SearchManager {
         // Store data for click handlers
         this.historicalSearchData = { services, regions, ips, currentMatches };
 
-        let html = '';
+        // Categories render a page at a time: a broad query like "us" matches hundreds
+        // of rows, and dumping them all into a 500px dropdown made it unusable.
+        const sections = [];
 
         // --- Display Current State Results ---
         if (hasCurrent) {
-            html += '<div class="search-results-header" style="color: var(--success-color);">✅ Found in Current State (Active):</div>';
+            sections.push({ header: '<div class="search-results-header" style="color: var(--success-color);">✅ Found in Current State (Active):</div>' });
 
             // Active Services
             if (currentMatches.services && currentMatches.services.length > 0) {
-                html += '<div class="search-category-header">🔧 Active Services</div>';
-                currentMatches.services.forEach((service, index) => {
+                sections.push({
+                    header: '<div class="search-category-header">🔧 Active Services</div>',
+                    items: currentMatches.services,
+                    render: (service, index) => {
                     const ipv4 = (service.prefixes || []).filter(ip => !ip.includes(':')).length;
                     const ipv6 = (service.prefixes || []).filter(ip => ip.includes(':')).length;
-                    html += `
+                    return `
                         <div class="search-result-item current" data-type="current-service" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${service.name}</div>
@@ -606,14 +610,16 @@ export class SearchManager {
                             <span class="search-result-badge service">Active</span>
                         </div>
                     `;
+                    }
                 });
             }
 
             // Active IPs
             if (currentMatches.ips && currentMatches.ips.length > 0) {
-                html += '<div class="search-category-header">🔢 Active IP Addresses</div>';
-                currentMatches.ips.forEach((match, index) => {
-                    html += `
+                sections.push({
+                    header: '<div class="search-category-header">🔢 Active IP Addresses</div>',
+                    items: currentMatches.ips,
+                    render: (match, index) => `
                         <div class="search-result-item current" data-type="current-ip" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${match.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${match.displayName})</span></div>
@@ -627,29 +633,31 @@ export class SearchManager {
                             </div>
                             <span class="search-result-badge ip">Active IP</span>
                         </div>
-                    `;
+                    `
                 });
             }
-            
+
             if (hasHistorical) {
-                html += '<hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border-color);">';
+                sections.push({ header: '<hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border-color);">' });
             }
         }
 
         // --- Display Historical Results ---
         if (hasHistorical) {
-            html += '<div class="search-results-header">📜 Found in Historical Changes:</div>';
+            sections.push({ header: '<div class="search-results-header">📜 Found in Historical Changes:</div>' });
 
             // Display region results
             if (regions.length > 0) {
-                html += '<div class="search-category-header">🌍 Regions (History)</div>';
-                regions.forEach((region, index) => {
+                sections.push({
+                    header: '<div class="search-category-header">🌍 Regions (History)</div>',
+                    items: regions,
+                    render: (region, index) => {
                     const occurrenceCount = region.occurrences.length;
                     const latestDate = region.occurrences[0]?.date;
                     const variants = Array.from(region.variants || []);
                     const variantText = variants.length > 1 ? `Includes: ${variants.join(', ')}` : '';
 
-                    html += `
+                    return `
                         <div class="search-result-item historical" data-type="region" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${region.displayName}</div>
@@ -662,17 +670,20 @@ export class SearchManager {
                             <span class="search-result-badge region">History</span>
                         </div>
                     `;
+                    }
                 });
             }
 
             // Display service results
             if (services.length > 0) {
-                html += '<div class="search-category-header">🔧 Services (History)</div>';
-                services.forEach((service, index) => {
+                sections.push({
+                    header: '<div class="search-category-header">🔧 Services (History)</div>',
+                    items: services,
+                    render: (service, index) => {
                     const occurrenceCount = service.occurrences.length;
                     const latestDate = service.occurrences[0]?.date;
 
-                    html += `
+                    return `
                         <div class="search-result-item historical" data-type="service" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${service.name}</div>
@@ -687,17 +698,20 @@ export class SearchManager {
                             <span class="search-result-badge service">History</span>
                         </div>
                     `;
+                    }
                 });
             }
 
             // Display IP results
             if (ips.length > 0) {
-                html += '<div class="search-category-header">🔢 IP Addresses (History)</div>';
-                ips.forEach((ipMatch, index) => {
+                sections.push({
+                    header: '<div class="search-category-header">🔢 IP Addresses (History)</div>',
+                    items: ips,
+                    render: (ipMatch, index) => {
                     const latestDate = ipMatch.occurrences[0].date;
                     const occurrenceCount = ipMatch.occurrences.length;
-                    
-                    html += `
+
+                    return `
                         <div class="search-result-item historical" data-type="ip" data-index="${index}">
                             <div class="search-result-info">
                                 <div class="search-result-name">${ipMatch.service} <span style="font-weight:normal; font-size:0.9em; color:var(--text-secondary);">(${ipMatch.displayName})</span></div>
@@ -710,49 +724,52 @@ export class SearchManager {
                             <span class="search-result-badge ip">History</span>
                         </div>
                     `;
+                    }
                 });
             }
         }
 
-        searchResults.innerHTML = html;
+        searchResults.innerHTML = sections
+            .map((section, i) => section.items ? `${section.header}<div class="search-category-list" data-section="${i}"></div>` : section.header)
+            .join('');
         searchResults.classList.remove('hidden');
 
-        // Add event listeners for historical results
-        searchResults.querySelectorAll('.search-result-item.historical').forEach(item => {
-            item.addEventListener('click', (e) => {
+        sections.forEach((section, i) => {
+            if (!section.items) return;
+            this.changeRenderer.renderPaged(
+                searchResults.querySelector(`[data-section="${i}"]`),
+                section.items,
+                section.render,
+                25
+            );
+        });
+
+        // Delegated so rows added by "Show more" stay clickable
+        if (!searchResults.dataset.clickDelegated) {
+            searchResults.dataset.clickDelegated = 'true';
+            searchResults.addEventListener('click', (e) => {
+                const item = e.target.closest('.search-result-item');
+                if (!item || !searchResults.contains(item)) return;
+
                 const type = item.getAttribute('data-type');
                 const index = parseInt(item.getAttribute('data-index'));
+                const data = this.historicalSearchData;
 
                 if (type === 'service') {
-                    const service = this.historicalSearchData.services[index];
+                    const service = data.services[index];
                     this.showHistoricalServiceDetails(service.name, service.occurrences);
                 } else if (type === 'region') {
-                    const region = this.historicalSearchData.regions[index];
+                    const region = data.regions[index];
                     this.showHistoricalRegionDetails(region.name, region.occurrences);
                 } else if (type === 'ip') {
-                    const ipMatch = this.historicalSearchData.ips[index];
-                    this.showHistoricalIPDetails(ipMatch);
+                    this.showHistoricalIPDetails(data.ips[index]);
+                } else if (type === 'current-service') {
+                    this.showCurrentStateDetails(data.currentMatches.services[index]);
+                } else if (type === 'current-ip') {
+                    this.showCurrentStateDetails(data.currentMatches.ips[index]);
                 }
             });
-        });
-
-        // Add event listeners for current/active results
-        searchResults.querySelectorAll('.search-result-item.current').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const type = item.getAttribute('data-type');
-                const index = parseInt(item.getAttribute('data-index'));
-                
-                if (type === 'current-service' || type === 'current-ip') {
-                    // For current items, we can show a simple modal with the current IPs
-                    // Retrieve data from stored currentMatches
-                    const match = type === 'current-service' 
-                        ? this.historicalSearchData.currentMatches.services[index] 
-                        : this.historicalSearchData.currentMatches.ips[index];
-                        
-                    this.showCurrentStateDetails(match);
-                }
-            });
-        });
+        }
     }
 
     showCurrentStateDetails(match) {
@@ -853,11 +870,11 @@ export class SearchManager {
         const totalIPAdded = events.reduce((sum, e) => sum + ((e.change.added_prefixes || []).length), 0);
         const totalIPRemoved = events.reduce((sum, e) => sum + ((e.change.removed_prefixes || []).length), 0);
 
-        const eventsHtml = events.map(event => {
+        const renderEvent = (event) => {
             const change = event.change;
             const ipAdded = (change.added_prefixes || []).length;
             const ipRemoved = (change.removed_prefixes || []).length;
-            
+
             return `
                 <div class="historical-event-item">
                     <div class="historical-event-header">
@@ -870,7 +887,7 @@ export class SearchManager {
                     ${this.changeRenderer.renderChangeItemDetailed(change)}
                 </div>
             `;
-        }).join('');
+        };
 
         const modalContent = `
             <div class="changes-modal">
@@ -893,31 +910,27 @@ export class SearchManager {
                             <div class="summary-stat-label">Total IPs Removed</div>
                         </div>
                     </div>
-                    <div class="historical-events-list">
-                        ${eventsHtml}
-                    </div>
+                    <div class="historical-events-list"></div>
                 </div>
             </div>
         `;
 
-        this.modalManager.showCustomModal(modalContent);
+        const modal = this.modalManager.showCustomModal(modalContent);
+        this.changeRenderer.renderPaged(modal.querySelector('.historical-events-list'), events, renderEvent);
     }
 
     showHistoricalRegionDetails(regionName, occurrences) {
         const events = typeof occurrences === 'string' ? JSON.parse(occurrences) : occurrences;
         const displayName = regionName ? this.regionMapper.getRegionDisplayName(regionName) : '🌐 Global';
 
-        const eventsHtml = events.map(event => {
-            const change = event.change;
-            return `
-                <div class="historical-event-item">
-                    <div class="historical-event-header">
-                        <span class="historical-event-date">📅 ${this.formatDate(event.date)}</span>
-                    </div>
-                    ${this.changeRenderer.renderChangeItemDetailed(change)}
+        const renderEvent = (event) => `
+            <div class="historical-event-item">
+                <div class="historical-event-header">
+                    <span class="historical-event-date">📅 ${this.formatDate(event.date)}</span>
                 </div>
-            `;
-        }).join('');
+                ${this.changeRenderer.renderChangeItemDetailed(event.change)}
+            </div>
+        `;
 
         const modalContent = `
             <div class="changes-modal">
@@ -932,18 +945,17 @@ export class SearchManager {
                             <div class="summary-stat-label">Change Events</div>
                         </div>
                     </div>
-                    <div class="historical-events-list">
-                        ${eventsHtml}
-                    </div>
+                    <div class="historical-events-list"></div>
                 </div>
             </div>
         `;
 
-        this.modalManager.showCustomModal(modalContent);
+        const modal = this.modalManager.showCustomModal(modalContent);
+        this.changeRenderer.renderPaged(modal.querySelector('.historical-events-list'), events, renderEvent);
     }
 
     showHistoricalIPDetails(ipMatch) {
-        const eventsHtml = ipMatch.occurrences.map(event => {
+        const renderEvent = (event) => {
             const change = event.change;
             const matches = event.matches;
             const uniqueId = `hist-ip-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -1013,7 +1025,7 @@ export class SearchManager {
                     </div>
                 </div>
             `;
-        }).join('');
+        };
 
         const modalContent = `
             <div class="changes-modal">
@@ -1032,14 +1044,13 @@ export class SearchManager {
                             <div class="summary-stat-label">Matching Ranges</div>
                         </div>
                     </div>
-                    <div class="historical-events-list">
-                        ${eventsHtml}
-                    </div>
+                    <div class="historical-events-list"></div>
                 </div>
             </div>
         `;
 
-        this.modalManager.showCustomModal(modalContent);
+        const modal = this.modalManager.showCustomModal(modalContent);
+        this.changeRenderer.renderPaged(modal.querySelector('.historical-events-list'), ipMatch.occurrences, renderEvent);
     }
 
     showRegionDetailsFromSearch(regionName, changesData) {
