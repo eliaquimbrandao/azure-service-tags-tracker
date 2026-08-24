@@ -1,11 +1,17 @@
 {
-  "generated": "2026-08-17T01:00:50.985459+00:00",
-  "total_files": 46,
+  "generated": "2026-08-24T01:02:11.787355+00:00",
+  "total_files": 47,
   "date_range": {
     "oldest": "2025-10-08",
-    "newest": "2026-08-17"
+    "newest": "2026-08-24"
   },
   "files": [
+    {
+      "date": "2026-08-24",
+      "filename": "2026-08-24-changes.json",
+      "size": 56837,
+      "change_number": 414
+    },
     {
       "date": "2026-08-17",
       "filename": "2026-08-17-changes.json",
