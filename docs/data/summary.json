@@ -1,90 +1,73 @@
 {
-  "last_updated": "2026-08-24T01:02:10.922778+00:00",
+  "last_updated": "2026-08-31T03:19:37.559278+00:00",
   "total_services": 3321,
-  "total_ip_ranges": 108863,
-  "changes_this_week": 81,
-  "ip_changes": 81,
+  "total_ip_ranges": 95335,
+  "changes_this_week": 21,
+  "ip_changes": 21,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 21,
-    "eastus": 2,
-    "eastus2": 2,
-    "westus2": 3,
-    "southcentralus": 2,
-    "uksouth": 2,
-    "westus": 2,
-    "centralindia": 1,
-    "southindia": 1,
-    "chilec": 3,
-    "denmarkeast": 3,
-    "israelnorthwest": 3,
-    "malaysiasouth": 3,
-    "malaysiawest": 3,
-    "mexicocentral": 3,
-    "taiwannorth": 3,
-    "taiwannorthwest": 3,
-    "austriaeast": 2,
+    "eastus3": 2,
     "australiaeast": 1,
+    "australiasoutheast": 1,
     "centralus": 1,
-    "eastus2euap": 1,
-    "eastus3": 1,
-    "germanyn": 1,
+    "eastasia": 1,
+    "eastus2": 1,
     "germanywc": 1,
-    "indiasouthcentral": 1,
-    "italynorth": 1,
-    "koreacentral": 1,
-    "newzealandnorth": 1,
+    "malaysiawest": 1,
+    "mexicocentral": 1,
     "northcentralus": 1,
-    "northeurope": 1,
-    "polandcentral": 1,
-    "southafricawest": 1,
+    "southcentralus2": 1,
+    "southeastus": 1,
+    "southwestus": 1,
     "spaincentral": 1,
     "swedencentral": 1,
     "switzerlandn": 1,
-    "westeurope": 1,
-    "westus3": 1
+    "uksouth": 1,
+    "westus3": 1,
+    "westus": 1,
+    "": 1
   },
   "top_active_services": [
     {
-      "service": "AzureSiteRecovery",
-      "change_count": 426
-    },
-    {
       "service": "AzureCloud",
-      "change_count": 282
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 42
-    },
-    {
-      "service": "AzureCloud.westeurope",
-      "change_count": 36
+      "change_count": 14547
     },
     {
       "service": "AzureCloud.eastus2",
-      "change_count": 23
+      "change_count": 131
     },
     {
-      "service": "AzureCloud.chilec",
+      "service": "AzureCloud.centralus",
+      "change_count": 111
+    },
+    {
+      "service": "AzureCloud.westus",
+      "change_count": 30
+    },
+    {
+      "service": "AzureCloud.southwestus",
       "change_count": 17
     },
     {
-      "service": "AzureCloud.newzealandnorth",
-      "change_count": 17
+      "service": "AzureCloud.malaysiawest",
+      "change_count": 9
     },
     {
-      "service": "AzureCloud.westus3",
-      "change_count": 14
+      "service": "AzureCloud.southeastus",
+      "change_count": 9
     },
     {
-      "service": "CognitiveServicesManagement",
-      "change_count": 12
+      "service": "AzureCloud.southcentralus2",
+      "change_count": 7
     },
     {
-      "service": "AzureCloud.eastus3",
-      "change_count": 12
+      "service": "AzureCloud.eastasia",
+      "change_count": 4
+    },
+    {
+      "service": "AzureCloud.northcentralus",
+      "change_count": 4
     }
   ],
   "available_dates": [
@@ -129,6 +112,7 @@
     "2026-07-27",
     "2026-08-03",
     "2026-08-10",
-    "2026-08-17"
+    "2026-08-17",
+    "2026-08-24"
   ]
 }
