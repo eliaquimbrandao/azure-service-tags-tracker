@@ -1,71 +1,108 @@
 {
-  "last_updated": "2026-09-14T03:09:29.957235+00:00",
+  "last_updated": "2026-09-21T03:06:42.016389+00:00",
   "total_services": 3321,
-  "total_ip_ranges": 95623,
-  "changes_this_week": 57,
-  "ip_changes": 57,
+  "total_ip_ranges": 98146,
+  "changes_this_week": 83,
+  "ip_changes": 83,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 27,
-    "canadaeast": 14,
-    "eastus3": 1,
+    "": 5,
+    "brazilsouth": 2,
+    "canadacentral": 2,
+    "centralindia": 2,
+    "centralfrance": 2,
+    "germanywc": 2,
+    "indonesiacentral": 1,
+    "israelcentral": 2,
+    "italynorth": 2,
+    "japaneast": 2,
+    "japanwest": 2,
+    "koreacentral": 2,
+    "mexicocentral": 2,
+    "newzealandnorth": 1,
+    "norwaye": 2,
+    "polandcentral": 2,
+    "qatarcentral": 2,
+    "southafricanorth": 2,
+    "southcentralus": 2,
+    "spaincentral": 2,
+    "swedencentral": 2,
+    "switzerlandn": 2,
+    "taiwannorth": 1,
+    "uaenorth": 2,
+    "westus2": 1,
+    "westus3": 3,
+    "eastus3": 2,
+    "southeastus3": 1,
+    "southeastus5": 1,
+    "southwestus": 1,
+    "westcentralus": 2,
+    "australiacentral": 1,
     "australiaeast": 1,
     "australiasoutheast": 1,
-    "belgiumcentral": 1,
+    "brazilse": 1,
+    "canadaeast": 1,
+    "centraluseuap": 1,
     "centralus": 1,
+    "eastasia": 1,
+    "eastus2euap": 1,
     "eastus2": 1,
+    "eastus": 1,
+    "southfrance": 1,
+    "germanyn": 1,
+    "koreasouth": 1,
     "northcentralus": 1,
-    "polandcentral": 1,
-    "southcentralus2": 1,
-    "southcentralus": 1,
-    "swedencentral": 1,
+    "northeurope": 1,
+    "norwayw": 1,
+    "southafricawest": 1,
+    "southindia": 1,
+    "southeastasia": 1,
+    "swedensouth": 1,
     "uksouth": 1,
     "ukwest": 1,
-    "westcentralus": 1,
-    "westus2": 1,
-    "westus3": 1
+    "westeurope": 1
   },
   "top_active_services": [
     {
+      "service": "AzureCloud",
+      "change_count": 1371
+    },
+    {
+      "service": "AzureCloud.uksouth",
+      "change_count": 161
+    },
+    {
       "service": "AzureCloud.eastus2",
+      "change_count": 102
+    },
+    {
+      "service": "AzureCloud.eastus",
+      "change_count": 95
+    },
+    {
+      "service": "AzureCloud.australiaeast",
+      "change_count": 58
+    },
+    {
+      "service": "AzureCloud.westeurope",
+      "change_count": 53
+    },
+    {
+      "service": "AzureCloud.canadacentral",
+      "change_count": 51
+    },
+    {
+      "service": "AzureCloud.northeurope",
+      "change_count": 49
+    },
+    {
+      "service": "AzureCloud.japaneast",
       "change_count": 44
     },
     {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 42
-    },
-    {
-      "service": "AzureCloud.centralus",
-      "change_count": 32
-    },
-    {
-      "service": "DataFactory",
-      "change_count": 26
-    },
-    {
-      "service": "AzureCloud.westus3",
-      "change_count": 20
-    },
-    {
-      "service": "DataFactoryManagement",
-      "change_count": 17
-    },
-    {
-      "service": "AzureCloud.polandcentral",
-      "change_count": 12
-    },
-    {
-      "service": "AzureCloud.belgiumcentral",
-      "change_count": 8
-    },
-    {
-      "service": "AzureCloud.canadaeast",
-      "change_count": 8
-    },
-    {
-      "service": "AzureCloud.northcentralus",
-      "change_count": 8
+      "service": "AzureCloud.eastus2euap",
+      "change_count": 35
     }
   ],
   "available_dates": [
@@ -113,6 +150,7 @@
     "2026-08-17",
     "2026-08-24",
     "2026-08-31",
-    "2026-09-07"
+    "2026-09-07",
+    "2026-09-14"
   ]
 }
