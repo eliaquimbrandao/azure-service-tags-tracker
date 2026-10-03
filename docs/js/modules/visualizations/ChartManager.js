@@ -557,14 +557,6 @@ export class ChartManager {
             }
         };
 
-        // Compute y-axis max across all months for consistent scale
-        let globalMax = 0;
-        for (const [, data] of this.weeklyDataByMonth) {
-            for (const d of data) {
-                globalMax = Math.max(globalMax, d.added, d.removed);
-            }
-        }
-
         // Create chart
         this.weeklyActivityChart = new Chart(canvas, {
             type: 'bar',
@@ -621,7 +613,6 @@ export class ChartManager {
                     y: {
                         stacked: false,
                         beginAtZero: true,
-                        suggestedMax: globalMax * 1.1,
                         title: {
                             display: true,
                             text: 'Number of IP Ranges'
@@ -699,8 +690,8 @@ export class ChartManager {
                 return;
             }
 
-            // Reverse for horizontal bar (top item at top)
-            const displayRegions = [...sortedRegions].reverse();
+            // Chart.js draws the first label at the top, so keep descending order
+            const displayRegions = sortedRegions;
 
             const labels = displayRegions.map(r => this.regionMapper.getRegionDisplayName(r.region));
             const addedData = displayRegions.map(r => r.added);

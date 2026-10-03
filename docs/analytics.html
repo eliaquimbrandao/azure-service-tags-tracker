@@ -121,10 +121,6 @@
                             <div class="chart-container regional-bar-container">
                                 <canvas id="activeServicesChart"></canvas>
                             </div>
-                            <div id="servicesTableContainer"></div>
-                            <div class="chart-footer">
-                                <span class="chart-hint">💡 Score combines: how often a service changes, how many IPs are affected, and recent activity</span>
-                            </div>
                         </article>
 
                         <!-- Regional Activity -->
@@ -142,6 +138,15 @@
                             </div>
                         </article>
                     </div>
+
+                    <!-- Service Activity Scores (Full Width) -->
+                    <article class="chart-card full-width">
+                        <div class="chart-header">
+                            <h3>📋 Service Activity Scores</h3>
+                            <p>All services ranked by how often and how much they change</p>
+                        </div>
+                        <div id="servicesTableContainer"></div>
+                    </article>
 
                     <!-- Microsoft Update Timeline -->
                     <article class="chart-card full-width">

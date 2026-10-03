@@ -932,6 +932,45 @@ body {
     margin-right: 0.3rem;
 }
 
+/* Phones: drop the columns the bar chart already shows so the table fits */
+@media (max-width: 768px) {
+    .services-table-wrapper {
+        margin: 0 1rem 1rem;
+    }
+
+    .services-table th:nth-child(n+4):nth-child(-n+6),
+    .services-table td:nth-child(n+4):nth-child(-n+6) {
+        display: none;
+    }
+
+    .services-table th,
+    .services-table td {
+        padding: 0.4rem;
+    }
+
+    .services-table th {
+        font-size: 0.7rem;
+        letter-spacing: 0;
+    }
+
+    .services-table .svc-name {
+        font-size: 0.75rem;
+        overflow-wrap: anywhere;
+    }
+
+    .services-table .svc-score {
+        width: auto;
+    }
+
+    .score-bar {
+        display: none;
+    }
+
+    .score-legend {
+        padding: 0.5rem 1rem 1rem;
+    }
+}
+
 /* Month Navigation */
 .month-nav {
     display: flex;

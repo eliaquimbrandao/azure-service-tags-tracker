@@ -100,8 +100,8 @@ export class ServiceList {
         const top15 = this.allServices.slice(0, 15);
         if (top15.length === 0) return;
 
-        // Reverse for horizontal bar (top item at top)
-        const display = [...top15].reverse();
+        // Chart.js draws the first label at the top, so keep rank order (matches the table)
+        const display = top15;
 
         if (this.activeServicesChart) {
             this.activeServicesChart.destroy();
