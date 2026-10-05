@@ -1,11 +1,17 @@
 {
-  "generated": "2026-09-28T03:23:43.561928+00:00",
-  "total_files": 52,
+  "generated": "2026-10-05T03:50:53.336090+00:00",
+  "total_files": 53,
   "date_range": {
     "oldest": "2025-10-08",
-    "newest": "2026-09-28"
+    "newest": "2026-10-05"
   },
   "files": [
+    {
+      "date": "2026-10-05",
+      "filename": "2026-10-05-changes.json",
+      "size": 56582,
+      "change_number": 420
+    },
     {
       "date": "2026-09-28",
       "filename": "2026-09-28-changes.json",
