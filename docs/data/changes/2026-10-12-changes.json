@@ -1,0 +1,888 @@
+{
+  "date": "2026-10-12",
+  "changes": [
+    {
+      "type": "ip_changes",
+      "service": "AzureMonitor",
+      "added_prefixes": [
+        "172.134.20.128/25",
+        "48.206.201.0/25",
+        "74.146.240.128/25",
+        "74.159.238.0/25"
+      ],
+      "removed_prefixes": [],
+      "added_count": 4,
+      "removed_count": 0,
+      "region": "",
+      "system_service": "AzureMonitor"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureSentinel",
+      "added_prefixes": [
+        "74.159.237.139/32"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "",
+      "system_service": "AzureSentinel"
+    },
+    {
+      "type": "ip_changes",
+      "service": "DataFactory",
+      "added_prefixes": [
+        "74.144.163.0/27"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "",
+      "system_service": "DataFactory"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI",
+      "added_prefixes": [
+        "57.170.20.48/28",
+        "68.211.211.48/28",
+        "74.146.233.217/32",
+        "74.146.233.220/30",
+        "74.146.240.0/26",
+        "74.146.240.64/29",
+        "74.148.21.240/28",
+        "74.151.91.80/28",
+        "74.152.14.224/28",
+        "74.156.26.80/29",
+        "74.158.67.96/27",
+        "74.240.18.64/29",
+        "9.205.223.80/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 13,
+      "removed_count": 0,
+      "region": "",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureMonitor.CentralUS",
+      "added_prefixes": [
+        "172.134.20.128/25"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "centralus",
+      "system_service": "AzureMonitor"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureMonitor.EastUS",
+      "added_prefixes": [
+        "48.206.201.0/25"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "eastus",
+      "system_service": "AzureMonitor"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureMonitor.EastUS2",
+      "added_prefixes": [
+        "74.159.238.0/25"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "eastus2",
+      "system_service": "AzureMonitor"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureMonitor.WestUS2",
+      "added_prefixes": [
+        "74.146.240.128/25"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "westus2",
+      "system_service": "AzureMonitor"
+    },
+    {
+      "type": "ip_changes",
+      "service": "Storage.AustraliaEast",
+      "added_prefixes": [
+        "57.163.90.0/23"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "australiaeast",
+      "system_service": "AzureStorage"
+    },
+    {
+      "type": "ip_changes",
+      "service": "Storage.SouthCentralUS2",
+      "added_prefixes": [
+        "145.190.197.0/24"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "southcentralus2",
+      "system_service": "AzureStorage"
+    },
+    {
+      "type": "ip_changes",
+      "service": "Storage.SouthwestUS",
+      "added_prefixes": [
+        "145.190.196.0/24",
+        "57.163.62.0/23",
+        "57.163.88.0/23"
+      ],
+      "removed_prefixes": [],
+      "added_count": 3,
+      "removed_count": 0,
+      "region": "southwestus",
+      "system_service": "AzureStorage"
+    },
+    {
+      "type": "ip_changes",
+      "service": "DataFactory.WestEurope",
+      "added_prefixes": [
+        "74.144.163.0/27"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "westeurope",
+      "system_service": "DataFactory"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.AustriaEast",
+      "added_prefixes": [
+        "74.148.21.240/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "austriaeast",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.BelgiumCentral",
+      "added_prefixes": [
+        "74.152.14.224/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "belgiumcentral",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.ChileCentral",
+      "added_prefixes": [
+        "68.211.211.48/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "chilec",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.DenmarkEast",
+      "added_prefixes": [
+        "9.205.223.80/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "denmarkeast",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.EastUS2EUAP",
+      "added_prefixes": [
+        "74.151.91.80/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "eastus2euap",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.MalaysiaWest",
+      "added_prefixes": [
+        "74.156.26.80/29"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "malaysiawest",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.NorwayWest",
+      "added_prefixes": [
+        "74.240.18.64/29"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "norwayw",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.SwedenCentral",
+      "added_prefixes": [
+        "74.158.67.96/27"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "swedencentral",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.TaiwanNorthwest",
+      "added_prefixes": [
+        "57.170.20.48/28"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "taiwannorthwest",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "PowerBI.WestUS2",
+      "added_prefixes": [
+        "74.146.233.217/32",
+        "74.146.233.220/30",
+        "74.146.240.0/26",
+        "74.146.240.64/29"
+      ],
+      "removed_prefixes": [],
+      "added_count": 4,
+      "removed_count": 0,
+      "region": "westus2",
+      "system_service": "PowerBI"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureFrontDoor.Frontend",
+      "added_prefixes": [
+        "172.192.235.160/30"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureFrontDoor.Backend",
+      "added_prefixes": [
+        "74.152.14.160/29"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "DataFactoryManagement",
+      "added_prefixes": [
+        "74.144.163.0/27"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "",
+      "system_service": "DataFactory"
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.australiaeast",
+      "added_prefixes": [
+        "40.120.176.0/23",
+        "57.163.90.0/23"
+      ],
+      "removed_prefixes": [
+        "40.120.176.0/24",
+        "40.120.177.0/26",
+        "40.120.177.128/25",
+        "40.120.177.64/28",
+        "40.120.177.80/29",
+        "40.120.177.88/30",
+        "40.120.177.94/31",
+        "40.120.177.96/27"
+      ],
+      "added_count": 2,
+      "removed_count": 8,
+      "region": "australiaeast",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.belgiumcentral",
+      "added_prefixes": [
+        "20.20.121.240/30",
+        "2603:1061:1016:f0::/63",
+        "2603:1063:63a::/56"
+      ],
+      "removed_prefixes": [],
+      "added_count": 3,
+      "removed_count": 0,
+      "region": "belgiumcentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.canadaeast",
+      "added_prefixes": [
+        "2603:1030:1008:4::/63",
+        "2603:1030:1008:6::/64",
+        "48.208.100.0/24",
+        "48.208.96.0/24",
+        "48.208.98.0/24"
+      ],
+      "removed_prefixes": [
+        "2603:1030:1008:4::/64"
+      ],
+      "added_count": 5,
+      "removed_count": 1,
+      "region": "canadaeast",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.centralindia",
+      "added_prefixes": [
+        "20.20.85.224/29",
+        "20.20.85.232/30",
+        "20.20.85.236/31",
+        "2603:104c:0:200::/55"
+      ],
+      "removed_prefixes": [],
+      "added_count": 4,
+      "removed_count": 0,
+      "region": "centralindia",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.centraluseuap",
+      "added_prefixes": [
+        "2603:1063:734:100::/64"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "centraluseuap",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.centralus",
+      "added_prefixes": [
+        "2603:1030:9:33c::/63",
+        "2603:1030:9:33e::/64",
+        "40.123.169.160/27",
+        "40.123.170.88/29"
+      ],
+      "removed_prefixes": [
+        "2603:1030:9:33c::/64",
+        "40.123.169.160/28",
+        "40.123.169.176/31",
+        "40.123.169.180/30",
+        "40.123.169.184/29",
+        "40.123.170.88/30",
+        "40.123.170.92/31"
+      ],
+      "added_count": 4,
+      "removed_count": 7,
+      "region": "centralus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.eastasia",
+      "added_prefixes": [
+        "172.145.0.0/17"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "eastasia",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.eastus2",
+      "added_prefixes": [
+        "172.139.128.0/17",
+        "2603:1030:401:b20::/61",
+        "57.157.50.120/30",
+        "57.157.50.124/31"
+      ],
+      "removed_prefixes": [
+        "2603:1030:401:b20::/62",
+        "2603:1030:401:b24::/64"
+      ],
+      "added_count": 4,
+      "removed_count": 2,
+      "region": "eastus2",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.eastus3",
+      "added_prefixes": [
+        "172.140.0.0/17",
+        "2603:1061:101a:100::/59",
+        "2603:1061:101a:120::/60",
+        "2603:1061:101a:130::/61",
+        "2603:1061:101a:138::/62",
+        "2603:1061:101a:13c::/63",
+        "2603:1061:101a::/56",
+        "57.157.24.0/23",
+        "57.157.26.0/25",
+        "57.157.26.128/31"
+      ],
+      "removed_prefixes": [
+        "2603:1061:101a:80::/58",
+        "2603:1061:101a::/57",
+        "2603:1061:101a:c0::/59",
+        "2603:1061:101a:e0::/63",
+        "2603:1061:101a:e2::/64",
+        "57.157.24.0/24",
+        "57.157.25.0/25",
+        "57.157.25.128/26",
+        "57.157.25.192/29",
+        "57.157.25.200/30"
+      ],
+      "added_count": 10,
+      "removed_count": 10,
+      "region": "eastus3",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.usstagee",
+      "added_prefixes": [
+        "40.81.97.10/32"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "usstagee",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.eastus",
+      "added_prefixes": [
+        "172.143.0.0/17"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "eastus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.germanywc",
+      "added_prefixes": [
+        "57.157.61.80/29"
+      ],
+      "removed_prefixes": [
+        "57.157.61.80/31"
+      ],
+      "added_count": 1,
+      "removed_count": 1,
+      "region": "germanywc",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.indiasouthcentral",
+      "added_prefixes": [
+        "2603:1061:101b:80::/58",
+        "2603:1061:101b:c0::/61",
+        "2603:1061:101b:c8::/64",
+        "57.157.93.0/25",
+        "57.157.93.128/28",
+        "57.157.93.144/30",
+        "57.157.93.148/31"
+      ],
+      "removed_prefixes": [
+        "2603:1061:101b:80::/59",
+        "2603:1061:101b:a0::/60",
+        "2603:1061:101b:b0::/63",
+        "2603:1061:101b:b2::/64",
+        "57.157.93.0/26",
+        "57.157.93.104/31",
+        "57.157.93.64/27",
+        "57.157.93.96/29"
+      ],
+      "added_count": 7,
+      "removed_count": 8,
+      "region": "indiasouthcentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.israelcentral",
+      "added_prefixes": [
+        "20.20.104.0/24",
+        "2603:1061:1007:100::/61",
+        "2603:1061:1007:108::/63",
+        "2603:1061:1007:10a::/64",
+        "2603:1061:1007::/56",
+        "40.123.137.0/27",
+        "40.123.137.32/30",
+        "40.123.137.36/31"
+      ],
+      "removed_prefixes": [
+        "20.20.104.0/25",
+        "20.20.104.128/26",
+        "20.20.104.192/27",
+        "20.20.104.224/28",
+        "20.20.104.240/30",
+        "20.20.104.244/31",
+        "2603:1061:1007:80::/58",
+        "2603:1061:1007::/57",
+        "2603:1061:1007:c0::/59",
+        "2603:1061:1007:e0::/60",
+        "2603:1061:1007:f0::/63",
+        "2603:1061:1007:f2::/64"
+      ],
+      "added_count": 8,
+      "removed_count": 12,
+      "region": "israelcentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.malaysiawest",
+      "added_prefixes": [
+        "2603:1063:4d::/56"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "malaysiawest",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.newzealandnorth",
+      "added_prefixes": [
+        "2603:1063:701::/56",
+        "48.208.103.0/24"
+      ],
+      "removed_prefixes": [],
+      "added_count": 2,
+      "removed_count": 0,
+      "region": "newzealandnorth",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.northcentralus",
+      "added_prefixes": [
+        "57.157.67.104/31",
+        "57.157.67.96/29"
+      ],
+      "removed_prefixes": [
+        "57.157.67.100/31",
+        "57.157.67.96/30"
+      ],
+      "added_count": 2,
+      "removed_count": 2,
+      "region": "northcentralus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.polandcentral",
+      "added_prefixes": [
+        "2603:1061:1006:180::/58",
+        "2603:1061:1006:1c0::/63",
+        "40.123.139.0/25",
+        "40.123.139.128/28",
+        "40.123.139.144/30",
+        "48.208.95.0/24",
+        "48.208.97.0/24",
+        "48.208.99.0/24"
+      ],
+      "removed_prefixes": [
+        "2603:1061:1006:180::/59",
+        "2603:1061:1006:1a0::/61",
+        "2603:1061:1006:1a8::/62",
+        "40.123.139.0/26",
+        "40.123.139.64/27",
+        "40.123.139.96/29"
+      ],
+      "added_count": 8,
+      "removed_count": 6,
+      "region": "polandcentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.southcentralus2",
+      "added_prefixes": [
+        "20.20.72.240/30",
+        "20.20.72.244/31",
+        "2603:1061:1012:70::/63",
+        "2603:1061:1012:72::/64"
+      ],
+      "removed_prefixes": [
+        "20.20.72.240/31",
+        "2603:1061:1012:70::/64"
+      ],
+      "added_count": 4,
+      "removed_count": 2,
+      "region": "southcentralus2",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.southcentralus",
+      "added_prefixes": [
+        "2603:1030:804:2e0::/62",
+        "40.123.164.160/28"
+      ],
+      "removed_prefixes": [
+        "2603:1030:804:2e0::/63",
+        "2603:1030:804:2e2::/64",
+        "40.123.164.160/29",
+        "40.123.164.168/30",
+        "40.123.164.174/31"
+      ],
+      "added_count": 2,
+      "removed_count": 5,
+      "region": "southcentralus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.southeastus",
+      "added_prefixes": [
+        "20.20.68.100/31",
+        "2603:1061:1011:2a::/64"
+      ],
+      "removed_prefixes": [],
+      "added_count": 2,
+      "removed_count": 0,
+      "region": "southeastus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.southwestus",
+      "added_prefixes": [
+        "57.163.62.0/23",
+        "57.163.88.0/23"
+      ],
+      "removed_prefixes": [],
+      "added_count": 2,
+      "removed_count": 0,
+      "region": "southwestus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.spaincentral",
+      "added_prefixes": [
+        "2603:1061:1008:100::/58",
+        "2603:1061:1008:140::/62",
+        "2603:1061:1008:144::/63",
+        "2603:1061:1008:146::/64",
+        "40.120.146.128/28",
+        "40.120.146.144/29",
+        "40.120.146.152/30",
+        "40.120.146.156/31"
+      ],
+      "removed_prefixes": [
+        "2603:1061:1008:100::/59",
+        "2603:1061:1008:120::/60",
+        "2603:1061:1008:130::/61",
+        "2603:1061:1008:138::/62",
+        "2603:1061:1008:13c::/63",
+        "40.120.146.128/29",
+        "40.120.146.136/30"
+      ],
+      "added_count": 8,
+      "removed_count": 7,
+      "region": "spaincentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.swedencentral",
+      "added_prefixes": [
+        "172.141.0.0/17",
+        "57.157.188.0/26",
+        "57.157.188.64/27",
+        "57.157.68.0/22"
+      ],
+      "removed_prefixes": [
+        "57.157.68.0/23",
+        "57.157.70.0/24",
+        "57.157.71.0/25",
+        "57.157.71.128/26",
+        "57.157.71.192/27",
+        "57.157.71.224/28"
+      ],
+      "added_count": 4,
+      "removed_count": 6,
+      "region": "swedencentral",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.switzerlandn",
+      "added_prefixes": [
+        "57.157.156.52/31"
+      ],
+      "removed_prefixes": [],
+      "added_count": 1,
+      "removed_count": 0,
+      "region": "switzerlandn",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.uksouth",
+      "added_prefixes": [
+        "172.144.0.0/17",
+        "57.157.40.0/24",
+        "57.157.41.0/27",
+        "57.157.41.32/30",
+        "57.157.41.36/31"
+      ],
+      "removed_prefixes": [
+        "57.157.40.0/25",
+        "57.157.40.128/26",
+        "57.157.40.192/27",
+        "57.157.40.224/28",
+        "57.157.40.240/29",
+        "57.157.40.248/31"
+      ],
+      "added_count": 5,
+      "removed_count": 6,
+      "region": "uksouth",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.westcentralus",
+      "added_prefixes": [
+        "52.112.36.0/24",
+        "52.112.52.0/24",
+        "57.157.80.0/23",
+        "57.157.82.0/28",
+        "57.157.82.16/31"
+      ],
+      "removed_prefixes": [
+        "57.157.80.0/24",
+        "57.157.81.0/25",
+        "57.157.81.128/27"
+      ],
+      "added_count": 5,
+      "removed_count": 3,
+      "region": "westcentralus",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.westeurope",
+      "added_prefixes": [
+        "172.138.0.0/16"
+      ],
+      "removed_prefixes": [
+        "172.138.0.0/17"
+      ],
+      "added_count": 1,
+      "removed_count": 1,
+      "region": "westeurope",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud.westus2",
+      "added_prefixes": [
+        "172.140.128.0/17",
+        "48.208.102.0/24",
+        "57.157.73.0/25"
+      ],
+      "removed_prefixes": [
+        "57.157.73.0/26",
+        "57.157.73.64/28",
+        "57.157.73.80/29"
+      ],
+      "added_count": 3,
+      "removed_count": 3,
+      "region": "westus2",
+      "system_service": ""
+    },
+    {
+      "type": "ip_changes",
+      "service": "AzureCloud",
+      "added_prefixes": [
+        "2603:1030:1008:4::/63",
+        "2603:1030:1008:6::/64",
+        "2603:104c:0:200::/55",
+        "2603:1063:4d::/56",
+        "2603:1063:63a::/56",
+        "2603:1063:701::/56",
+        "2603:1063:734:100::/64",
+        "52.112.36.0/22",
+        "52.112.48.0/20"
+      ],
+      "removed_prefixes": [
+        "2603:1030:1008:4::/64",
+        "52.112.37.0/24",
+        "52.112.38.0/23",
+        "52.112.48.0/22",
+        "52.112.53.0/24",
+        "52.112.54.0/23",
+        "52.112.56.0/21"
+      ],
+      "added_count": 9,
+      "removed_count": 7,
+      "region": "",
+      "system_service": ""
+    }
+  ],
+  "total_changes": 55,
+  "generated_at": "2026-10-12T04:06:53.798345+00:00",
+  "metadata": {
+    "version": "2026.10.05",
+    "date_published": "10/6/2026"
+  }
+}
