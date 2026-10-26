@@ -1,90 +1,118 @@
 {
-  "last_updated": "2026-10-19T03:03:42.300924+00:00",
+  "last_updated": "2026-10-26T02:59:37.873773+00:00",
   "total_services": 3321,
-  "total_ip_ranges": 97917,
-  "changes_this_week": 44,
-  "ip_changes": 44,
+  "total_ip_ranges": 110437,
+  "changes_this_week": 74,
+  "ip_changes": 74,
   "service_additions": 0,
   "service_removals": 0,
   "regional_changes": {
-    "": 5,
-    "eastus2": 2,
-    "centraluseuap": 2,
-    "eastus2euap": 1,
-    "southcentralus": 2,
+    "": 8,
+    "centralus": 2,
+    "jioindiacentral": 2,
+    "australiacentral2": 1,
+    "australiacentral": 1,
     "australiaeast": 1,
+    "australiasoutheast": 1,
+    "belgiumcentral": 1,
+    "brazilsouth": 1,
+    "brazilse": 1,
+    "canadacentral": 1,
+    "canadaeast": 1,
     "centralindia": 1,
+    "centraluseuap": 1,
+    "denmarkeast": 1,
     "eastasia": 1,
+    "eastus2euap": 1,
+    "eastus2": 1,
     "eastus3": 1,
+    "eastus": 1,
+    "centralfrance": 1,
+    "southfrance": 1,
+    "germanyn": 1,
+    "germanywc": 1,
     "indonesiacentral": 1,
     "israelcentral": 1,
     "italynorth": 1,
     "japaneast": 1,
+    "japanwest": 1,
+    "jioindiawest": 1,
+    "koreacentral": 1,
+    "koreasouth": 1,
+    "malaysiasouth": 1,
+    "malaysiawest": 1,
     "mexicocentral": 1,
     "northcentralus": 1,
+    "northeurope": 1,
     "norwaye": 1,
     "norwayw": 1,
     "polandcentral": 1,
+    "qatarcentral": 1,
     "southafricanorth": 1,
     "southafricawest": 1,
     "southcentralus2": 1,
+    "southcentralus": 1,
     "southindia": 1,
+    "southeastasia": 1,
+    "southeastus5": 1,
     "southeastus": 1,
-    "southwestus": 1,
     "spaincentral": 1,
     "swedencentral": 1,
+    "swedensouth": 1,
     "switzerlandn": 1,
     "switzerlandw": 1,
     "taiwannorth": 1,
     "taiwannorthwest": 1,
     "uaecentral": 1,
     "uaenorth": 1,
+    "uksouth": 1,
+    "ukwest": 1,
+    "westcentralus": 1,
     "westeurope": 1,
     "westindia": 1,
     "westus2": 1,
-    "westus3": 1,
-    "westus": 1
+    "westus3": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 999
-    },
-    {
-      "service": "AzureCloud.centraluseuap",
-      "change_count": 140
-    },
-    {
-      "service": "AzureCloud.eastasia",
-      "change_count": 135
+      "change_count": 8238
     },
     {
       "service": "AzureCloud.japaneast",
-      "change_count": 118
+      "change_count": 255
     },
     {
-      "service": "AzureCloud.southafricanorth",
-      "change_count": 65
-    },
-    {
-      "service": "AzureCloud.uaenorth",
-      "change_count": 56
+      "service": "AzureCloud.uksouth",
+      "change_count": 238
     },
     {
       "service": "AzureCloud.italynorth",
-      "change_count": 55
+      "change_count": 204
+    },
+    {
+      "service": "AzureCloud.southafricanorth",
+      "change_count": 198
+    },
+    {
+      "service": "AzureCloud.australiacentral",
+      "change_count": 194
+    },
+    {
+      "service": "AzureCloud.uaenorth",
+      "change_count": 194
+    },
+    {
+      "service": "AzureCloud.southfrance",
+      "change_count": 190
     },
     {
       "service": "AzureCloud.norwaye",
-      "change_count": 37
-    },
-    {
-      "service": "AzureCloud.israelcentral",
-      "change_count": 36
+      "change_count": 171
     },
     {
       "service": "AzureCloud.switzerlandn",
-      "change_count": 36
+      "change_count": 171
     }
   ],
   "available_dates": [
@@ -137,6 +165,7 @@
     "2026-09-21",
     "2026-09-28",
     "2026-10-05",
-    "2026-10-12"
+    "2026-10-12",
+    "2026-10-19"
   ]
 }
