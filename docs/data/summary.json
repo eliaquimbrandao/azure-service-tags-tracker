@@ -1,121 +1,113 @@
 {
-  "last_updated": "2026-11-02T04:09:22.057062+00:00",
-  "total_services": 3358,
-  "total_ip_ranges": 96760,
-  "changes_this_week": 117,
-  "ip_changes": 80,
-  "service_additions": 37,
+  "last_updated": "2026-11-09T04:26:03.922283+00:00",
+  "total_services": 3361,
+  "total_ip_ranges": 103018,
+  "changes_this_week": 104,
+  "ip_changes": 101,
+  "service_additions": 3,
   "service_removals": 0,
   "regional_changes": {
-    "": 11,
-    "southeastasia3": 36,
-    "taiwannorth": 2,
-    "eastus": 2,
-    "eastus2": 2,
-    "japaneast": 2,
-    "denmarkeast": 1,
-    "australiacentral2": 1,
-    "australiacentral": 1,
-    "australiaeast": 1,
-    "australiasoutheast": 1,
+    "": 7,
+    "australiaeast": 2,
+    "austriaeast": 1,
     "belgiumcentral": 1,
-    "brazilsouth": 1,
-    "brazilse": 1,
-    "canadacentral": 1,
-    "canadaeast": 1,
-    "centralindia": 1,
-    "centraluseuap": 1,
-    "centralus": 1,
+    "brazilsouth": 2,
+    "canadacentral": 2,
+    "centralindia": 2,
+    "centralus": 2,
     "chilec": 1,
+    "denmarkeast": 2,
     "eastasia": 1,
-    "eastus2euap": 1,
-    "eastus3": 1,
-    "centralfrance": 1,
-    "southfrance": 1,
-    "germanyn": 1,
-    "germanywc": 1,
-    "indonesiacentral": 1,
-    "israelcentral": 1,
-    "italynorth": 1,
-    "japanwest": 1,
-    "jioindiacentral": 1,
-    "jioindiawest": 1,
-    "koreacentral": 1,
-    "koreasouth": 1,
-    "malaysiasouth": 1,
+    "eastus": 3,
+    "eastus2": 2,
+    "eastus2euap": 2,
+    "eastus3": 2,
+    "centralfrance": 2,
+    "germanywc": 2,
+    "indiasouthcentral": 1,
+    "indonesiacentral": 2,
+    "israelcentral": 2,
+    "italynorth": 2,
+    "japaneast": 2,
+    "koreacentral": 2,
     "malaysiawest": 1,
     "mexicocentral": 1,
+    "newzealandnorth": 1,
+    "northeurope": 2,
+    "norwaye": 2,
+    "polandcentral": 2,
+    "qatarcentral": 2,
+    "southafricanorth": 2,
+    "southcentralus": 2,
+    "southeastasia": 2,
+    "spaincentral": 2,
+    "swedencentral": 2,
+    "switzerlandn": 2,
+    "uaenorth": 3,
+    "uksouth": 3,
+    "westeurope": 2,
+    "westus2": 3,
+    "westus3": 3,
+    "australiasoutheast": 2,
+    "canadaeast": 1,
+    "centraluseuap": 1,
+    "southfrance": 1,
+    "germanyn": 1,
+    "israelnorthwest": 1,
+    "japanwest": 1,
+    "koreasouth": 1,
+    "malaysiasouth": 1,
     "northcentralus": 1,
-    "northeurope": 1,
-    "northeastus5": 1,
-    "norwaye": 1,
     "norwayw": 1,
-    "polandcentral": 1,
-    "qatarcentral": 1,
-    "southafricanorth": 1,
     "southafricawest": 1,
-    "usstagec": 1,
-    "southcentralus": 1,
     "southindia": 1,
-    "southeastasia": 1,
-    "southwestus": 1,
-    "spaincentral": 1,
-    "swedencentral": 1,
     "swedensouth": 1,
-    "switzerlandn": 1,
     "switzerlandw": 1,
-    "taiwannorthwest": 1,
+    "taiwannorth": 1,
     "uaecentral": 1,
-    "uaenorth": 1,
-    "uksouth": 1,
     "ukwest": 1,
-    "westcentralus": 1,
-    "westeurope": 1,
-    "westindia": 1,
-    "westus2": 1,
-    "westus3": 1,
     "westus": 1
   },
   "top_active_services": [
     {
       "service": "AzureCloud",
-      "change_count": 7250
-    },
-    {
-      "service": "AzureCloud.uksouth",
-      "change_count": 243
-    },
-    {
-      "service": "AzureCloud.australiacentral",
-      "change_count": 194
-    },
-    {
-      "service": "AzureCloud.southfrance",
-      "change_count": 190
-    },
-    {
-      "service": "AzureCloud.swedencentral",
-      "change_count": 182
+      "change_count": 2874
     },
     {
       "service": "AzureCloud.westeurope",
-      "change_count": 168
+      "change_count": 372
+    },
+    {
+      "service": "AzureCloud.uksouth",
+      "change_count": 322
+    },
+    {
+      "service": "AzureCloud.eastus",
+      "change_count": 223
     },
     {
       "service": "AzureCloud.northeurope",
-      "change_count": 166
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 165
-    },
-    {
-      "service": "AzureCloud.eastus2euap",
-      "change_count": 164
+      "change_count": 144
     },
     {
       "service": "AzureCloud.eastus2",
-      "change_count": 157
+      "change_count": 129
+    },
+    {
+      "service": "AzureCloud.centraluseuap",
+      "change_count": 101
+    },
+    {
+      "service": "AzureCloud.australiasoutheast",
+      "change_count": 94
+    },
+    {
+      "service": "AzureCloud.southcentralus",
+      "change_count": 94
+    },
+    {
+      "service": "AzureCloud.eastus3",
+      "change_count": 76
     }
   ],
   "available_dates": [
@@ -170,6 +162,7 @@
     "2026-10-05",
     "2026-10-12",
     "2026-10-19",
-    "2026-10-26"
+    "2026-10-26",
+    "2026-11-02"
   ]
 }
