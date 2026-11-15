@@ -1,5 +1,6 @@
 {
-  "generated": "2026-11-09T04:26:04.948903+00:00",
+  "schema_version": 2,
+  "generated": "2026-11-15T19:50:20.514840+00:00",
   "total_files": 58,
   "date_range": {
     "oldest": "2025-10-08",
@@ -9,345 +10,704 @@
     {
       "date": "2026-11-09",
       "filename": "2026-11-09-changes.json",
-      "size": 228270,
-      "change_number": 425
+      "size": 256060,
+      "change_number": 425,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 6454,
+      "removed_memberships": 196,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-11-02",
       "filename": "2026-11-02-changes.json",
-      "size": 560892,
-      "change_number": 424
+      "size": 595022,
+      "change_number": 424,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 692,
+      "removed_memberships": 14369,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-10-26",
       "filename": "2026-10-26-changes.json",
-      "size": 598208,
-      "change_number": 423
+      "size": 618863,
+      "change_number": 423,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 14590,
+      "removed_memberships": 2070,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-10-19",
       "filename": "2026-10-19-changes.json",
-      "size": 71033,
-      "change_number": 422
+      "size": 83220,
+      "change_number": 422,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 1935,
+      "removed_memberships": 92,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-10-12",
       "filename": "2026-10-12-changes.json",
-      "size": 21807,
-      "change_number": 421
+      "size": 36621,
+      "change_number": 421,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 156,
+      "removed_memberships": 97,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-10-05",
       "filename": "2026-10-05-changes.json",
-      "size": 56582,
-      "change_number": 420
+      "size": 80591,
+      "change_number": 420,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 300,
+      "removed_memberships": 912,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-09-28",
       "filename": "2026-09-28-changes.json",
-      "size": 128626,
-      "change_number": 419
+      "size": 153458,
+      "change_number": 419,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 1165,
+      "removed_memberships": 2684,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-09-21",
       "filename": "2026-09-21-changes.json",
-      "size": 97163,
-      "change_number": 418
+      "size": 119144,
+      "change_number": 418,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 2663,
+      "removed_memberships": 140,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-09-14",
       "filename": "2026-09-14-changes.json",
-      "size": 24556,
-      "change_number": 417
+      "size": 40335,
+      "change_number": 417,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 187,
+      "removed_memberships": 121,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-09-07",
       "filename": "2026-09-07-changes.json",
-      "size": 42903,
-      "change_number": 416
+      "size": 61090,
+      "change_number": 416,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 517,
+      "removed_memberships": 295,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-08-31",
       "filename": "2026-08-31-changes.json",
-      "size": 425126,
-      "change_number": 415
+      "size": 431220,
+      "change_number": 415,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 680,
+      "removed_memberships": 14208,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-08-24",
       "filename": "2026-08-24-changes.json",
-      "size": 56837,
-      "change_number": 414
+      "size": 78775,
+      "change_number": 414,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 821,
+      "removed_memberships": 265,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-08-17",
       "filename": "2026-08-17-changes.json",
-      "size": 4627,
-      "change_number": 413
+      "size": 8161,
+      "change_number": 413,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 37,
+      "removed_memberships": 16,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-08-10",
       "filename": "2026-08-10-changes.json",
-      "size": 66544,
-      "change_number": 412
+      "size": 111306,
+      "change_number": 412,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 552,
+      "removed_memberships": 200,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-08-03",
       "filename": "2026-08-03-changes.json",
-      "size": 41134,
-      "change_number": 411
+      "size": 66726,
+      "change_number": 411,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 425,
+      "removed_memberships": 79,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-07-27",
       "filename": "2026-07-27-changes.json",
-      "size": 24585,
-      "change_number": 410
+      "size": 36826,
+      "change_number": 410,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 372,
+      "removed_memberships": 46,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-07-20",
       "filename": "2026-07-20-changes.json",
-      "size": 37587,
-      "change_number": 409
+      "size": 69993,
+      "change_number": 409,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 427,
+      "removed_memberships": 52,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-07-13",
       "filename": "2026-07-13-changes.json",
-      "size": 28444,
-      "change_number": 408
+      "size": 39182,
+      "change_number": 408,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 297,
+      "removed_memberships": 311,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-07-06",
       "filename": "2026-07-06-changes.json",
-      "size": 41298,
-      "change_number": 407
+      "size": 57673,
+      "change_number": 407,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 395,
+      "removed_memberships": 470,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-06-29",
       "filename": "2026-06-29-changes.json",
-      "size": 31043,
-      "change_number": 406
+      "size": 48343,
+      "change_number": 406,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 243,
+      "removed_memberships": 214,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-06-22",
       "filename": "2026-06-22-changes.json",
-      "size": 66920,
-      "change_number": 405
+      "size": 105380,
+      "change_number": 405,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 795,
+      "removed_memberships": 122,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-06-15",
       "filename": "2026-06-15-changes.json",
-      "size": 67030,
-      "change_number": 404
+      "size": 102807,
+      "change_number": 404,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 981,
+      "removed_memberships": 53,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-06-08",
       "filename": "2026-06-08-changes.json",
-      "size": 46980,
-      "change_number": 403
+      "size": 71488,
+      "change_number": 403,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 479,
+      "removed_memberships": 296,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-06-01",
       "filename": "2026-06-01-changes.json",
-      "size": 184179,
-      "change_number": 402
+      "size": 248168,
+      "change_number": 402,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 3120,
+      "removed_memberships": 978,
+      "skipped_change_numbers": [
+        401
+      ],
+      "reproducible": true
     },
     {
       "date": "2026-05-25",
       "filename": "2026-05-25-changes.json",
-      "size": 249,
-      "change_number": 400
+      "size": 932,
+      "change_number": 400,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-05-18",
       "filename": "2026-05-18-changes.json",
-      "size": 48111,
-      "change_number": 400
+      "size": 73109,
+      "change_number": 400,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 715,
+      "removed_memberships": 181,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-05-11",
       "filename": "2026-05-11-changes.json",
-      "size": 73180,
-      "change_number": 399
+      "size": 93912,
+      "change_number": 399,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 1376,
+      "removed_memberships": 405,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-05-04",
       "filename": "2026-05-04-changes.json",
-      "size": 41974,
-      "change_number": 398
+      "size": 57334,
+      "change_number": 398,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 309,
+      "removed_memberships": 635,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-04-27",
       "filename": "2026-04-27-changes.json",
-      "size": 249,
-      "change_number": 397
+      "size": 932,
+      "change_number": 397,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-04-20",
       "filename": "2026-04-20-changes.json",
-      "size": 45353,
-      "change_number": 396
+      "size": 67446,
+      "change_number": 396,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 389,
+      "removed_memberships": 413,
+      "skipped_change_numbers": [
+        395
+      ],
+      "reproducible": true
     },
     {
       "date": "2026-04-13",
       "filename": "2026-04-13-changes.json",
-      "size": 46571,
-      "change_number": 394
+      "size": 70832,
+      "change_number": 394,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 588,
+      "removed_memberships": 178,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-04-06",
       "filename": "2026-04-06-changes.json",
-      "size": 249,
-      "change_number": 393
+      "size": 932,
+      "change_number": 393,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-03-30",
       "filename": "2026-03-30-changes.json",
-      "size": 67508,
-      "change_number": 393
+      "size": 92715,
+      "change_number": 393,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 1218,
+      "removed_memberships": 153,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-03-23",
       "filename": "2026-03-23-changes.json",
-      "size": 14596,
-      "change_number": 392
+      "size": 24403,
+      "change_number": 392,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 118,
+      "removed_memberships": 73,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-03-16",
       "filename": "2026-03-16-changes.json",
-      "size": 20131,
-      "change_number": 391
+      "size": 30976,
+      "change_number": 391,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 197,
+      "removed_memberships": 141,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-03-09",
       "filename": "2026-03-09-changes.json",
-      "size": 55283,
-      "change_number": 390
+      "size": 96462,
+      "change_number": 390,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 334,
+      "removed_memberships": 80,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-03-02",
       "filename": "2026-03-02-changes.json",
-      "size": 19908,
-      "change_number": 389
+      "size": 28820,
+      "change_number": 389,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 300,
+      "removed_memberships": 104,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-02-23",
       "filename": "2026-02-23-changes.json",
-      "size": 15379,
-      "change_number": 388
+      "size": 22526,
+      "change_number": 388,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 249,
+      "removed_memberships": 67,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-02-16",
       "filename": "2026-02-16-changes.json",
-      "size": 77826,
-      "change_number": 387
+      "size": 125836,
+      "change_number": 387,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 642,
+      "removed_memberships": 333,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-02-09",
       "filename": "2026-02-09-changes.json",
-      "size": 249,
-      "change_number": 386
+      "size": 930,
+      "change_number": 386,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-02-02",
       "filename": "2026-02-02-changes.json",
-      "size": 35577,
-      "change_number": 386
+      "size": 52700,
+      "change_number": 386,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 447,
+      "removed_memberships": 187,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-01-26",
       "filename": "2026-01-26-changes.json",
-      "size": 40968,
-      "change_number": 385
+      "size": 53564,
+      "change_number": 385,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 899,
+      "removed_memberships": 121,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-01-19",
       "filename": "2026-01-19-changes.json",
-      "size": 27199,
-      "change_number": 384
+      "size": 44932,
+      "change_number": 384,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 348,
+      "removed_memberships": 119,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-01-12",
       "filename": "2026-01-12-changes.json",
-      "size": 248,
-      "change_number": 383
+      "size": 929,
+      "change_number": 383,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2026-01-05",
       "filename": "2026-01-05-changes.json",
-      "size": 20372,
-      "change_number": 382
+      "size": 30821,
+      "change_number": 382,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 204,
+      "removed_memberships": 149,
+      "skipped_change_numbers": [
+        381
+      ],
+      "reproducible": true
     },
     {
       "date": "2025-12-29",
       "filename": "2025-12-29-changes.json",
-      "size": 250,
-      "change_number": 380
+      "size": 931,
+      "change_number": 380,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-12-22",
       "filename": "2025-12-22-changes.json",
-      "size": 52702,
-      "change_number": 380
+      "size": 84301,
+      "change_number": 380,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 627,
+      "removed_memberships": 97,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-12-15",
       "filename": "2025-12-15-changes.json",
-      "size": 31852,
-      "change_number": 379
+      "size": 45669,
+      "change_number": 379,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 434,
+      "removed_memberships": 181,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-12-08",
       "filename": "2025-12-08-changes.json",
-      "size": 64980,
-      "change_number": 378
+      "size": 106813,
+      "change_number": 378,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 719,
+      "removed_memberships": 200,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-12-01",
       "filename": "2025-12-01-changes.json",
-      "size": 250,
-      "change_number": 377
+      "size": 931,
+      "change_number": 377,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-11-24",
       "filename": "2025-11-24-changes.json",
-      "size": 116656,
-      "change_number": 377
+      "size": 118075,
+      "change_number": 377,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 1248,
+      "removed_memberships": 346,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-11-17",
       "filename": "2025-11-17-changes.json",
-      "size": 249
+      "size": 850,
+      "change_number": null,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-11-10",
       "filename": "2025-11-10-changes.json",
-      "size": 96977
+      "size": 97686,
+      "change_number": null,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 2633,
+      "removed_memberships": 172,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-11-03",
       "filename": "2025-11-03-changes.json",
-      "size": 250
+      "size": 851,
+      "change_number": null,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 0,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-10-27",
       "filename": "2025-10-27-changes.json",
-      "size": 16828
+      "size": 17434,
+      "change_number": null,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 170,
+      "removed_memberships": 119,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-10-17",
       "filename": "2025-10-17-changes.json",
-      "size": 45793
+      "size": 46400,
+      "change_number": null,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 487,
+      "removed_memberships": 105,
+      "skipped_change_numbers": [],
+      "reproducible": false
     },
     {
       "date": "2025-10-10",
       "filename": "2025-10-10-changes.json",
-      "size": 52523,
-      "change_number": 372
+      "size": 86951,
+      "change_number": 372,
+      "baseline": false,
+      "schema_version": 2,
+      "added_memberships": 542,
+      "removed_memberships": 49,
+      "skipped_change_numbers": [],
+      "reproducible": true
     },
     {
       "date": "2025-10-08",
       "filename": "2025-10-08-changes.json",
-      "size": 3365490,
-      "change_number": 371
+      "size": 3519087,
+      "change_number": 371,
+      "baseline": true,
+      "schema_version": 2,
+      "added_memberships": 92436,
+      "removed_memberships": 0,
+      "skipped_change_numbers": [],
+      "reproducible": false
     }
   ]
 }

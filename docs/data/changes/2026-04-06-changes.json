@@ -1,11 +1,38 @@
 {
+  "schema_version": 2,
   "date": "2026-04-06",
+  "baseline": false,
   "changes": [],
   "total_changes": 0,
+  "metadata_changes": [],
   "generated_at": "2026-04-06T02:08:28.407406+00:00",
   "metadata": {
     "version": "2026.03.16",
     "date_published": "3/24/2026"
+  },
+  "comparison": {
+    "previous_snapshot": "2026-03-30",
+    "current_snapshot": "2026-04-06",
+    "previous_change_number": 393,
+    "current_change_number": 393,
+    "skipped_change_numbers": [],
+    "reproducible": true,
+    "previous_membership_total": 101456,
+    "current_membership_total": 101456,
+    "added_memberships": 0,
+    "removed_memberships": 0,
+    "net_memberships": 0,
+    "balanced": true,
+    "coverage": {
+      "ipv4": {
+        "added_addresses": 0,
+        "removed_addresses": 0
+      },
+      "ipv6": {
+        "added_slash64s": 0.0,
+        "removed_slash64s": 0.0
+      }
+    }
   },
   "message": "No changes detected this week"
 }

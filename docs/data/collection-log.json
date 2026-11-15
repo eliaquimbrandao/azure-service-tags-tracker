@@ -668,17 +668,14 @@
   "coverage": {
     "first_collection": "2025-10-08",
     "latest_collection": "2026-11-09",
-    "total_runs": 54,
+    "total_runs": 59,
     "expected_runs": 58,
-    "missing_dates": [
-      "2025-10-06",
-      "2025-10-13",
-      "2025-10-27",
-      "2025-11-03",
-      "2025-11-10",
-      "2025-11-17"
-    ],
-    "missing_count": 6,
-    "coverage_pct": 93.1
+    "missing_weeks": [],
+    "missing_dates": [],
+    "missing_count": 0,
+    "coverage_pct": 100.0,
+    "failed_attempts": 0,
+    "last_attempt": "2026-11-09T04:26:04.950758+00:00",
+    "note": "Coverage counts weeks with a successful collection; it does not prove every Microsoft publication was captured \u2014 see skipped_change_numbers in each change file."
   }
 }

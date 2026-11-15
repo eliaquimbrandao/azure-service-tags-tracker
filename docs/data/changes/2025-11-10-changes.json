@@ -1726,7 +1726,9 @@
         "20.170.36.209/32",
         "20.218.181.177/32",
         "20.218.182.135/32"
-      ]
+      ],
+      "added_count": 8,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -1744,7 +1746,9 @@
         "48.218.205.71/32",
         "48.218.205.90/32",
         "104.46.210.120/32"
-      ]
+      ],
+      "added_count": 9,
+      "removed_count": 0
     },
     {
       "type": "ip_changes",
@@ -3559,5 +3563,24 @@
   "metadata": {
     "version": "2025.11.03",
     "date_published": "11/6/2025"
+  },
+  "schema_version": 2,
+  "baseline": false,
+  "metadata_changes": [],
+  "comparison": {
+    "previous_snapshot": null,
+    "current_snapshot": null,
+    "previous_change_number": null,
+    "current_change_number": null,
+    "skipped_change_numbers": [],
+    "reproducible": false,
+    "note": "Previous snapshot was not archived; counts are as originally recorded and cannot be re-derived.",
+    "previous_membership_total": null,
+    "current_membership_total": null,
+    "added_memberships": 2633,
+    "removed_memberships": 172,
+    "net_memberships": 2461,
+    "balanced": null,
+    "coverage": null
   }
 }

@@ -1,3 +1,5 @@
+import { changeCounts, comparisonFiles } from '../core/changeCounts.js';
+
 export class SearchManager {
     constructor(dataManager, regionMapper, changeRenderer, modalManager) {
         this.dataManager = dataManager;
@@ -406,17 +408,7 @@ export class SearchManager {
                         match.score = Math.max(match.score, serviceScore);
 
                         // Calculate added/removed IPs based on change type
-                        let added = 0;
-                        let removed = 0;
-
-                        if (change.type === 'ip_changes') {
-                            added = change.added_count || 0;
-                            removed = change.removed_count || 0;
-                        } else if (change.type === 'service_added' || change.type === 'NewService') {
-                            added = change.ip_count || (change.prefixes ? change.prefixes.length : 0);
-                        } else if (change.type === 'service_removed' || change.type === 'RemovedService') {
-                            removed = change.ip_count || 0;
-                        }
+                        const { added, removed } = changeCounts(change);
 
                         match.occurrences.push({
                             date: date,
@@ -680,9 +672,8 @@ export class SearchManager {
 
         const manifest = await manifestResponse.json();
 
-        // Filter out baseline/initial data files
-        const oldestDate = manifest.date_range?.oldest;
-        const changeFiles = (manifest.files || []).filter(fileInfo => fileInfo.date !== oldestDate);
+        // Filter out the baseline (initial snapshot, not a change)
+        const changeFiles = comparisonFiles(manifest);
 
         const loaded = await Promise.all(changeFiles.map(async (fileInfo) => {
             try {

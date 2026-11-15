@@ -14,14 +14,14 @@ import json
 import logging
 import os
 import re
-import requests
 import hashlib
 import time
 import argparse
+import ipaddress
+import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-from bs4 import BeautifulSoup
 
 # Setup logging
 logging.basicConfig(
@@ -38,6 +38,8 @@ USER_AGENT = "Azure-Service-Tags-Tracker/1.0"
 def download_latest_json() -> Tuple[Dict, Dict]:
     """Download the latest Azure Service Tags JSON with retry logic.
     Returns: (json_data, metadata) where metadata contains version and published date"""
+    import requests  # imported here so the diff/verify code runs without network deps
+    from bs4 import BeautifulSoup
     session = requests.Session()
     session.headers.update({'User-Agent': USER_AGENT})
     
@@ -90,6 +92,7 @@ def download_latest_json() -> Tuple[Dict, Dict]:
                     d_match = re.search(r'(\d{1,2}/\d{1,2}/\d{4})', val_text)
                     if d_match:
                         metadata['date_published'] = d_match.group(1)
+                        metadata['date_published_source'] = 'download_page'
                         logging.info(f"Extracted date published: {metadata['date_published']}")
                     # Fallback: if text is short, use it as is
                     elif len(val_text) < 50:
@@ -134,11 +137,14 @@ def download_latest_json() -> Tuple[Dict, Dict]:
                     # Convert to MM/DD/YYYY for date_published
                     date_published_from_filename = f"{date_str[4:6]}/{date_str[6:8]}/{date_str[:4]}"
                     metadata['date_published'] = date_published_from_filename
+                    metadata['date_published_source'] = 'inferred_from_filename'
                     logging.info(f"Extracted date published from filename: {metadata['date_published']}")
             
             r2 = session.get(json_url, timeout=120)
             r2.raise_for_status()
-            
+
+            metadata['source_url'] = json_url
+            metadata['content_sha256'] = hashlib.sha256(r2.content).hexdigest()
             data = r2.json()
             if not data or not isinstance(data, dict):
                 raise ValueError("Downloaded JSON is empty or invalid.")
@@ -158,389 +164,578 @@ def download_latest_json() -> Tuple[Dict, Dict]:
                 logging.error("All retry attempts failed.")
                 raise
 
-def load_previous_data() -> Optional[Dict]:
-    """Load the previous week's data for comparison."""
-    current_file = Path('docs/data/current.json')
-    if current_file.exists():
-        try:
-            with open(current_file, 'r') as f:
-                return json.load(f)
-        except Exception as e:
-            logging.warning(f"Could not load previous data: {e}")
-    return None
 
-def detect_changes(old_data: Optional[Dict], new_data: Dict) -> List[Dict]:
-    """Detect changes between old and new data."""
-    if not old_data:
-        logging.info("No previous data found - this is the first run")
-        return []
-    
-    changes = []
-    old_services = {v['name']: v for v in old_data.get('values', [])}
-    new_services = {v['name']: v for v in new_data.get('values', [])}
-    
-    for service_name, new_service in new_services.items():
-        old_service = old_services.get(service_name)
-        
-        if not old_service:
-            # New service added
-            changes.append({
-                'type': 'service_added',
-                'service': service_name,
-                'ip_count': len(new_service.get('properties', {}).get('addressPrefixes', [])),
-                'prefixes': new_service.get('properties', {}).get('addressPrefixes', []),
-                'region': new_service.get('properties', {}).get('region'),
-                'system_service': new_service.get('properties', {}).get('systemService')
-            })
+# ---------------------------------------------------------------------------
+# Paths & schema
+# ---------------------------------------------------------------------------
+
+SCHEMA_VERSION = 2
+DATA_DIR = Path('docs/data')
+HISTORY_DIR = DATA_DIR / 'history'
+CHANGES_DIR = DATA_DIR / 'changes'
+LOG_FILE = DATA_DIR / 'collection-log.json'
+METADATA_FIELDS = ('region', 'regionId', 'platform', 'systemService', 'networkFeatures')
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def read_json(path: Path):
+    with open(path) as f:
+        return json.load(f)
+
+
+def write_json(path: Path, data):
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=2)
+
+
+def history_dates() -> List[str]:
+    return sorted(p.stem for p in HISTORY_DIR.glob('*.json')) if HISTORY_DIR.exists() else []
+
+
+def prefixes_of(tag: Dict) -> List[str]:
+    return tag.get('properties', {}).get('addressPrefixes', []) or []
+
+
+def membership_total(data: Dict) -> int:
+    """Number of (tag, prefix) memberships — what the UI calls 'IP ranges'."""
+    return sum(len(prefixes_of(t)) for t in data.get('values', []))
+
+
+# ---------------------------------------------------------------------------
+# Address coverage (interval maths, never expands CIDRs)
+# ---------------------------------------------------------------------------
+
+def _intervals(prefixes: List[str], version: int) -> List[Tuple[int, int]]:
+    nets = []
+    for p in prefixes:
+        try:
+            n = ipaddress.ip_network(p, strict=False)
+        except ValueError:
+            logging.warning(f"Ignoring unparseable prefix {p!r}")
             continue
-        
-        # Check for IP prefix changes
-        old_prefixes = set(old_service.get('properties', {}).get('addressPrefixes', []))
-        new_prefixes = set(new_service.get('properties', {}).get('addressPrefixes', []))
-        
-        added_prefixes = new_prefixes - old_prefixes
-        removed_prefixes = old_prefixes - new_prefixes
-        
-        if added_prefixes or removed_prefixes:
-            changes.append({
-                'type': 'ip_changes',
-                'service': service_name,
-                'added_prefixes': sorted(list(added_prefixes)),
-                'removed_prefixes': sorted(list(removed_prefixes)),
-                'added_count': len(added_prefixes),
-                'removed_count': len(removed_prefixes),
-                'region': new_service.get('properties', {}).get('region'),
-                'system_service': new_service.get('properties', {}).get('systemService')
-            })
-    
-    # Check for removed services
-    for service_name in old_services:
-        if service_name not in new_services:
-            old_service = old_services[service_name]
-            changes.append({
-                'type': 'service_removed',
-                'service': service_name,
-                'ip_count': len(old_service.get('properties', {}).get('addressPrefixes', [])),
-                'prefixes': old_service.get('properties', {}).get('addressPrefixes', []),
-                'region': old_service.get('properties', {}).get('region'),
-                'system_service': old_service.get('properties', {}).get('systemService')
-            })
-    
-    logging.info(f"Detected {len(changes)} changes")
-    return changes
+        if n.version == version:
+            nets.append(n)
+    return [(int(n.network_address), int(n.broadcast_address)) for n in ipaddress.collapse_addresses(nets)]
 
-def generate_summary_stats(data: Dict, changes: List[Dict]) -> Dict:
-    """Generate summary statistics for the dashboard."""
-    total_services = len(data.get('values', []))
-    total_ip_ranges = sum(
-        len(service.get('properties', {}).get('addressPrefixes', []))
-        for service in data.get('values', [])
-    )
-    
-    # Count changes by type
-    ip_changes = [c for c in changes if c['type'] == 'ip_changes']
-    service_additions = [c for c in changes if c['type'] == 'service_added']
-    service_removals = [c for c in changes if c['type'] == 'service_removed']
-    
-    # Count changes by region
-    regional_changes = {}
-    for change in changes:
-        region = change.get('region', 'Global')
-        if region not in regional_changes:
-            regional_changes[region] = 0
-        regional_changes[region] += 1
-    
-    # Most active services (services with most changes)
-    service_activity = {}
-    for change in ip_changes:
-        service = change['service']
-        if service not in service_activity:
-            service_activity[service] = 0
-        service_activity[service] += change['added_count'] + change['removed_count']
-    
-    # Sort by activity
-    top_active_services = sorted(
-        service_activity.items(), 
-        key=lambda x: x[1], 
-        reverse=True
-    )[:10]
-    
-    # Get list of available historical dates
-    history_dir = 'docs/data/history'
-    available_dates = []
-    if os.path.exists(history_dir):
-        history_files = sorted([f for f in os.listdir(history_dir) if f.endswith('.json')])
-        available_dates = [f.replace('.json', '') for f in history_files]
-    
+
+def _size(intervals) -> int:
+    return sum(e - s + 1 for s, e in intervals)
+
+
+def _overlap(a, b) -> int:
+    """Overlap size of two sorted, disjoint interval lists."""
+    i = j = total = 0
+    while i < len(a) and j < len(b):
+        lo, hi = max(a[i][0], b[j][0]), min(a[i][1], b[j][1])
+        if lo <= hi:
+            total += hi - lo + 1
+        if a[i][1] < b[j][1]:
+            i += 1
+        else:
+            j += 1
+    return total
+
+
+def coverage_delta(old_prefixes: List[str], new_prefixes: List[str]) -> Tuple[Dict, str]:
+    """Addresses newly covered / no longer covered, per IP family, plus a classification.
+
+    IPv4 is reported in addresses. IPv6 is reported in /64 networks because raw
+    IPv6 address counts overflow 64-bit integers in most JSON consumers.
+    """
+    raw = {}
+    for version in (4, 6):
+        a, b = _intervals(old_prefixes, version), _intervals(new_prefixes, version)
+        common = _overlap(a, b)
+        raw[version] = (_size(b) - common, _size(a) - common)
+
+    added = any(v[0] for v in raw.values())
+    removed = any(v[1] for v in raw.values())
+    classification = ('mixed' if added and removed else 'expansion' if added
+                      else 'contraction' if removed else 'representation_only')
+    cov = {
+        'ipv4': {'added_addresses': raw[4][0], 'removed_addresses': raw[4][1]},
+        'ipv6': {'added_slash64s': raw[6][0] / 2**64, 'removed_slash64s': raw[6][1] / 2**64},
+    }
+    return cov, classification
+
+
+def sum_coverage(items: List[Dict]) -> Dict:
+    total = {'ipv4': {'added_addresses': 0, 'removed_addresses': 0},
+             'ipv6': {'added_slash64s': 0.0, 'removed_slash64s': 0.0}}
+    for cov in items:
+        for fam, values in cov.items():
+            for k, v in values.items():
+                total[fam][k] += v
+    return total
+
+
+# ---------------------------------------------------------------------------
+# Change detection
+# ---------------------------------------------------------------------------
+
+def detect_changes(old_data: Dict, new_data: Dict) -> Tuple[List[Dict], List[Dict]]:
+    """Return (prefix changes, metadata changes) between two snapshots.
+
+    Every prefix change carries added_count/removed_count, including new and
+    removed tags, so: previous total + Σadded − Σremoved = current total.
+    """
+    changes, metadata_changes = [], []
+    old_tags = {v['name']: v for v in old_data.get('values', [])}
+    new_tags = {v['name']: v for v in new_data.get('values', [])}
+
+    def base(name, tag):
+        props = tag.get('properties', {})
+        return {'service': name, 'region': props.get('region'), 'system_service': props.get('systemService')}
+
+    for name, new_tag in new_tags.items():
+        old_tag = old_tags.get(name)
+        new_p = prefixes_of(new_tag)
+        if not old_tag:
+            cov, kind = coverage_delta([], new_p)
+            changes.append({'type': 'service_added', **base(name, new_tag),
+                            'ip_count': len(new_p), 'prefixes': new_p,
+                            'added_count': len(new_p), 'removed_count': 0,
+                            'coverage': cov, 'classification': kind})
+            continue
+
+        old_p = prefixes_of(old_tag)
+        added, removed = set(new_p) - set(old_p), set(old_p) - set(new_p)
+        if added or removed:
+            cov, kind = coverage_delta(old_p, new_p)
+            changes.append({'type': 'ip_changes', **base(name, new_tag),
+                            'added_prefixes': sorted(added), 'removed_prefixes': sorted(removed),
+                            'added_count': len(added), 'removed_count': len(removed),
+                            'coverage': cov, 'classification': kind})
+
+        old_props, new_props = old_tag.get('properties', {}), new_tag.get('properties', {})
+        fields = {f: {'old': old_props.get(f), 'new': new_props.get(f)}
+                  for f in METADATA_FIELDS if old_props.get(f) != new_props.get(f)}
+        if fields:
+            metadata_changes.append({'service': name, 'fields': fields})
+
+    for name, old_tag in old_tags.items():
+        if name not in new_tags:
+            old_p = prefixes_of(old_tag)
+            cov, kind = coverage_delta(old_p, [])
+            changes.append({'type': 'service_removed', **base(name, old_tag),
+                            'ip_count': len(old_p), 'prefixes': old_p,
+                            'added_count': 0, 'removed_count': len(old_p),
+                            'coverage': cov, 'classification': kind})
+
+    logging.info(f"Detected {len(changes)} prefix changes, {len(metadata_changes)} metadata changes")
+    return changes, metadata_changes
+
+
+def build_change_document(old_data: Optional[Dict], new_data: Dict, date: str, metadata: Dict,
+                          previous_snapshot: Optional[str], baseline: bool = False) -> Dict:
+    """Assemble a schema-v2 change file comparing two snapshots."""
+    baseline = baseline or old_data is None
+    changes, metadata_changes = ([], []) if baseline else detect_changes(old_data, new_data)
+
+    added = sum(c['added_count'] for c in changes)
+    removed = sum(c['removed_count'] for c in changes)
+    current_total = membership_total(new_data)
+    previous_total = None if baseline else membership_total(old_data)
+    prev_cn = None if baseline else old_data.get('changeNumber')
+    cur_cn = new_data.get('changeNumber')
+    skipped = list(range(prev_cn + 1, cur_cn)) if isinstance(prev_cn, int) and isinstance(cur_cn, int) else []
+
+    doc = {
+        'schema_version': SCHEMA_VERSION,
+        'date': date,
+        'baseline': baseline,
+        'changes': changes,
+        'total_changes': len(changes),
+        'metadata_changes': metadata_changes,
+        'generated_at': utc_now(),
+        'metadata': metadata,
+        'comparison': {
+            'previous_snapshot': None if baseline else previous_snapshot,
+            'current_snapshot': date,
+            'previous_change_number': prev_cn,
+            'current_change_number': cur_cn,
+            'skipped_change_numbers': skipped,
+            'reproducible': not baseline and previous_snapshot is not None,
+            'previous_membership_total': previous_total,
+            'current_membership_total': current_total,
+            'added_memberships': added,
+            'removed_memberships': removed,
+            'net_memberships': added - removed,
+            'balanced': None if baseline else previous_total + added - removed == current_total,
+            'coverage': sum_coverage([c['coverage'] for c in changes if 'coverage' in c]),
+        },
+    }
+    if not changes:
+        doc['message'] = 'Baseline snapshot' if baseline else 'No changes detected this week'
+    if skipped:
+        logging.warning(f"Skipped Microsoft changeNumbers between snapshots: {skipped}")
+    if doc['comparison']['balanced'] is False:
+        raise RuntimeError(f"Membership invariant violated for {date}: "
+                           f"{previous_total} + {added} - {removed} != {current_total}")
+    return doc
+
+
+# ---------------------------------------------------------------------------
+# Derived files: summary, manifest, collection log
+# ---------------------------------------------------------------------------
+
+def generate_summary_stats(data: Dict, doc: Dict) -> Dict:
+    """Summary for the dashboard. Must run after today's snapshot is saved."""
+    changes = doc['changes']
+    regional_changes, service_activity = {}, {}
+    for c in changes:
+        region = c.get('region') or 'Global'
+        regional_changes[region] = regional_changes.get(region, 0) + 1
+        service_activity[c['service']] = service_activity.get(c['service'], 0) + c['added_count'] + c['removed_count']
+    top = sorted(service_activity.items(), key=lambda x: x[1], reverse=True)[:10]
+
     return {
-        'last_updated': datetime.now(timezone.utc).isoformat(),
-        'total_services': total_services,
-        'total_ip_ranges': total_ip_ranges,
+        'schema_version': SCHEMA_VERSION,
+        'last_updated': utc_now(),
+        'snapshot': doc['date'],
+        'change_number': data.get('changeNumber'),
+        'total_services': len(data.get('values', [])),
+        'total_ip_ranges': membership_total(data),
         'changes_this_week': len(changes),
-        'ip_changes': len(ip_changes),
-        'service_additions': len(service_additions),
-        'service_removals': len(service_removals),
+        'ip_changes': sum(c['type'] == 'ip_changes' for c in changes),
+        'service_additions': sum(c['type'] == 'service_added' for c in changes),
+        'service_removals': sum(c['type'] == 'service_removed' for c in changes),
+        'metadata_changes': len(doc.get('metadata_changes', [])),
+        'added_memberships': doc['comparison']['added_memberships'],
+        'removed_memberships': doc['comparison']['removed_memberships'],
         'regional_changes': regional_changes,
-        'top_active_services': [
-            {'service': service, 'change_count': count}
-            for service, count in top_active_services
-        ],
-        'available_dates': available_dates
+        'top_active_services': [{'service': s, 'change_count': n} for s, n in top],
+        'available_dates': history_dates(),
+        'definitions': {
+            'total_ip_ranges': 'Tag-prefix memberships: the same CIDR listed under two tags counts twice.',
+            'added_memberships': 'Prefixes that joined a tag (including every prefix of a new tag).',
+            'removed_memberships': 'Prefixes that left a tag (including every prefix of a removed tag).',
+            'coverage': 'Address space newly covered / no longer covered, computed per tag and summed across tags (IPv4 in addresses, IPv6 in /64 networks).',
+            'classification': 'expansion: only new address space; contraction: only lost address space; mixed: both; representation_only: CIDRs changed but covered addresses are identical.',
+        },
     }
 
-def save_data_files(data: Dict, changes: List[Dict], summary: Dict, metadata: Dict):
-    """Save all data files for the dashboard."""
-    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-    
-    # Ensure data directories exist
-    Path('docs/data').mkdir(exist_ok=True)
-    Path('docs/data/history').mkdir(exist_ok=True)
-    Path('docs/data/changes').mkdir(exist_ok=True)
-    
-    # Save current data
-    with open('docs/data/current.json', 'w') as f:
-        json.dump(data, f, indent=2)
-    logging.info("Saved current.json")
-    
-    # Save historical snapshot
-    history_file = f'docs/data/history/{today}.json'
-    with open(history_file, 'w') as f:
-        json.dump(data, f, indent=2)
-    logging.info(f"Saved {history_file}")
-    
-    # Save changes if any
-    if changes:
-        changes_data = {
-            'date': today,
-            'changes': changes,
-            'total_changes': len(changes),
-            'generated_at': datetime.now(timezone.utc).isoformat(),
-            'metadata': metadata  # Add metadata (version, date_published)
-        }
-        
-        # Save dated changes file
-        changes_file = f'docs/data/changes/{today}-changes.json'
-        with open(changes_file, 'w') as f:
-            json.dump(changes_data, f, indent=2)
-        logging.info(f"Saved {changes_file}")
-        
-        # Save latest changes (for dashboard)
-        with open('docs/data/changes/latest-changes.json', 'w') as f:
-            json.dump(changes_data, f, indent=2)
-        logging.info("Saved latest-changes.json")
-    else:
-        # Save empty changes file with metadata
-        empty_changes = {
-            'date': today,
-            'changes': [],
-            'total_changes': 0,
-            'generated_at': datetime.now(timezone.utc).isoformat(),
-            'metadata': metadata,  # Include metadata even when no changes
-            'message': 'No changes detected this week'
-        }
-        
-        # Save dated changes file (even if empty, we need it for timeline)
-        changes_file = f'docs/data/changes/{today}-changes.json'
-        with open(changes_file, 'w') as f:
-            json.dump(empty_changes, f, indent=2)
-        logging.info(f"Saved {changes_file} (no changes)")
-        
-        # Save latest changes
-        with open('docs/data/changes/latest-changes.json', 'w') as f:
-            json.dump(empty_changes, f, indent=2)
-        logging.info("No changes detected - saved empty changes file with metadata")
-    
-    # Save summary statistics
-    with open('docs/data/summary.json', 'w') as f:
-        json.dump(summary, f, indent=2)
-    logging.info("Saved summary.json")
-    
-    # Generate manifest of all change files for historical analysis
-    generate_changes_manifest()
-    
-    # Update collection log
-    update_collection_log(data, changes, metadata)
-
-def update_collection_log(data: Dict, changes: List[Dict], metadata: Dict):
-    """Append an entry to the collection log for every run, tracking history of collections."""
-    log_file = Path('docs/data/collection-log.json')
-    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-    
-    # Load existing log
-    log_data = {'runs': [], 'expected_schedule': 'weekly-monday'}
-    if log_file.exists():
-        try:
-            with open(log_file, 'r') as f:
-                log_data = json.load(f)
-        except (json.JSONDecodeError, IOError):
-            pass
-    
-    # Build this run's entry
-    change_number = data.get('changeNumber', '?')
-    total_services = len(data.get('values', []))
-    total_ips = sum(len(svc.get('properties', {}).get('addressPrefixes', [])) for svc in data.get('values', []))
-    
-    entry = {
-        'date': today,
-        'timestamp': datetime.now(timezone.utc).isoformat(),
-        'change_number': change_number,
-        'changes_detected': len(changes),
-        'total_services': total_services,
-        'total_ip_ranges': total_ips,
-        'metadata': {
-            'version': metadata.get('version', ''),
-            'date_published': metadata.get('date_published', '')
-        }
-    }
-    
-    # Avoid duplicate entries for same date (re-run)
-    log_data['runs'] = [r for r in log_data['runs'] if r.get('date') != today]
-    log_data['runs'].append(entry)
-    log_data['runs'].sort(key=lambda r: r['date'])
-    
-    # Calculate missing weeks
-    if len(log_data['runs']) >= 2:
-        all_dates = [datetime.strptime(r['date'], '%Y-%m-%d').date() for r in log_data['runs']]
-        first_monday = min(all_dates)
-        # Align to Monday
-        first_monday = first_monday - timedelta(days=first_monday.weekday())
-        last_date = max(all_dates)
-        
-        expected = set()
-        d = first_monday
-        while d <= last_date:
-            expected.add(d.isoformat())
-            d += timedelta(days=7)
-        
-        collected = set(r['date'] for r in log_data['runs'])
-        missing = sorted(expected - collected)
-        
-        log_data['coverage'] = {
-            'first_collection': min(all_dates).isoformat(),
-            'latest_collection': max(all_dates).isoformat(),
-            'total_runs': len(log_data['runs']),
-            'expected_runs': len(expected),
-            'missing_dates': missing,
-            'missing_count': len(missing),
-            'coverage_pct': round(len(collected) / len(expected) * 100, 1) if expected else 100
-        }
-    
-    # Save
-    with open(log_file, 'w') as f:
-        json.dump(log_data, f, indent=2)
-    
-    logging.info(f"Updated collection log: {len(log_data['runs'])} total runs")
 
 def generate_changes_manifest():
-    """Generate a manifest file listing all available change files for the dashboard."""
-    try:
-        changes_dir = Path('docs/data/changes')
-        
-        # Find all change files (exclude latest-changes.json and manifest.json)
-        change_files = []
-        for file_path in sorted(changes_dir.glob('*-changes.json')):
-            filename = file_path.name
-            if filename not in ['latest-changes.json', 'manifest.json']:
-                # Extract date from filename (YYYY-MM-DD-changes.json)
-                date_match = re.match(r'(\d{4}-\d{2}-\d{2})-changes\.json', filename)
-                if date_match:
-                    date = date_match.group(1)
-                    entry = {
-                        'date': date,
-                        'filename': filename,
-                        'size': file_path.stat().st_size
-                    }
-                    # Carry the snapshot's changeNumber so the analytics timeline
-                    # doesn't have to download 4.5MB history files to read it.
-                    history_file = Path('docs/data/history') / f'{date}.json'
-                    if history_file.exists():
-                        try:
-                            with open(history_file) as hf:
-                                entry['change_number'] = json.load(hf).get('changeNumber')
-                        except (OSError, json.JSONDecodeError) as e:
-                            logging.warning(f"Could not read changeNumber for {date}: {e}")
-                    change_files.append(entry)
-        
-        # Sort by date (newest first)
-        change_files.sort(key=lambda x: x['date'], reverse=True)
-        
-        manifest = {
-            'generated': datetime.now(timezone.utc).isoformat(),
-            'total_files': len(change_files),
-            'date_range': {
-                'oldest': change_files[-1]['date'] if change_files else None,
-                'newest': change_files[0]['date'] if change_files else None
-            },
-            'files': change_files
+    """List every dated change file with the fields the dashboard needs."""
+    files = []
+    for path in sorted(CHANGES_DIR.glob('*-changes.json')):
+        m = re.match(r'(\d{4}-\d{2}-\d{2})-changes\.json$', path.name)
+        if not m:
+            continue
+        doc = read_json(path)
+        cmp_ = doc.get('comparison', {})
+        files.append({
+            'date': m.group(1),
+            'filename': path.name,
+            'size': path.stat().st_size,
+            'change_number': cmp_.get('current_change_number'),
+            'baseline': bool(doc.get('baseline')),
+            'schema_version': doc.get('schema_version', 1),
+            'added_memberships': cmp_.get('added_memberships'),
+            'removed_memberships': cmp_.get('removed_memberships'),
+            'skipped_change_numbers': cmp_.get('skipped_change_numbers', []),
+            'reproducible': cmp_.get('reproducible', False),
+        })
+    files.sort(key=lambda x: x['date'], reverse=True)
+    write_json(CHANGES_DIR / 'manifest.json', {
+        'schema_version': SCHEMA_VERSION,
+        'generated': utc_now(),
+        'total_files': len(files),
+        'date_range': {'oldest': files[-1]['date'] if files else None,
+                       'newest': files[0]['date'] if files else None},
+        'files': files,
+    })
+    logging.info(f"Generated manifest with {len(files)} change files")
+
+
+def _load_log() -> Dict:
+    if LOG_FILE.exists():
+        try:
+            return read_json(LOG_FILE)
+        except (json.JSONDecodeError, OSError):
+            logging.warning("collection-log.json unreadable; starting a new one")
+    return {'runs': [], 'expected_schedule': 'weekly-monday'}
+
+
+def _save_log(log: Dict):
+    """Recompute coverage (weeks with no successful collection) and save."""
+    log['runs'].sort(key=lambda r: r.get('timestamp') or r['date'])
+    ok_dates = {r['date'] for r in log['runs'] if r.get('status', 'success') == 'success'}
+    ok_dates |= {p.name[:10] for p in CHANGES_DIR.glob('*-changes.json') if re.match(r'\d{4}-', p.name)}
+    if ok_dates:
+        days = sorted(datetime.strptime(d, '%Y-%m-%d').date() for d in ok_dates)
+        week = lambda d: d - timedelta(days=d.weekday())
+        expected, w = [], week(days[0])
+        while w <= week(days[-1]):
+            expected.append(w)
+            w += timedelta(days=7)
+        covered = {week(d) for d in days}
+        missing = [w.isoformat() for w in expected if w not in covered]
+        failed = [r for r in log['runs'] if r.get('status') == 'failed']
+        log['coverage'] = {
+            'first_collection': days[0].isoformat(),
+            'latest_collection': days[-1].isoformat(),
+            'total_runs': len(ok_dates),
+            'expected_runs': len(expected),
+            'missing_weeks': missing,
+            'missing_dates': missing,  # kept for v1 consumers
+            'missing_count': len(missing),
+            'coverage_pct': round((len(expected) - len(missing)) / len(expected) * 100, 1),
+            'failed_attempts': len(failed),
+            'last_attempt': log['runs'][-1].get('timestamp') if log['runs'] else None,
+            'note': 'Coverage counts weeks with a successful collection; it does not prove every Microsoft publication was captured — see skipped_change_numbers in each change file.',
         }
-        
-        manifest_file = changes_dir / 'manifest.json'
-        with open(manifest_file, 'w') as f:
-            json.dump(manifest, f, indent=2)
-        
-        logging.info(f"Generated manifest with {len(change_files)} historical files")
-        
-    except Exception as e:
-        logging.warning(f"Could not generate manifest: {e}")
+    write_json(LOG_FILE, log)
+
+
+def log_success(data: Dict, doc: Dict, metadata: Dict):
+    log = _load_log()
+    today = doc['date']
+    # A same-day re-run replaces that day's success; failures are kept as evidence.
+    log['runs'] = [r for r in log['runs'] if not (r['date'] == today and r.get('status', 'success') == 'success')]
+    log['runs'].append({
+        'date': today,
+        'timestamp': utc_now(),
+        'status': 'success',
+        'change_number': data.get('changeNumber'),
+        'changes_detected': len(doc['changes']),
+        'total_services': len(data.get('values', [])),
+        'total_ip_ranges': membership_total(data),
+        'skipped_change_numbers': doc['comparison']['skipped_change_numbers'],
+        'metadata': {k: metadata.get(k, '') for k in ('version', 'date_published', 'date_published_source', 'content_sha256')},
+    })
+    _save_log(log)
+
+
+def log_failure(error: Exception):
+    try:
+        CHANGES_DIR.mkdir(parents=True, exist_ok=True)
+        log = _load_log()
+        log['runs'].append({
+            'date': datetime.now(timezone.utc).strftime('%Y-%m-%d'),
+            'timestamp': utc_now(),
+            'status': 'failed',
+            'error': f"{type(error).__name__}: {error}"[:500],
+        })
+        _save_log(log)
+    except Exception as e:  # never mask the original failure
+        logging.error(f"Could not record failure in collection log: {e}")
+
+
+# ---------------------------------------------------------------------------
+# Region names (generated from Microsoft's own tag names — no manual list)
+# ---------------------------------------------------------------------------
+
+REGIONS_FILE = DATA_DIR / 'regions.json'
+_ACRONYM_SUFFIXES = ('EUAP', 'STG')
+
+
+def region_display_name(camel: str) -> str:
+    """'FranceCentral' -> 'France Central', 'EastUS2EUAP' -> 'East US 2 EUAP'."""
+    suffix = ''
+    for acronym in _ACRONYM_SUFFIXES:
+        if camel.endswith(acronym) and len(camel) > len(acronym):
+            camel, suffix = camel[:-len(acronym)], ' ' + acronym
+            break
+    spaced = re.sub(r'(?<=[a-z])(?=[A-Z0-9])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[A-Z])(?=[0-9])|(?<=[0-9])(?=[A-Za-z])',
+                    ' ', camel)
+    return spaced + suffix
+
+
+def update_region_map(snapshots: List[Dict]) -> Dict:
+    """Merge region names derived from these snapshots into regions.json.
+
+    Regional tags are named like 'Storage.FranceCentral' while their region
+    field may be an alias ('centralfrance'). The CamelCase suffix gives the
+    display name; both spellings are written as keys with the same name, which
+    is how the frontend recognises an alias. A region no tag spells out
+    (e.g. only 'AzureCloud.brazilne') keeps its raw code as its name: Microsoft
+    publishes no name for it, so none is invented. Existing entries are kept so
+    regions that only appear in older history stay labelled.
+    """
+    votes: Dict[str, Dict[str, int]] = {}
+    seen = set()
+    for data in snapshots:
+        for tag in data.get('values', []):
+            region = tag.get('properties', {}).get('region')
+            if not region or '.' not in tag['name']:
+                continue
+            seen.add(region.lower())
+            suffix = tag['name'].split('.', 1)[1]
+            if suffix != suffix.lower():  # needs capitals to carry word boundaries
+                votes.setdefault(region, {}).setdefault(suffix, 0)
+                votes[region][suffix] += 1
+
+    regions = read_json(REGIONS_FILE) if REGIONS_FILE.exists() else {}
+    for region, counts in votes.items():
+        camel = max(counts, key=lambda k: (counts[k], k))
+        name = region_display_name(camel)
+        regions[region.lower()] = name
+        regions[re.sub(r'[^a-z0-9]', '', camel.lower())] = name
+    for region in seen:
+        regions.setdefault(region, region)
+
+    regions = dict(sorted(regions.items()))
+    write_json(REGIONS_FILE, regions)
+    return regions
+
+
+# ---------------------------------------------------------------------------
+# Run
+# ---------------------------------------------------------------------------
+
+def load_previous_snapshot(today: str) -> Tuple[Optional[Dict], Optional[str]]:
+    """Latest snapshot strictly before today, so a same-day re-run diffs against
+    the real previous collection instead of against itself."""
+    earlier = [d for d in history_dates() if d < today]
+    if earlier:
+        return read_json(HISTORY_DIR / f'{earlier[-1]}.json'), earlier[-1]
+    current = DATA_DIR / 'current.json'
+    if current.exists():
+        logging.warning("No earlier history snapshot; comparing against current.json (not reproducible)")
+        return read_json(current), None
+    return None, None
+
+
+def write_change_document(doc: Dict):
+    write_json(CHANGES_DIR / f"{doc['date']}-changes.json", doc)
+
+
+def refresh_latest_changes():
+    dated = sorted(CHANGES_DIR.glob('????-??-??-changes.json'))
+    if dated:
+        write_json(CHANGES_DIR / 'latest-changes.json', read_json(dated[-1]))
+
+
+def run(baseline: bool):
+    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+    for d in (DATA_DIR, HISTORY_DIR, CHANGES_DIR):
+        d.mkdir(parents=True, exist_ok=True)
+
+    new_data, metadata = download_latest_json()
+    metadata['retrieved_at'] = utc_now()
+    old_data, prev_date = (None, None) if baseline else load_previous_snapshot(today)
+    doc = build_change_document(old_data, new_data, today, metadata, prev_date, baseline=baseline)
+
+    # Snapshot first, then everything derived from it.
+    write_json(DATA_DIR / 'current.json', new_data)
+    write_json(HISTORY_DIR / f'{today}.json', new_data)
+    write_change_document(doc)
+    refresh_latest_changes()
+    update_region_map([new_data])
+    summary = generate_summary_stats(new_data, doc)
+    write_json(DATA_DIR / 'summary.json', summary)
+    generate_changes_manifest()
+    log_success(new_data, doc, metadata)
+
+    c = doc['comparison']
+    print(f"✅ {'Baseline' if doc['baseline'] else 'Update'} saved for {today} (changeNumber {c['current_change_number']})")
+    print(f"📊 Services: {summary['total_services']}  memberships: {c['current_membership_total']}")
+    if not doc['baseline']:
+        print(f"📈 {len(doc['changes'])} tag changes: +{c['added_memberships']} / -{c['removed_memberships']} memberships")
+        if c['skipped_change_numbers']:
+            print(f"⚠️  Missed Microsoft versions: {c['skipped_change_numbers']}")
+
+
+# ---------------------------------------------------------------------------
+# One-off upgrade of existing files to schema v2
+# ---------------------------------------------------------------------------
+
+def upgrade_history():
+    """Upgrade every change file to schema v2.
+
+    Where both snapshots exist the file is recomputed and checked against the
+    original record; otherwise the original record is kept and only annotated.
+    """
+    paths = sorted(CHANGES_DIR.glob('????-??-??-changes.json'))
+    snaps = set(history_dates())
+    for i, path in enumerate(paths):
+        old_doc = read_json(path)
+        date = old_doc['date']
+        prev_date = paths[i - 1].name[:10] if i else None
+        is_baseline = i == 0
+
+        if not is_baseline and date in snaps and prev_date in snaps:
+            doc = build_change_document(read_json(HISTORY_DIR / f'{prev_date}.json'),
+                                        read_json(HISTORY_DIR / f'{date}.json'),
+                                        date, old_doc.get('metadata', {}), prev_date)
+            key = lambda c: (c['type'], c['service'], c.get('added_count', c.get('ip_count')), c.get('removed_count', 0))
+            old_keys = sorted(key({**c, 'added_count': c.get('added_count', c.get('ip_count') if c['type'] == 'service_added' else 0),
+                                   'removed_count': c.get('removed_count', c.get('ip_count') if c['type'] == 'service_removed' else 0)})
+                              for c in old_doc['changes'])
+            if old_keys != sorted(key(c) for c in doc['changes']):
+                raise RuntimeError(f"Recomputed changes for {date} differ from the stored record")
+            doc['generated_at'] = old_doc.get('generated_at', doc['generated_at'])
+        else:
+            doc = dict(old_doc)
+            for c in doc['changes']:
+                if c['type'] == 'service_added':
+                    c.setdefault('added_count', c.get('ip_count', len(c.get('prefixes', []))))
+                    c.setdefault('removed_count', 0)
+                elif c['type'] == 'service_removed':
+                    c.setdefault('added_count', 0)
+                    c.setdefault('removed_count', c.get('ip_count', len(c.get('prefixes', []))))
+            added = sum(c.get('added_count', 0) for c in doc['changes'])
+            removed = sum(c.get('removed_count', 0) for c in doc['changes'])
+            cur = read_json(HISTORY_DIR / f'{date}.json') if date in snaps else None
+            doc.update({
+                'schema_version': SCHEMA_VERSION,
+                'baseline': is_baseline,
+                'metadata_changes': doc.get('metadata_changes', []),
+                'comparison': {
+                    'previous_snapshot': None,
+                    'current_snapshot': date if cur else None,
+                    'previous_change_number': None,
+                    'current_change_number': cur.get('changeNumber') if cur else None,
+                    'skipped_change_numbers': [],
+                    'reproducible': False,
+                    'note': 'Baseline snapshot.' if is_baseline else
+                            'Previous snapshot was not archived; counts are as originally recorded and cannot be re-derived.',
+                    'previous_membership_total': None,
+                    'current_membership_total': membership_total(cur) if cur else None,
+                    'added_memberships': added,
+                    'removed_memberships': removed,
+                    'net_memberships': added - removed,
+                    'balanced': None,
+                    'coverage': None,
+                },
+            })
+        write_change_document(doc)
+        logging.info(f"Upgraded {path.name} ({'recomputed' if doc['comparison']['reproducible'] else 'annotated'})")
+
+    refresh_latest_changes()
+    latest = history_dates()[-1]
+    write_json(DATA_DIR / 'summary.json',
+               generate_summary_stats(read_json(HISTORY_DIR / f'{latest}.json'), read_json(CHANGES_DIR / 'latest-changes.json')))
+    generate_changes_manifest()
+    _save_log(_load_log())
+
 
 def main():
-    """Main execution function."""
-    # Parse command line arguments
     parser = argparse.ArgumentParser(description='Azure Service Tags & IP Ranges Tracker - Dashboard Data Generator')
-    parser.add_argument('--baseline', action='store_true', 
-                       help='Setup initial baseline (no changes recorded)')
+    parser.add_argument('--baseline', action='store_true', help='Setup initial baseline (no changes recorded)')
+    parser.add_argument('--upgrade-history', action='store_true', help='Upgrade existing change files to schema v2 (no download)')
+    parser.add_argument('--rebuild-regions', action='store_true', help='Regenerate regions.json from every archived snapshot (no download)')
     args = parser.parse_args()
-    
+
+    if args.upgrade_history:
+        upgrade_history()
+        return
+    if args.rebuild_regions:
+        names = update_region_map([read_json(HISTORY_DIR / f'{d}.json') for d in history_dates()])
+        print(f"✅ regions.json: {len(names)} entries")
+        return
     try:
-        if args.baseline:
-            logging.info("=== Azure Service Tags & IP Ranges Tracker - Baseline Setup ===")
-            print("🎯 Setting up initial baseline")
-        else:
-            logging.info("=== Azure Service Tags & IP Ranges Tracker Update ===")
-        
-        # Download latest data
-        new_data, metadata = download_latest_json()
-        
-        if args.baseline:
-            # For baseline setup, don't load previous data or detect changes
-            logging.info("Baseline mode: Skipping change detection")
-            old_data = None
-            changes = []
-        else:
-            # Load previous data for comparison
-            old_data = load_previous_data()
-            # Detect changes
-            changes = detect_changes(old_data, new_data)
-        
-        # Generate summary statistics
-        summary = generate_summary_stats(new_data, changes)
-        
-        # Save all files (including metadata)
-        save_data_files(new_data, changes, summary, metadata)
-        
-        if args.baseline:
-            logging.info("=== Baseline setup completed successfully ===")
-            print("✅ Successfully established baseline data")
-            print(f"📊 Total services: {summary['total_services']}")
-            print(f"🔢 Total IP ranges: {summary['total_ip_ranges']}")
-            print("🎯 Next weekly run will detect changes from this baseline")
-        else:
-            logging.info("=== Update completed successfully ===")
-            print(f"✅ Successfully updated Azure Service Tags data")
-            print(f"📊 Total services: {summary['total_services']}")
-            print(f"🔢 Total IP ranges: {summary['total_ip_ranges']}")
-            print(f"📈 Changes detected: {summary['changes_this_week']}")
-            
-            if changes:
-                print(f"🔄 IP changes: {summary['ip_changes']}")
-                print(f"➕ New services: {summary['service_additions']}")
-                print(f"➖ Removed services: {summary['service_removals']}")
-            else:
-                print("✨ No changes detected this week")
-            
+        run(args.baseline)
     except Exception as e:
         logging.error(f"Update failed: {e}")
-        raise
+        log_failure(e)
+        sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

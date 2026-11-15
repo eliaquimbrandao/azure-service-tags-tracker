@@ -73,6 +73,7 @@ export class ChangeRenderer {
                             <span class="change-stat added">➕ ${addedCount} IPs added</span>
                             <span class="change-stat removed">➖ ${removedCount} IPs removed</span>
                         </div>
+                        ${this.renderCoverage(change)}
                         ${addedHtml}
                         ${removedHtml}
                         ${showBoth ? `
@@ -214,6 +215,32 @@ export class ChangeRenderer {
                 </div>
             </div>
         `;
+    }
+
+    // Address-space effect of a change (schema v2): did coverage really move,
+    // or were the same addresses just re-expressed as different CIDRs?
+    renderCoverage(change) {
+        const cov = change.coverage;
+        if (!cov || !change.classification) return '';
+        const labels = {
+            expansion: 'Coverage expanded',
+            contraction: 'Coverage contracted',
+            mixed: 'Coverage changed (gained and lost)',
+            representation_only: 'Same addresses, different CIDRs'
+        };
+        const fmt = n => Math.round(n).toLocaleString();
+        const parts = [];
+        const v4 = cov.ipv4 || {};
+        if (v4.added_addresses || v4.removed_addresses) {
+            parts.push(`IPv4 +${fmt(v4.added_addresses)} / −${fmt(v4.removed_addresses)} addresses`);
+        }
+        const v6 = cov.ipv6 || {};
+        if (v6.added_slash64s || v6.removed_slash64s) {
+            const f6 = n => (n > 0 && n < 1 ? '<1' : fmt(n));
+            parts.push(`IPv6 +${f6(v6.added_slash64s)} / −${f6(v6.removed_slash64s)} /64s`);
+        }
+        const detail = parts.length ? ` · ${parts.join(' · ')}` : '';
+        return `<p class="coverage-note" title="Address space newly covered / no longer covered by this tag">${labels[change.classification] || change.classification}${detail}</p>`;
     }
 
     formatChangeType(type) {

@@ -1838,5 +1838,24 @@
     }
   ],
   "total_changes": 111,
-  "generated_at": "2025-10-17T18:20:41.877271+00:00"
+  "generated_at": "2025-10-17T18:20:41.877271+00:00",
+  "schema_version": 2,
+  "baseline": false,
+  "metadata_changes": [],
+  "comparison": {
+    "previous_snapshot": null,
+    "current_snapshot": null,
+    "previous_change_number": null,
+    "current_change_number": null,
+    "skipped_change_numbers": [],
+    "reproducible": false,
+    "note": "Previous snapshot was not archived; counts are as originally recorded and cannot be re-derived.",
+    "previous_membership_total": null,
+    "current_membership_total": null,
+    "added_memberships": 487,
+    "removed_memberships": 105,
+    "net_memberships": 382,
+    "balanced": null,
+    "coverage": null
+  }
 }

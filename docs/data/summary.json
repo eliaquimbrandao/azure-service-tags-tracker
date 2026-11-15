@@ -1,13 +1,19 @@
 {
-  "last_updated": "2026-11-09T04:26:03.922283+00:00",
+  "schema_version": 2,
+  "last_updated": "2026-11-15T19:50:20.483408+00:00",
+  "snapshot": "2026-11-09",
+  "change_number": 425,
   "total_services": 3361,
   "total_ip_ranges": 103018,
   "changes_this_week": 104,
   "ip_changes": 101,
   "service_additions": 3,
   "service_removals": 0,
+  "metadata_changes": 0,
+  "added_memberships": 6454,
+  "removed_memberships": 196,
   "regional_changes": {
-    "": 7,
+    "Global": 7,
     "australiaeast": 2,
     "austriaeast": 1,
     "belgiumcentral": 1,
@@ -74,6 +80,10 @@
       "change_count": 2874
     },
     {
+      "service": "Windows365",
+      "change_count": 754
+    },
+    {
       "service": "AzureCloud.westeurope",
       "change_count": 372
     },
@@ -94,20 +104,16 @@
       "change_count": 129
     },
     {
+      "service": "AgentFabric",
+      "change_count": 118
+    },
+    {
       "service": "AzureCloud.centraluseuap",
       "change_count": 101
     },
     {
       "service": "AzureCloud.australiasoutheast",
       "change_count": 94
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 94
-    },
-    {
-      "service": "AzureCloud.eastus3",
-      "change_count": 76
     }
   ],
   "available_dates": [
@@ -163,6 +169,14 @@
     "2026-10-12",
     "2026-10-19",
     "2026-10-26",
-    "2026-11-02"
-  ]
+    "2026-11-02",
+    "2026-11-09"
+  ],
+  "definitions": {
+    "total_ip_ranges": "Tag-prefix memberships: the same CIDR listed under two tags counts twice.",
+    "added_memberships": "Prefixes that joined a tag (including every prefix of a new tag).",
+    "removed_memberships": "Prefixes that left a tag (including every prefix of a removed tag).",
+    "coverage": "Address space newly covered / no longer covered, computed per tag and summed across tags (IPv4 in addresses, IPv6 in /64 networks).",
+    "classification": "expansion: only new address space; contraction: only lost address space; mixed: both; representation_only: CIDRs changed but covered addresses are identical."
+  }
 }

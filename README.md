@@ -186,6 +186,31 @@ All data is publicly accessible as JSON via GitHub Pages. You can integrate this
 - `/data/changes/manifest.json` - Index of all change reports
 - `/data/history/YYYY-MM-DD.json` - Historical snapshots
 
+### Change file schema (v2)
+
+Every change file has `"schema_version": 2`. All v1 fields are still present; v2 adds:
+
+| Field | Meaning |
+|---|---|
+| `baseline` | `true` only for the initial snapshot; skip it when counting changes |
+| `changes[].added_count` / `removed_count` | Present on **every** change type; a new tag counts all its prefixes as added, a removed tag all as removed |
+| `changes[].coverage` | Address space newly covered / no longer covered by that tag: IPv4 in addresses, IPv6 in /64 networks |
+| `changes[].classification` | `expansion`, `contraction`, `mixed`, or `representation_only` (CIDRs changed, same addresses) |
+| `metadata_changes[]` | Tags whose `region`, `regionId`, `platform`, `systemService` or `networkFeatures` changed |
+| `comparison.previous_snapshot` / `current_snapshot` | The two `history/` files compared (`null` when the previous one was never archived) |
+| `comparison.previous_change_number` / `current_change_number` | Microsoft `changeNumber` on each side |
+| `comparison.skipped_change_numbers` | Microsoft versions published between the two collections that were never collected |
+| `comparison.*_membership_total`, `added_memberships`, `removed_memberships`, `balanced` | `previous + added − removed = current`, checked on every run |
+| `comparison.reproducible` | `true` when the change list can be re-derived from the two archived snapshots |
+| `metadata.date_published_source` | `download_page` (read from Microsoft's page) or `inferred_from_filename` |
+| `metadata.source_url`, `content_sha256`, `retrieved_at` | Which file was downloaded, its hash, and when |
+
+`regions.json` is regenerated on every run from Microsoft's own tag names (`Storage.FranceCentral` → "France Central"). Where Service Tags use a different spelling for the same region (`centralfrance`), both spellings get the same name and the dashboard treats them as one region; every distinct region keeps its own entry. A region that no tag spells out (currently `brazilne` and `northeurope2`, each present only as an `AzureCloud.*` tag) is shown by its raw code, because Microsoft publishes no name for it. No manual region list to maintain.
+
+"IP ranges" totals count **tag-prefix memberships**: a CIDR listed under two tags counts twice. `summary.json` carries a `definitions` block with these explanations.
+
+Each run is checked by `scripts/verify_data.py`, which re-derives every reproducible comparison from the archived snapshots, before anything is committed. A failed collection is recorded in `collection-log.json` (`status: "failed"`).
+
 ### Complete Integration Examples
 
 For **comprehensive API documentation** with working code examples, see:
@@ -206,10 +231,14 @@ This includes:
 ## 🛠️ Local Development
 
 ```bash
-# Test Python script
-cd scripts
-python azure_watcher.py --baseline  # First run
-python azure_watcher.py             # Regular update
+# Run from the repository root
+python scripts/azure_watcher.py --baseline  # First run
+python scripts/azure_watcher.py             # Regular update
+
+# Checks (also run in CI before every data commit)
+python scripts/test_watcher.py
+node scripts/test-change-counts.mjs
+python scripts/verify_data.py
 
 # Test dashboard locally
 cd docs
