@@ -663,5 +663,24 @@
   "metadata": {
     "version": "2025.10.20",
     "date_published": "10/24/2025"
+  },
+  "schema_version": 2,
+  "baseline": false,
+  "metadata_changes": [],
+  "comparison": {
+    "previous_snapshot": null,
+    "current_snapshot": null,
+    "previous_change_number": null,
+    "current_change_number": null,
+    "skipped_change_numbers": [],
+    "reproducible": false,
+    "note": "Previous snapshot was not archived; counts are as originally recorded and cannot be re-derived.",
+    "previous_membership_total": null,
+    "current_membership_total": null,
+    "added_memberships": 170,
+    "removed_memberships": 119,
+    "net_memberships": 51,
+    "balanced": null,
+    "coverage": null
   }
 }

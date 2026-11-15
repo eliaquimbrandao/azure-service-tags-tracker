@@ -503,7 +503,9 @@
         "130.213.78.208/29",
         "135.171.143.8/29",
         "172.194.130.40/29"
-      ]
+      ],
+      "added_count": 7,
+      "removed_count": 0
     },
     {
       "type": "ip_changes",
@@ -555,7 +557,9 @@
         "130.131.135.96/31",
         "135.225.65.6/31",
         "135.225.65.24/29"
-      ]
+      ],
+      "added_count": 28,
+      "removed_count": 0
     },
     {
       "type": "ip_changes",
@@ -750,7 +754,9 @@
         "172.178.153.64/27",
         "172.187.45.192/27",
         "172.213.203.128/27"
-      ]
+      ],
+      "added_count": 32,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -779,7 +785,9 @@
         "172.208.254.100/30",
         "172.215.90.238/32",
         "172.215.94.80/30"
-      ]
+      ],
+      "added_count": 20,
+      "removed_count": 0
     },
     {
       "type": "ip_changes",
@@ -2807,7 +2815,9 @@
         "68.210.56.192/26",
         "68.210.57.0/24",
         "68.210.58.0/25"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2822,7 +2832,9 @@
         "9.160.68.0/24",
         "9.160.69.0/26",
         "9.160.69.64/27"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2837,7 +2849,9 @@
         "57.156.3.0/25",
         "57.156.3.128/27",
         "68.211.31.220/30"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2852,7 +2866,9 @@
         "70.153.93.0/24",
         "70.153.94.0/25",
         "70.153.94.128/28"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2867,7 +2883,9 @@
         "51.58.50.0/24",
         "51.58.51.0/27",
         "51.58.51.32/28"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2882,7 +2900,9 @@
         "9.235.71.0/24",
         "9.235.168.0/25",
         "9.235.168.128/28"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2897,7 +2917,9 @@
         "85.211.232.0/24",
         "85.211.233.0/25",
         "85.211.233.128/27"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2912,7 +2934,9 @@
         "172.195.51.0/24",
         "172.195.52.0/27",
         "172.195.52.32/28"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2927,7 +2951,9 @@
         "172.196.59.64/27",
         "172.196.59.96/28",
         "172.204.255.248/30"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2942,7 +2968,9 @@
         "20.215.123.0/24",
         "20.215.124.0/25",
         "20.215.124.128/28"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2957,7 +2985,9 @@
         "20.173.57.64/26",
         "20.173.57.128/25",
         "20.173.58.0/24"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "service_added",
@@ -2972,7 +3002,9 @@
         "70.156.174.64/26",
         "70.156.175.0/24",
         "158.158.128.0/25"
-      ]
+      ],
+      "added_count": 6,
+      "removed_count": 0
     },
     {
       "type": "ip_changes",
@@ -4457,5 +4489,24 @@
   "metadata": {
     "version": "2025.11.17",
     "date_published": "11/19/2025"
+  },
+  "schema_version": 2,
+  "baseline": false,
+  "metadata_changes": [],
+  "comparison": {
+    "previous_snapshot": null,
+    "current_snapshot": "2025-11-24",
+    "previous_change_number": null,
+    "current_change_number": 377,
+    "skipped_change_numbers": [],
+    "reproducible": false,
+    "note": "Previous snapshot was not archived; counts are as originally recorded and cannot be re-derived.",
+    "previous_membership_total": null,
+    "current_membership_total": 96725,
+    "added_memberships": 1248,
+    "removed_memberships": 346,
+    "net_memberships": 902,
+    "balanced": null,
+    "coverage": null
   }
 }

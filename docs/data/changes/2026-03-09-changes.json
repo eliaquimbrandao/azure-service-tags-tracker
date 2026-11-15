@@ -1,9 +1,13 @@
 {
+  "schema_version": 2,
   "date": "2026-03-09",
+  "baseline": false,
   "changes": [
     {
       "type": "ip_changes",
       "service": "GatewayManager",
+      "region": "",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "108.140.46.160/28",
         "134.112.169.240/28",
@@ -72,924 +76,1771 @@
       "removed_prefixes": [],
       "added_count": 63,
       "removed_count": 0,
-      "region": "",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 1656,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "PowerBI",
+      "region": "",
+      "system_service": "PowerBI",
       "added_prefixes": [
         "48.201.167.128/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "PowerBI"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.BelgiumCentral",
+      "region": "belgiumcentral",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.157.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "belgiumcentral",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.CentralIndia",
+      "region": "centralindia",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.158.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralindia",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.EastUS",
+      "region": "eastus",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.155.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.SoutheastAsia",
+      "region": "southeastasia",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.153.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.UKSouth",
+      "region": "uksouth",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.156.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uksouth",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.AustraliaCentral",
+      "region": "australiacentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.199.211.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiacentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.AustraliaCentral2",
+      "region": "australiacentral2",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.167.130.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiacentral2",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.AustraliaEast",
+      "region": "australiaeast",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.147.33.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiaeast",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.AustriaEast",
+      "region": "austriaeast",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "68.210.62.16/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "austriaeast",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.BelgiumCentral",
+      "region": "belgiumcentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "9.160.171.112/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "belgiumcentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.BrazilSouth",
+      "region": "brazilsouth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.201.244.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "brazilsouth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.BrazilSoutheast",
+      "region": "brazilse",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "108.140.46.160/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "brazilse",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.CanadaCentral",
+      "region": "canadacentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "145.191.111.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadacentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.CanadaEast",
+      "region": "canadaeast",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.200.32.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadaeast",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.CentralUS",
+      "region": "centralus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.170.121.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.ChileCentral",
+      "region": "chilec",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "57.156.76.16/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "chilec",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.DenmarkEast",
+      "region": "denmarkeast",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "9.205.67.96/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "denmarkeast",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.EastUS",
+      "region": "eastus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.206.11.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.EastUS2",
+      "region": "eastus2",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.204.192.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus2",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.EastUS2EUAP",
+      "region": "eastus2euap",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.223.70.192/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus2euap",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.EastUS3",
+      "region": "eastus3",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "51.57.139.192/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus3",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.FranceCentral",
+      "region": "centralfrance",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.176.37.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralfrance",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.FranceSouth",
+      "region": "southfrance",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "40.80.105.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southfrance",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.GermanyNorth",
+      "region": "germanyn",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.170.251.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "germanyn",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.GermanyWestCentral",
+      "region": "germanywc",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.201.167.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "germanywc",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.193.55.64/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.IsraelCentral",
+      "region": "israelcentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "51.58.60.144/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "israelcentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.IsraelNorthwest",
+      "region": "israelnorthwest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "51.4.155.144/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "israelnorthwest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.ItalyNorth",
+      "region": "italynorth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "9.235.174.32/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "italynorth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.JapanEast",
+      "region": "japaneast",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.216.6.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "japaneast",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.JioIndiaCentral",
+      "region": "jioindiacentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "74.225.118.0/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "jioindiacentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.JioIndiaWest",
+      "region": "jioindiawest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.244.210.144/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "jioindiawest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.KoreaSouth",
+      "region": "koreasouth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "40.80.171.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "koreasouth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.MalaysiaSouth",
+      "region": "malaysiasouth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.197.26.176/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "malaysiasouth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.MalaysiaWest",
+      "region": "malaysiawest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "85.211.238.32/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "malaysiawest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.MexicoCentral",
+      "region": "mexicocentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.195.113.144/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "mexicocentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.NewZealandNorth",
+      "region": "newzealandnorth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.196.72.160/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "newzealandnorth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.NorthEurope",
+      "region": "northeurope",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.208.122.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "northeurope",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.NorwayWest",
+      "region": "norwayw",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.220.241.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "norwayw",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.PolandCentral",
+      "region": "polandcentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "134.112.169.240/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "polandcentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.QatarCentral",
+      "region": "qatarcentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.173.62.208/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "qatarcentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthAfricaNorth",
+      "region": "southafricanorth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.221.233.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricanorth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthAfricaWest",
+      "region": "southafricawest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.209.114.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricawest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthCentralUS",
+      "region": "southcentralus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.192.241.128/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southcentralus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthCentralUS2",
+      "region": "southcentralus2",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.219.10.16/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southcentralus2",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthCentralUSSTG",
+      "region": "usstagec",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "57.152.146.144/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "usstagec",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SouthIndia",
+      "region": "southindia",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "74.225.47.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southindia",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SoutheastAsia",
+      "region": "southeastasia",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.145.21.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SoutheastUS",
+      "region": "southeastus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "68.154.160.112/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SoutheastUS3",
+      "region": "southeastus3",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "74.7.67.192/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastus3",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SpainCentral",
+      "region": "spaincentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "158.158.133.112/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "spaincentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SwedenCentral",
+      "region": "swedencentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.166.32.64/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "swedencentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SwedenSouth",
+      "region": "swedensouth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.91.90.240/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "swedensouth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.SwitzerlandWest",
+      "region": "switzerlandw",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.226.255.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "switzerlandw",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.TaiwanNorth",
+      "region": "taiwannorth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "70.157.164.80/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "taiwannorth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.TaiwanNorthwest",
+      "region": "taiwannorthwest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "167.105.251.240/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "taiwannorthwest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.UAECentral",
+      "region": "uaecentral",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.216.93.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaecentral",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.UAENorth",
+      "region": "uaenorth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "4.161.14.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaenorth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.UKSouth",
+      "region": "uksouth",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.166.7.192/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uksouth",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.UKWest",
+      "region": "ukwest",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "172.186.108.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "ukwest",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestCentralUS",
+      "region": "westcentralus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.194.149.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westcentralus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestEurope",
+      "region": "westeurope",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.199.250.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westeurope",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestIndia",
+      "region": "westindia",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "20.192.80.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westindia",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestUS",
+      "region": "westus",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.195.69.64/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestUS2",
+      "region": "westus2",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "48.204.72.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus2",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "GatewayManager.WestUS3",
+      "region": "westus3",
+      "system_service": "GatewayManager",
       "added_prefixes": [
         "51.57.125.216/29"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus3",
-      "system_service": "GatewayManager"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "PowerBI.GermanyWestCentral",
+      "region": "germanywc",
+      "system_service": "PowerBI",
       "added_prefixes": [
         "48.201.167.128/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "germanywc",
-      "system_service": "PowerBI"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.AustraliaCentral",
+      "region": "australiacentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiacentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.AustraliaEast",
+      "region": "australiaeast",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiaeast",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.AustraliaSoutheast",
+      "region": "australiasoutheast",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiasoutheast",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.BrazilSouth",
+      "region": "brazilsouth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "brazilsouth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.CanadaCentral",
+      "region": "canadacentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadacentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.CanadaEast",
+      "region": "canadaeast",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadaeast",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.CentralIndia",
+      "region": "centralindia",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralindia",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.CentralUS",
+      "region": "centralus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.ChileCentral",
+      "region": "chilec",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.147.232/29",
         "40.64.154.32/27"
@@ -997,384 +1848,736 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "chilec",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 40,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.EastAsia",
+      "region": "eastasia",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastasia",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.EastUS",
+      "region": "eastus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.EastUS2",
+      "region": "eastus2",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus2",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.FranceCentral",
+      "region": "centralfrance",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralfrance",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.FranceSouth",
+      "region": "southfrance",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southfrance",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.GermanyNorth",
+      "region": "germanyn",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "germanyn",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.GermanyWestCentral",
+      "region": "germanywc",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "germanywc",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.IsraelCentral",
+      "region": "israelcentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "israelcentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.ItalyNorth",
+      "region": "italynorth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "italynorth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.JapanEast",
+      "region": "japaneast",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "japaneast",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.JapanWest",
+      "region": "japanwest",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "japanwest",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.JioIndiaWest",
+      "region": "jioindiawest",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "jioindiawest",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.KoreaCentral",
+      "region": "koreacentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "koreacentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.KoreaSouth",
+      "region": "koreasouth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "koreasouth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.MexicoCentral",
+      "region": "mexicocentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "mexicocentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.NewZealandNorth",
+      "region": "newzealandnorth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "newzealandnorth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.NorthCentralUS",
+      "region": "northcentralus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "northcentralus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.NorthEurope",
+      "region": "northeurope",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.147.64/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "northeurope",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.NorwayEast",
+      "region": "norwaye",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "norwaye",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.NorwayWest",
+      "region": "norwayw",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "norwayw",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.PolandCentral",
+      "region": "polandcentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.154.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "polandcentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SouthAfricaNorth",
+      "region": "southafricanorth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricanorth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SouthAfricaWest",
+      "region": "southafricawest",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricawest",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SouthCentralUS",
+      "region": "southcentralus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.145.48/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southcentralus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SouthIndia",
+      "region": "southindia",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southindia",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SoutheastAsia",
+      "region": "southeastasia",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SpainCentral",
+      "region": "spaincentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.192/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "spaincentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SwedenCentral",
+      "region": "swedencentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "swedencentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SwedenSouth",
+      "region": "swedensouth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "swedensouth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SwitzerlandNorth",
+      "region": "switzerlandn",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.152.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "switzerlandn",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.SwitzerlandWest",
+      "region": "switzerlandw",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.160/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "switzerlandw",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.TaiwanNorth",
+      "region": "taiwannorth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.144.160/28",
         "40.64.152.224/27"
@@ -1384,180 +2587,345 @@
       ],
       "added_count": 2,
       "removed_count": 1,
-      "region": "taiwannorth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 40,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.TaiwanNorthwest",
+      "region": "taiwannorthwest",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.153.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "taiwannorthwest",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.UAECentral",
+      "region": "uaecentral",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.32/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaecentral",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.UAENorth",
+      "region": "uaenorth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaenorth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.UKSouth",
+      "region": "uksouth",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uksouth",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.UKWest",
+      "region": "ukwest",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.148.224/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "ukwest",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestCentralUS",
+      "region": "westcentralus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westcentralus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestEurope",
+      "region": "westeurope",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.145.128/28"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westeurope",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestIndia",
+      "region": "westindia",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.150.0/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westindia",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestUS",
+      "region": "westus",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestUS2",
+      "region": "westus2",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.149.64/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus2",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.WestUS3",
+      "region": "westus3",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "40.64.151.128/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus3",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.australiasoutheast",
+      "region": "australiasoutheast",
+      "system_service": "",
       "added_prefixes": [
         "151.206.191.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "australiasoutheast",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.austriaeast",
+      "region": "austriaeast",
+      "system_service": "",
       "added_prefixes": [
         "151.206.179.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "austriaeast",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.belgiumcentral",
+      "region": "belgiumcentral",
+      "system_service": "",
       "added_prefixes": [
         "145.190.157.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "belgiumcentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.brazilsouth",
+      "region": "brazilsouth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.177.0/24",
         "20.20.97.112/29",
@@ -1571,24 +2939,46 @@
       ],
       "added_count": 5,
       "removed_count": 2,
-      "region": "brazilsouth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 276,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.canadacentral",
+      "region": "canadacentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.176.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadacentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.centralindia",
+      "region": "centralindia",
+      "system_service": "",
       "added_prefixes": [
         "145.190.158.0/24",
         "151.206.174.0/24"
@@ -1596,12 +2986,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "centralindia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.centralus",
+      "region": "centralus",
+      "system_service": "",
       "added_prefixes": [
         "151.206.187.0/24",
         "2603:1030:9:87c::/64",
@@ -1610,24 +3011,46 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "centralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 258,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastasia",
+      "region": "eastasia",
+      "system_service": "",
       "added_prefixes": [
         "151.206.169.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastasia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus2",
+      "region": "eastus2",
+      "system_service": "",
       "added_prefixes": [
         "2603:1030:401:ab0::/61",
         "57.157.49.128/27"
@@ -1639,12 +3062,23 @@
       ],
       "added_count": 2,
       "removed_count": 3,
-      "region": "eastus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus3",
+      "region": "eastus3",
+      "system_service": "",
       "added_prefixes": [
         "2603:1061:101a:40::/62",
         "2603:1061:101a:44::/63",
@@ -1668,12 +3102,23 @@
       ],
       "added_count": 7,
       "removed_count": 10,
-      "region": "eastus3",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 28,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 15.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus",
+      "region": "eastus",
+      "system_service": "",
       "added_prefixes": [
         "145.190.155.0/24",
         "57.157.33.224/31"
@@ -1681,84 +3126,161 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "eastus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 258,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southfrance",
+      "region": "southfrance",
+      "system_service": "",
       "added_prefixes": [
         "151.206.194.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southfrance",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.israelcentral",
+      "region": "israelcentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.178.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "israelcentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.italynorth",
+      "region": "italynorth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.183.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "italynorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.japanwest",
+      "region": "japanwest",
+      "system_service": "",
       "added_prefixes": [
         "151.206.189.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "japanwest",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.koreacentral",
+      "region": "koreacentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.185.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "koreacentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.koreasouth",
+      "region": "koreasouth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.190.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "koreasouth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.malaysiawest",
+      "region": "malaysiawest",
+      "system_service": "",
       "added_prefixes": [
         "151.206.170.0/24",
         "2603:1061:100d:a8::/63",
@@ -1767,84 +3289,161 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "malaysiawest",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 260,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.mexicocentral",
+      "region": "mexicocentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.184.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "mexicocentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.newzealandnorth",
+      "region": "newzealandnorth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.180.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "newzealandnorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.northeurope",
+      "region": "northeurope",
+      "system_service": "",
       "added_prefixes": [
         "151.206.182.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "northeurope",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.polandcentral",
+      "region": "polandcentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.181.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "polandcentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southafricanorth",
+      "region": "southafricanorth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.171.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricanorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southafricawest",
+      "region": "southafricawest",
+      "system_service": "",
       "added_prefixes": [
         "151.206.192.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southafricawest",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southcentralus",
+      "region": "southcentralus",
+      "system_service": "",
       "added_prefixes": [
         "20.20.103.0/24",
         "2603:1030:804:5f0::/61",
@@ -1863,36 +3462,69 @@
       ],
       "added_count": 5,
       "removed_count": 7,
-      "region": "southcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 20,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 10.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southindia",
+      "region": "southindia",
+      "system_service": "",
       "added_prefixes": [
         "151.206.173.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southindia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southeastasia",
+      "region": "southeastasia",
+      "system_service": "",
       "added_prefixes": [
         "145.190.153.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southeastus3",
+      "region": "southeastus3",
+      "system_service": "",
       "added_prefixes": [
         "2603:1061:1018:60::/60",
         "2603:1061:1018:70::/64",
@@ -1910,24 +3542,46 @@
       ],
       "added_count": 4,
       "removed_count": 7,
-      "region": "southeastus3",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.spaincentral",
+      "region": "spaincentral",
+      "system_service": "",
       "added_prefixes": [
         "151.206.193.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "spaincentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.switzerlandn",
+      "region": "switzerlandn",
+      "system_service": "",
       "added_prefixes": [
         "145.190.73.0/24",
         "151.206.175.0/24"
@@ -1935,36 +3589,69 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "switzerlandn",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.uaenorth",
+      "region": "uaenorth",
+      "system_service": "",
       "added_prefixes": [
         "151.206.172.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaenorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.uksouth",
+      "region": "uksouth",
+      "system_service": "",
       "added_prefixes": [
         "145.190.156.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uksouth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westcentralus",
+      "region": "westcentralus",
+      "system_service": "",
       "added_prefixes": [
         "57.157.80.104/30",
         "57.157.80.108/31",
@@ -1978,36 +3665,69 @@
       ],
       "added_count": 4,
       "removed_count": 3,
-      "region": "westcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 20,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westindia",
+      "region": "westindia",
+      "system_service": "",
       "added_prefixes": [
         "151.206.188.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westindia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westus2",
+      "region": "westus2",
+      "system_service": "",
       "added_prefixes": [
         "57.157.72.156/31"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westus3",
+      "region": "westus3",
+      "system_service": "",
       "added_prefixes": [
         "151.206.186.0/24",
         "57.157.128.0/24",
@@ -2024,12 +3744,23 @@
       ],
       "added_count": 4,
       "removed_count": 6,
-      "region": "westus3",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 280,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud",
+      "region": "",
+      "system_service": "",
       "added_prefixes": [
         "13.104.128.0/25",
         "13.104.207.0/24",
@@ -2159,14 +3890,48 @@
       ],
       "added_count": 82,
       "removed_count": 41,
-      "region": "",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 9432,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 52.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     }
   ],
   "total_changes": 158,
+  "metadata_changes": [],
   "generated_at": "2026-03-09T01:52:41.377591+00:00",
   "metadata": {
     "version": "2026.03.02",
     "date_published": "3/3/2026"
+  },
+  "comparison": {
+    "previous_snapshot": "2026-03-02",
+    "current_snapshot": "2026-03-09",
+    "previous_change_number": 389,
+    "current_change_number": 390,
+    "skipped_change_numbers": [],
+    "reproducible": true,
+    "previous_membership_total": 100036,
+    "current_membership_total": 100290,
+    "added_memberships": 334,
+    "removed_memberships": 80,
+    "net_memberships": 254,
+    "balanced": true,
+    "coverage": {
+      "ipv4": {
+        "added_addresses": 23982,
+        "removed_addresses": 0
+      },
+      "ipv6": {
+        "added_slash64s": 86.0,
+        "removed_slash64s": 0.0
+      }
+    }
   }
 }

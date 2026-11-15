@@ -5050,3 +5050,8 @@ body {
     border-bottom: 1px solid #f0f0f0;
     margin-top: 0.5rem;
 }
+.coverage-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary, inherit);
+}

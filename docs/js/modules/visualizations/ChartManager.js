@@ -1,3 +1,5 @@
+import { changeCounts, sumCounts, comparisonFiles } from '../core/changeCounts.js';
+
 export class ChartManager {
     constructor(dataManager, regionMapper, callbacks = {}) {
         this.dataManager = dataManager;
@@ -401,8 +403,7 @@ export class ChartManager {
             // Load all historical changes
             const manifest = await this.dataManager.getManifest();
 
-            // Exclude baseline
-            const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
+            const changeFiles = comparisonFiles(manifest);
 
             if (changeFiles.length === 0) {
                 canvas.parentElement.innerHTML = '<p class="no-data">Not enough historical data yet</p>';
@@ -415,13 +416,7 @@ export class ChartManager {
             changeFiles.forEach((fileInfo, i) => {
                 if (!changeDatas[i]) return;
 
-                let addedIPs = 0;
-                let removedIPs = 0;
-
-                (changeDatas[i].changes || []).forEach(change => {
-                    addedIPs += change.added_count || 0;
-                    removedIPs += change.removed_count || 0;
-                });
+                const { added: addedIPs, removed: removedIPs } = sumCounts(changeDatas[i].changes);
 
                 weeklyData.push({
                     date: fileInfo.date,
@@ -632,8 +627,7 @@ export class ChartManager {
             // Load all historical changes to get regional distribution
             const manifest = await this.dataManager.getManifest();
 
-            // Exclude baseline
-            const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
+            const changeFiles = comparisonFiles(manifest);
             const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
 
             const regionalData = {};
@@ -644,8 +638,9 @@ export class ChartManager {
                     if (!regionalData[region]) {
                         regionalData[region] = { added: 0, removed: 0 };
                     }
-                    regionalData[region].added += change.added_count || 0;
-                    regionalData[region].removed += change.removed_count || 0;
+                    const n = changeCounts(change);
+                    regionalData[region].added += n.added;
+                    regionalData[region].removed += n.removed;
                 });
             });
 

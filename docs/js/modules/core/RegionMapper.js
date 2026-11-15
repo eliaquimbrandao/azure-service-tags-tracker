@@ -47,10 +47,17 @@ export class RegionMapper {
         return this.regionDisplayMap;
     }
 
+    // Canonical key for a region. regions.json (generated each run from
+    // Microsoft's tag names) lists an alias such as "centralfrance" under the
+    // same name as its canonical spelling "francecentral", so both resolve to
+    // one key. Distinct regions (eastus vs eastus2) never share a name.
     getBaseRegionKey(region) {
         if (!region) return 'global';
-        // Remove numbers from end (eastus2 -> eastus)
-        return region.toLowerCase().replace(/\d+$/, '');
+        const key = region.toLowerCase().replace(/[^a-z0-9]/g, '') || 'global';
+        const name = this.regionDisplayMap?.[key];
+        if (!name) return key;
+        const canonical = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return this.regionDisplayMap[canonical] === name ? canonical : key;
     }
 
     groupChangesByRegion(changes) {
@@ -59,7 +66,7 @@ export class RegionMapper {
             const regionRaw = change.region || 'Global';
             const baseKey = this.getBaseRegionKey(regionRaw);
             const displayName = regionRaw === 'Global' ? 'Global' : this.getRegionDisplayName(regionRaw);
-            const baseDisplay = displayName === 'Global' ? 'Global' : (displayName.replace(/\s+\d+$/, '').trim() || displayName);
+            const baseDisplay = displayName;
 
             if (!groups[baseKey]) {
                 groups[baseKey] = {
@@ -74,13 +81,6 @@ export class RegionMapper {
             groups[baseKey].variants.add(displayName);
         });
 
-        // Enrich variants with known regions (so East US shows East US 2/3 even if not in this change set)
-        Object.entries(this.regionDisplayMap || {}).forEach(([key, value]) => {
-            const baseKey = this.getBaseRegionKey(key);
-            if (groups[baseKey]) {
-                groups[baseKey].variants.add(value);
-            }
-        });
         return groups;
     }
 

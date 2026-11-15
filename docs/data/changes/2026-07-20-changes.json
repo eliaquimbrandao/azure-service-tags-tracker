@@ -1,21 +1,36 @@
 {
+  "schema_version": 2,
   "date": "2026-07-20",
+  "baseline": false,
   "changes": [
     {
       "type": "ip_changes",
       "service": "AzureMonitor",
+      "region": "",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.198.239.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Dynamics365ForMarketingEmail",
+      "region": "",
+      "system_service": "Dynamics365ForMarketingEmail",
       "added_prefixes": [
         "145.191.155.192/27",
         "172.186.142.160/27",
@@ -38,12 +53,23 @@
       "removed_prefixes": [],
       "added_count": 17,
       "removed_count": 0,
-      "region": "",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 544,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "PowerBI",
+      "region": "",
+      "system_service": "PowerBI",
       "added_prefixes": [
         "150.171.113.0/24",
         "150.171.114.0/23"
@@ -51,101 +77,216 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "PowerBI"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 768,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ActionGroup.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "ActionGroup",
       "ip_count": 2,
       "prefixes": [
         "74.7.216.24/30",
         "2603:1030:1502:400::40/125"
       ],
-      "region": "southeastus5",
-      "system_service": "ActionGroup"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ActionGroup.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "ActionGroup",
       "ip_count": 2,
       "prefixes": [
         "48.219.232.24/30",
         "2603:1030:1202:400::40/125"
       ],
-      "region": "southwestus",
-      "system_service": "ActionGroup"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ApiManagement.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureApiManagement",
       "ip_count": 2,
       "prefixes": [
         "74.7.180.16/28",
         "2603:1030:1502::740/124"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureApiManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ApiManagement.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureApiManagement",
       "ip_count": 2,
       "prefixes": [
         "48.219.195.176/28",
         "2603:1030:1202::520/124"
       ],
-      "region": "southwestus",
-      "system_service": "AzureApiManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AppService.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureAppService",
       "ip_count": 2,
       "prefixes": [
         "74.7.187.0/24",
         "2603:1030:1502:2::/120"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureAppService"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AppService.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureAppService",
       "ip_count": 2,
       "prefixes": [
         "48.219.202.0/24",
         "2603:1030:1202:1::600/120"
       ],
-      "region": "southwestus",
-      "system_service": "AzureAppService"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AppServiceManagement.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureAppServiceManagement",
       "ip_count": 3,
       "prefixes": [
         "74.7.157.0/29",
         "74.7.189.0/26",
         "2603:1030:1502:2::340/122"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureAppServiceManagement"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 72,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AppServiceManagement.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureAppServiceManagement",
       "ip_count": 2,
       "prefixes": [
         "48.219.204.128/26",
         "2603:1030:1202:2::40/122"
       ],
-      "region": "southwestus",
-      "system_service": "AzureAppServiceManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureArcInfrastructure.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureArcInfrastructure",
       "ip_count": 4,
       "prefixes": [
         "74.7.188.68/30",
@@ -153,12 +294,25 @@
         "74.7.216.60/32",
         "2603:1030:1502:2::300/124"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureArcInfrastructure"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 6,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureArcInfrastructure.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureArcInfrastructure",
       "ip_count": 4,
       "prefixes": [
         "48.219.203.208/30",
@@ -166,12 +320,25 @@
         "48.219.232.56/32",
         "2603:1030:1202:2::20/124"
       ],
-      "region": "southwestus",
-      "system_service": "AzureArcInfrastructure"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 6,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureAttestation.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureAttestation",
       "ip_count": 4,
       "prefixes": [
         "74.7.176.20/30",
@@ -179,12 +346,25 @@
         "74.7.205.120/30",
         "2603:1030:1502::760/124"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureAttestation"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureAttestation.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureAttestation",
       "ip_count": 4,
       "prefixes": [
         "48.219.81.176/29",
@@ -192,102 +372,219 @@
         "48.219.221.52/30",
         "2603:1030:1202::540/124"
       ],
-      "region": "southwestus",
-      "system_service": "AzureAttestation"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureBackup.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureBackup",
       "ip_count": 3,
       "prefixes": [
         "74.7.180.80/28",
         "74.7.180.128/26",
         "2603:1030:1502:1::/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureBackup"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureBackup.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureBackup",
       "ip_count": 3,
       "prefixes": [
         "48.219.196.0/26",
         "48.219.209.192/28",
         "2603:1030:1202::600/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureBackup"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureBotService.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureBotService",
       "ip_count": 2,
       "prefixes": [
         "74.7.176.16/30",
         "2603:1030:1502::20/123"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureBotService"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureBotService.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureBotService",
       "ip_count": 2,
       "prefixes": [
         "48.219.192.16/30",
         "2603:1030:1202::20/123"
       ],
-      "region": "southwestus",
-      "system_service": "AzureBotService"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCognitiveSearch.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureCognitiveSearch",
       "ip_count": 2,
       "prefixes": [
         "74.7.176.192/26",
         "2603:1030:1502::100/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureCognitiveSearch"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCognitiveSearch.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureCognitiveSearch",
       "ip_count": 2,
       "prefixes": [
         "48.219.192.192/26",
         "2603:1030:1202::100/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureCognitiveSearch"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureConnectors.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureConnectors",
       "ip_count": 2,
       "prefixes": [
         "74.7.186.64/26",
         "2603:1030:1502:1::780/122"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureConnectors"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureConnectors.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureConnectors",
       "ip_count": 2,
       "prefixes": [
         "48.219.203.0/26",
         "2603:1030:1202:1::5c0/122"
       ],
-      "region": "southwestus",
-      "system_service": "AzureConnectors"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureContainerRegistry.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureContainerRegistry",
       "ip_count": 11,
       "prefixes": [
         "74.7.178.192/26",
@@ -302,12 +599,25 @@
         "2603:1030:1502:400::8/125",
         "2603:1030:1502:400::80/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureContainerRegistry"
+      "added_count": 11,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 320,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.7780915628762273e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureContainerRegistry.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureContainerRegistry",
       "ip_count": 11,
       "prefixes": [
         "48.219.195.64/26",
@@ -322,128 +632,271 @@
         "2603:1030:1202:400::8/125",
         "2603:1030:1202:400::80/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureContainerRegistry"
+      "added_count": 11,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 320,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.7780915628762273e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCosmosDB.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureCosmosDB",
       "ip_count": 3,
       "prefixes": [
         "74.7.178.32/27",
         "74.7.178.64/26",
         "2603:1030:1502::5c0/123"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureCosmosDB"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 96,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCosmosDB.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureCosmosDB",
       "ip_count": 3,
       "prefixes": [
         "48.219.195.0/26",
         "48.219.209.160/27",
         "2603:1030:1202::1e0/123"
       ],
-      "region": "southwestus",
-      "system_service": "AzureCosmosDB"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 96,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureDataExplorerManagement.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureDataExplorerManagement",
       "ip_count": 2,
       "prefixes": [
         "74.7.183.80/28",
         "2603:1030:1502:1::400/123"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureDataExplorerManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureDataExplorerManagement.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureDataExplorerManagement",
       "ip_count": 2,
       "prefixes": [
         "48.219.198.192/28",
         "2603:1030:1202:1::1e0/123"
       ],
-      "region": "southwestus",
-      "system_service": "AzureDataExplorerManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureDigitalTwins.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureDigitalTwins",
       "ip_count": 3,
       "prefixes": [
         "74.7.178.152/29",
         "74.7.180.32/27",
         "2603:1030:1502::780/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureDigitalTwins"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 40,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureDigitalTwins.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureDigitalTwins",
       "ip_count": 3,
       "prefixes": [
         "48.219.195.192/27",
         "48.219.208.240/29",
         "2603:1030:1202::580/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureDigitalTwins"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 40,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureEventGrid.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureEventGrid",
       "ip_count": 2,
       "prefixes": [
         "74.7.177.128/25",
         "2603:1030:1502::480/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureEventGrid"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 128,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureEventGrid.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureEventGrid",
       "ip_count": 2,
       "prefixes": [
         "48.219.193.128/25",
         "2603:1030:1202::280/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureEventGrid"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 128,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "EventHub.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureEventHub",
       "ip_count": 3,
       "prefixes": [
         "74.7.182.0/24",
         "74.7.216.128/26",
         "2603:1030:1502:1::200/120"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureEventHub"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 320,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "EventHub.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureEventHub",
       "ip_count": 3,
       "prefixes": [
         "48.219.197.0/24",
         "48.219.232.128/26",
         "2603:1030:1202:1::/120"
       ],
-      "region": "southwestus",
-      "system_service": "AzureEventHub"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 320,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureKeyVault.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureKeyVault",
       "ip_count": 5,
       "prefixes": [
         "74.7.181.124/30",
@@ -452,12 +905,25 @@
         "2603:1030:1502:1::3e8/125",
         "2603:1030:1502:400::48/125"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureKeyVault"
+      "added_count": 5,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureKeyVault.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureKeyVault",
       "ip_count": 5,
       "prefixes": [
         "48.219.199.24/30",
@@ -466,46 +932,96 @@
         "2603:1030:1202:1::1c8/125",
         "2603:1030:1202:400::48/125"
       ],
-      "region": "southwestus",
-      "system_service": "AzureKeyVault"
+      "added_count": 5,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureMachineLearning.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureMachineLearning",
       "ip_count": 2,
       "prefixes": [
         "74.7.177.64/27",
         "2603:1030:1502::400/122"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureMachineLearning"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureMachineLearning.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureMachineLearning",
       "ip_count": 2,
       "prefixes": [
         "48.219.193.0/27",
         "2603:1030:1202::200/122"
       ],
-      "region": "southwestus",
-      "system_service": "AzureMachineLearning"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.IndiaSouthCentral",
+      "region": "indiasouthcentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.198.239.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "indiasouthcentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureMonitor.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureMonitor",
       "ip_count": 13,
       "prefixes": [
         "74.7.192.128/28",
@@ -522,12 +1038,25 @@
         "2603:1030:1502:5::400/119",
         "2603:1030:1502:6::/119"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureMonitor"
+      "added_count": 13,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 170,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 7.632783294297951e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureMonitor.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureMonitor",
       "ip_count": 12,
       "prefixes": [
         "48.219.203.242/31",
@@ -543,58 +1072,123 @@
         "2603:1030:1202:5::400/119",
         "2603:1030:1202:6::/119"
       ],
-      "region": "southwestus",
-      "system_service": "AzureMonitor"
+      "added_count": 12,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 170,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 7.632783294297951e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzurePortal.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzurePortal",
       "ip_count": 3,
       "prefixes": [
         "74.7.188.116/30",
         "74.7.192.32/27",
         "2603:1030:1502:2::600/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzurePortal"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 36,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzurePortal.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzurePortal",
       "ip_count": 3,
       "prefixes": [
         "48.219.205.224/27",
         "48.219.209.212/30",
         "2603:1030:1202:2::400/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzurePortal"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 36,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureResourceManager.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureResourceManager",
       "ip_count": 2,
       "prefixes": [
         "74.7.184.0/23",
         "2603:1030:1502:1::500/120"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureResourceManager"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureResourceManager.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureResourceManager",
       "ip_count": 2,
       "prefixes": [
         "48.219.200.0/23",
         "2603:1030:1202:1::300/120"
       ],
-      "region": "southwestus",
-      "system_service": "AzureResourceManager"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.3877787807814457e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Sql.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureSQL",
       "ip_count": 7,
       "prefixes": [
         "74.7.192.224/27",
@@ -605,12 +1199,25 @@
         "2603:1030:1502:2::6e0/123",
         "2603:1030:1502:3::/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureSQL"
+      "added_count": 7,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 168,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Sql.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureSQL",
       "ip_count": 7,
       "prefixes": [
         "48.219.208.96/27",
@@ -621,12 +1228,25 @@
         "2603:1030:1202:2::620/123",
         "2603:1030:1202:2::680/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureSQL"
+      "added_count": 7,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 168,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ServiceBus.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureServiceBus",
       "ip_count": 4,
       "prefixes": [
         "74.7.181.128/25",
@@ -634,12 +1254,25 @@
         "74.7.216.32/28",
         "2603:1030:1502:1::180/121"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureServiceBus"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 152,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ServiceBus.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureServiceBus",
       "ip_count": 4,
       "prefixes": [
         "48.219.198.0/25",
@@ -647,12 +1280,25 @@
         "48.219.232.32/28",
         "2603:1030:1202::780/121"
       ],
-      "region": "southwestus",
-      "system_service": "AzureServiceBus"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 152,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Storage.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "AzureStorage",
       "ip_count": 10,
       "prefixes": [
         "20.153.39.0/24",
@@ -666,12 +1312,25 @@
         "135.130.76.0/23",
         "2603:1030:1503::/48"
       ],
-      "region": "southeastus5",
-      "system_service": "AzureStorage"
+      "added_count": 10,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 3328,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 65536.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Storage.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "AzureStorage",
       "ip_count": 8,
       "prefixes": [
         "20.153.11.0/24",
@@ -683,34 +1342,73 @@
         "145.190.146.0/23",
         "2603:1030:1203::/48"
       ],
-      "region": "southwestus",
-      "system_service": "AzureStorage"
+      "added_count": 8,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2816,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 65536.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "BatchNodeManagement.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "BatchNodeManagement",
       "ip_count": 2,
       "prefixes": [
         "74.7.178.0/27",
         "2603:1030:1502::500/122"
       ],
-      "region": "southeastus5",
-      "system_service": "BatchNodeManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "BatchNodeManagement.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "BatchNodeManagement",
       "ip_count": 2,
       "prefixes": [
         "48.219.193.64/27",
         "2603:1030:1202::300/122"
       ],
-      "region": "southwestus",
-      "system_service": "BatchNodeManagement"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "DataFactory.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "DataFactory",
       "ip_count": 8,
       "prefixes": [
         "74.7.190.0/23",
@@ -722,12 +1420,25 @@
         "2603:1030:1502:4::340/124",
         "2603:1030:1502:400::160/124"
       ],
-      "region": "southeastus5",
-      "system_service": "DataFactory"
+      "added_count": 8,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 576,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 9.107298248878237e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "DataFactory.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "DataFactory",
       "ip_count": 4,
       "prefixes": [
         "48.219.206.0/23",
@@ -735,228 +1446,514 @@
         "2603:1030:1202:2::280/121",
         "2603:1030:1202:400::320/124"
       ],
-      "region": "southwestus",
-      "system_service": "DataFactory"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 528,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 7.806255641895632e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.AustraliaEast",
+      "region": "australiaeast",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "51.56.214.0/27"
       ],
-      "region": "australiaeast",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.CanadaEast",
+      "region": "canadaeast",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "145.191.155.192/27"
       ],
-      "region": "canadaeast",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.FranceSouth",
+      "region": "southfrance",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "98.66.37.192/27"
       ],
-      "region": "southfrance",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.GermanyNorth",
+      "region": "germanyn",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "98.67.21.224/27"
       ],
-      "region": "germanyn",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.ItalyNorth",
+      "region": "italynorth",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "9.235.245.32/27"
       ],
-      "region": "italynorth",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.JapanWest",
+      "region": "japanwest",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "172.192.223.224/27"
       ],
-      "region": "japanwest",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.KoreaSouth",
+      "region": "koreasouth",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "4.243.180.160/27"
       ],
-      "region": "koreasouth",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.NewZealandNorth",
+      "region": "newzealandnorth",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "172.196.116.96/27"
       ],
-      "region": "newzealandnorth",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.NorwayWest",
+      "region": "norwayw",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "74.240.14.64/27"
       ],
-      "region": "norwayw",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.PolandCentral",
+      "region": "polandcentral",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "74.153.1.160/27"
       ],
-      "region": "polandcentral",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.SouthAfricaWest",
+      "region": "southafricawest",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "74.160.11.224/27"
       ],
-      "region": "southafricawest",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.SouthIndia",
+      "region": "southindia",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "4.247.39.32/27"
       ],
-      "region": "southindia",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.SwitzerlandWest",
+      "region": "switzerlandw",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "57.160.28.160/27"
       ],
-      "region": "switzerlandw",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.UAECentral",
+      "region": "uaecentral",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "74.150.12.64/27"
       ],
-      "region": "uaecentral",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.UKWest",
+      "region": "ukwest",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "172.186.142.160/27"
       ],
-      "region": "ukwest",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.WestEurope",
+      "region": "westeurope",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "57.168.255.32/27"
       ],
-      "region": "westeurope",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "Dynamics365ForMarketingEmail.WestUS",
+      "region": "westus",
+      "system_service": "Dynamics365ForMarketingEmail",
       "ip_count": 1,
       "prefixes": [
         "74.146.24.32/27"
       ],
-      "region": "westus",
-      "system_service": "Dynamics365ForMarketingEmail"
+      "added_count": 1,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "GatewayManager.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "GatewayManager",
       "ip_count": 3,
       "prefixes": [
         "74.7.176.64/26",
         "74.7.202.176/28",
         "2603:1030:1502::40/122"
       ],
-      "region": "southeastus5",
-      "system_service": "GatewayManager"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "GatewayManager.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "GatewayManager",
       "ip_count": 3,
       "prefixes": [
         "48.219.192.64/26",
         "48.219.222.96/28",
         "2603:1030:1202::40/122"
       ],
-      "region": "southwestus",
-      "system_service": "GatewayManager"
+      "added_count": 3,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "HDInsight.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "HDInsight",
       "ip_count": 2,
       "prefixes": [
         "74.7.183.152/29",
         "2603:1030:1502:1::490/124"
       ],
-      "region": "southeastus5",
-      "system_service": "HDInsight"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "HDInsight.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "HDInsight",
       "ip_count": 2,
       "prefixes": [
         "48.219.199.16/29",
         "2603:1030:1202:1::2c0/124"
       ],
-      "region": "southwestus",
-      "system_service": "HDInsight"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "LogicApps.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "LogicApps",
       "ip_count": 4,
       "prefixes": [
         "74.7.194.64/28",
@@ -964,12 +1961,25 @@
         "2603:1030:1502:3::110/124",
         "2603:1030:1502:3::200/123"
       ],
-      "region": "southeastus5",
-      "system_service": "LogicApps"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 48,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.6020852139652106e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "LogicApps.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "LogicApps",
       "ip_count": 8,
       "prefixes": [
         "48.219.213.160/28",
@@ -981,34 +1991,73 @@
         "2603:1030:1202:400::330/124",
         "2603:1030:1202:400::340/123"
       ],
-      "region": "southwestus",
-      "system_service": "LogicApps"
+      "added_count": 8,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 96,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 5.204170427930421e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "MicrosoftContainerRegistry.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "MicrosoftContainerRegistry",
       "ip_count": 2,
       "prefixes": [
         "74.7.216.0/29",
         "2603:1030:1502:400::/125"
       ],
-      "region": "southeastus5",
-      "system_service": "MicrosoftContainerRegistry"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "MicrosoftContainerRegistry.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "MicrosoftContainerRegistry",
       "ip_count": 2,
       "prefixes": [
         "48.219.232.0/29",
         "2603:1030:1202:400::/125"
       ],
-      "region": "southwestus",
-      "system_service": "MicrosoftContainerRegistry"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "PowerBI.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "PowerBI",
       "ip_count": 5,
       "prefixes": [
         "74.7.188.74/31",
@@ -1017,12 +2066,25 @@
         "2603:1030:1502:2::3c0/122",
         "2603:1030:1502:2::500/123"
       ],
-      "region": "southeastus5",
-      "system_service": "PowerBI"
+      "added_count": 5,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 14,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 5.204170427930421e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "PowerBI.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "PowerBI",
       "ip_count": 5,
       "prefixes": [
         "48.219.203.240/31",
@@ -1031,56 +2093,121 @@
         "2603:1030:1202:2::1a0/123",
         "2603:1030:1202:2::300/122"
       ],
-      "region": "southwestus",
-      "system_service": "PowerBI"
+      "added_count": 5,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 14,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 5.204170427930421e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "PowerQueryOnline.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "PowerQueryOnline",
       "ip_count": 2,
       "prefixes": [
         "74.7.176.32/29",
         "2603:1030:1502::1a0/123"
       ],
-      "region": "southeastus5",
-      "system_service": "PowerQueryOnline"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "PowerQueryOnline.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "PowerQueryOnline",
       "ip_count": 2,
       "prefixes": [
         "48.219.192.40/29",
         "2603:1030:1202::1c0/123"
       ],
-      "region": "southwestus",
-      "system_service": "PowerQueryOnline"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ServiceFabric.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "ServiceFabric",
       "ip_count": 2,
       "prefixes": [
         "74.7.216.12/30",
         "2603:1030:1502:400::18/125"
       ],
-      "region": "southeastus5",
-      "system_service": "ServiceFabric"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "ServiceFabric.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "ServiceFabric",
       "ip_count": 2,
       "prefixes": [
         "48.219.232.12/30",
         "2603:1030:1202:400::18/125"
       ],
-      "region": "southwestus",
-      "system_service": "ServiceFabric"
+      "added_count": 2,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "StorageSyncService.SoutheastUS5",
+      "region": "southeastus5",
+      "system_service": "StorageSyncService",
       "ip_count": 4,
       "prefixes": [
         "74.7.194.224/29",
@@ -1088,12 +2215,25 @@
         "2603:1030:1502:3::2c0/123",
         "2603:1030:1502:400::120/123"
       ],
-      "region": "southeastus5",
-      "system_service": "StorageSyncService"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "StorageSyncService.SouthwestUS",
+      "region": "southwestus",
+      "system_service": "StorageSyncService",
       "ip_count": 4,
       "prefixes": [
         "48.219.212.72/29",
@@ -1101,24 +2241,48 @@
         "2603:1030:1202:4::80/123",
         "2603:1030:1202:400::120/123"
       ],
-      "region": "southwestus",
-      "system_service": "StorageSyncService"
+      "added_count": 4,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.Core",
+      "region": "",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.198.239.96/27"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.brazilse",
+      "region": "brazilse",
+      "system_service": "",
       "added_prefixes": [
         "57.171.20.0/24",
         "57.171.22.0/24"
@@ -1126,12 +2290,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "brazilse",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.centralus",
+      "region": "centralus",
+      "system_service": "",
       "added_prefixes": [
         "2603:1030:9:29c::/63",
         "40.87.182.112/31"
@@ -1141,12 +2316,23 @@
       ],
       "added_count": 2,
       "removed_count": 1,
-      "region": "centralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.chilec",
+      "region": "chilec",
+      "system_service": "",
       "added_prefixes": [
         "20.20.89.72/30",
         "20.20.89.76/31",
@@ -1159,12 +2345,23 @@
       ],
       "added_count": 4,
       "removed_count": 2,
-      "region": "chilec",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus2",
+      "region": "eastus2",
+      "system_service": "",
       "added_prefixes": [
         "2603:1030:401:522::/63",
         "2603:1030:401:524::/62",
@@ -1198,36 +2395,69 @@
       ],
       "added_count": 8,
       "removed_count": 19,
-      "region": "eastus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 10,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 5.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.malaysiawest",
+      "region": "malaysiawest",
+      "system_service": "",
       "added_prefixes": [
         "52.123.94.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "malaysiawest",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southindia",
+      "region": "southindia",
+      "system_service": "",
       "added_prefixes": [
         "57.171.21.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southindia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCloud.southeastus5",
+      "region": "southeastus5",
+      "system_service": "",
       "ip_count": 44,
       "prefixes": [
         "20.20.52.160/27",
@@ -1275,12 +2505,25 @@
         "2603:1061:174b::/63",
         "2603:1063:2202:74::/64"
       ],
-      "region": "southeastus5",
-      "system_service": ""
+      "added_count": 44,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 71358,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 328922.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "service_added",
       "service": "AzureCloud.southwestus",
+      "region": "southwestus",
+      "system_service": "",
       "ip_count": 40,
       "prefixes": [
         "20.20.48.192/27",
@@ -1324,12 +2567,25 @@
         "2603:1061:1748::/63",
         "2603:1063:2204:c::/64"
       ],
-      "region": "southwestus",
-      "system_service": ""
+      "added_count": 40,
+      "removed_count": 0,
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 43498,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 328824.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.swedencentral",
+      "region": "swedencentral",
+      "system_service": "",
       "added_prefixes": [
         "134.170.176.0/24",
         "57.157.70.192/27",
@@ -1343,36 +2599,69 @@
       ],
       "added_count": 3,
       "removed_count": 4,
-      "region": "swedencentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 266,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.uaenorth",
+      "region": "uaenorth",
+      "system_service": "",
       "added_prefixes": [
         "57.157.108.24/31"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "uaenorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westcentralus",
+      "region": "westcentralus",
+      "system_service": "",
       "added_prefixes": [
         "74.159.0.0/17"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32768,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud",
+      "region": "",
+      "system_service": "",
       "added_prefixes": [
         "134.170.176.0/24",
         "20.20.89.72/30",
@@ -1430,14 +2719,48 @@
       ],
       "added_count": 25,
       "removed_count": 26,
-      "region": "",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 34076,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 41.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     }
   ],
   "total_changes": 102,
+  "metadata_changes": [],
   "generated_at": "2026-07-20T03:28:11.740603+00:00",
   "metadata": {
     "version": "2026.07.13",
     "date_published": "7/17/2026"
+  },
+  "comparison": {
+    "previous_snapshot": "2026-07-13",
+    "current_snapshot": "2026-07-20",
+    "previous_change_number": 408,
+    "current_change_number": 409,
+    "skipped_change_numbers": [],
+    "reproducible": true,
+    "previous_membership_total": 106887,
+    "current_membership_total": 107262,
+    "added_memberships": 427,
+    "removed_memberships": 52,
+    "net_memberships": 375,
+    "balanced": true,
+    "coverage": {
+      "ipv4": {
+        "added_addresses": 197860,
+        "removed_addresses": 0
+      },
+      "ipv6": {
+        "added_slash64s": 788867.0,
+        "removed_slash64s": 0.0
+      }
+    }
   }
 }

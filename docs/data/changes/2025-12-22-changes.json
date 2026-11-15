@@ -1,9 +1,13 @@
 {
+  "schema_version": 2,
   "date": "2025-12-22",
+  "baseline": false,
   "changes": [
     {
       "type": "ip_changes",
       "service": "ActionGroup",
+      "region": "",
+      "system_service": "ActionGroup",
       "added_prefixes": [
         "172.194.86.168/30",
         "2603:1030:1602:3::610/125",
@@ -13,12 +17,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "",
-      "system_service": "ActionGroup"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureContainerRegistry",
+      "region": "",
+      "system_service": "AzureContainerRegistry",
       "added_prefixes": [
         "2603:1040:1802:5::480/121",
         "48.193.49.192/26"
@@ -26,12 +41,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureContainerRegistry"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureDatabricks",
+      "region": "",
+      "system_service": "AzureDatabricks",
       "added_prefixes": [
         "2603:1040:1802:5::40/122",
         "48.193.49.0/26"
@@ -39,12 +65,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureDatabricks"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureManagedGrafana",
+      "region": "",
+      "system_service": "AzureManagedGrafana",
       "added_prefixes": [
         "172.194.87.240/29",
         "172.194.89.0/28",
@@ -65,12 +102,23 @@
       "removed_prefixes": [],
       "added_count": 15,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureManagedGrafana"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 120,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor",
+      "region": "",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "134.138.94.192/26",
         "158.158.131.80/28",
@@ -224,12 +272,23 @@
       "removed_prefixes": [],
       "added_count": 148,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2320,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.249000902703301e-16,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureSentinel",
+      "region": "",
+      "system_service": "AzureSentinel",
       "added_prefixes": [
         "102.133.139.160/32",
         "20.106.115.163/32",
@@ -265,24 +324,46 @@
       "removed_prefixes": [],
       "added_count": 30,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureSentinel"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 30,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "DataFactory",
+      "region": "",
+      "system_service": "DataFactory",
       "added_prefixes": [
         "2603:1040:1802:5::700/121"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "DataFactory"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "LogicApps",
+      "region": "",
+      "system_service": "LogicApps",
       "added_prefixes": [
         "2603:1040:1802:5::7c0/123",
         "48.193.52.192/27"
@@ -290,12 +371,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "LogicApps"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Marketplace",
+      "region": "",
+      "system_service": "Marketplace",
       "added_prefixes": [
         "20.172.117.36/30",
         "20.172.117.48/28"
@@ -303,12 +395,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "Marketplace"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 20,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "MicrosoftContainerRegistry",
+      "region": "",
+      "system_service": "MicrosoftContainerRegistry",
       "added_prefixes": [
         "172.194.86.160/29",
         "2603:1030:1602:3::3b8/125",
@@ -318,12 +421,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "",
-      "system_service": "MicrosoftContainerRegistry"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "PowerQueryOnline",
+      "region": "",
+      "system_service": "PowerQueryOnline",
       "added_prefixes": [
         "172.194.86.128/27",
         "2603:1030:1602:3::6c0/122",
@@ -335,12 +449,23 @@
       "removed_prefixes": [],
       "added_count": 6,
       "removed_count": 0,
-      "region": "",
-      "system_service": "PowerQueryOnline"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-17,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Scuba",
+      "region": "",
+      "system_service": "Scuba",
       "added_prefixes": [
         "134.138.217.144/28",
         "134.138.217.160/27",
@@ -434,24 +559,46 @@
       "removed_prefixes": [],
       "added_count": 88,
       "removed_count": 0,
-      "region": "",
-      "system_service": "Scuba"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2263,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "SerialConsole",
+      "region": "",
+      "system_service": "SerialConsole",
       "added_prefixes": [
         "2603:1040:1802:5::1a0/124"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "SerialConsole"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "ServiceFabric",
+      "region": "",
+      "system_service": "ServiceFabric",
       "added_prefixes": [
         "172.194.86.224/29",
         "2603:1030:1602:3::618/125",
@@ -461,12 +608,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "",
-      "system_service": "ServiceFabric"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.673617379884035e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "SqlManagement",
+      "region": "",
+      "system_service": "SqlManagement",
       "added_prefixes": [
         "172.194.89.32/27",
         "2603:1030:1602:4::420/123",
@@ -476,24 +634,46 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "",
-      "system_service": "SqlManagement"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "StorageSyncService",
+      "region": "",
+      "system_service": "StorageSyncService",
       "added_prefixes": [
         "2603:1040:1802:5::160/123"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "StorageSyncService"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop",
+      "region": "",
+      "system_service": "WVDRelays",
       "added_prefixes": [
         "57.156.5.248/29",
         "57.156.73.192/28"
@@ -501,12 +681,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "",
-      "system_service": "WVDRelays"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 24,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "ActionGroup.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "ActionGroup",
       "added_prefixes": [
         "2603:1040:1802:5::5a0/125",
         "48.193.50.96/30"
@@ -514,12 +705,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "ActionGroup"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureContainerRegistry.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "AzureContainerRegistry",
       "added_prefixes": [
         "2603:1040:1802:5::480/121",
         "48.193.49.192/26"
@@ -527,12 +729,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "AzureContainerRegistry"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.AustraliaCentral",
+      "region": "australiacentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1010:304:a::520/124",
         "2603:1010:304:a::540/123",
@@ -541,12 +754,23 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "australiacentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.6020852139652106e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.AustraliaCentral2",
+      "region": "australiacentral2",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.167.212.144/28",
         "2603:1010:404:8::e0/123"
@@ -554,12 +778,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "australiacentral2",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.AustraliaEast",
+      "region": "australiaeast",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1010:6:e::480/123",
         "4.196.130.224/28"
@@ -567,12 +802,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "australiaeast",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.AustraliaSoutheast",
+      "region": "australiasoutheast",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.45.150.80/28",
         "2603:1010:207:4::340/123"
@@ -580,12 +826,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "australiasoutheast",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.AustriaEast",
+      "region": "austriaeast",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:104:7::3c0/123",
         "68.210.59.224/27",
@@ -595,12 +852,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "austriaeast",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.BelgiumCentral",
+      "region": "belgiumcentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:1502:5::260/123",
         "9.160.70.128/27",
@@ -610,12 +878,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "belgiumcentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.BrazilSouth",
+      "region": "brazilsouth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1050:6:b::720/123",
         "4.201.241.144/28"
@@ -623,12 +902,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "brazilsouth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.BrazilSoutheast",
+      "region": "brazilse",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1050:403:7::660/123",
         "4.238.15.0/28"
@@ -636,12 +926,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "brazilse",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.CanadaCentral",
+      "region": "canadacentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:f05:d::3e0/123",
         "4.172.95.192/28"
@@ -649,12 +950,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "canadacentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.CanadaEast",
+      "region": "canadaeast",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.200.12.128/28",
         "2603:1030:1005:c::180/123"
@@ -662,24 +974,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "canadaeast",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.CentralIndia",
+      "region": "centralindia",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:a06:d::20/123"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "centralindia",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.CentralUS",
+      "region": "centralus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.170.16.192/26",
         "2603:1030:10:1f::440/122"
@@ -687,12 +1021,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "centralus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.ChileCentral",
+      "region": "chilec",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1050:301:4::5e0/123",
         "57.156.5.128/27",
@@ -702,12 +1047,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "chilec",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.EastAsia",
+      "region": "eastasia",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:207:11::300/123",
         "4.191.84.192/28"
@@ -715,24 +1071,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "eastasia",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.EastUS",
+      "region": "eastus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:210:2e::80/122"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.EastUS2",
+      "region": "eastus2",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.175.178.208/28",
         "172.175.179.32/27",
@@ -742,12 +1120,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "eastus2",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 48,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.EastUS2EUAP",
+      "region": "eastus2euap",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:40b:10::780/123",
         "48.223.56.32/28"
@@ -755,24 +1144,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "eastus2euap",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.EastUS3",
+      "region": "eastus3",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "134.138.94.192/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "eastus3",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.FranceCentral",
+      "region": "centralfrance",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:805:d::7a0/123",
         "4.176.30.32/28"
@@ -780,12 +1191,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "centralfrance",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.FranceSouth",
+      "region": "southfrance",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.111.71.160/28",
         "2603:1020:905:9::700/123"
@@ -793,12 +1215,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southfrance",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.GermanyNorth",
+      "region": "germanyn",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.170.249.240/28",
         "2603:1020:d04:9::740/123"
@@ -806,12 +1239,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "germanyn",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.GermanyWestCentral",
+      "region": "germanywc",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:c04:b::20/123",
         "4.185.231.176/28"
@@ -819,12 +1263,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "germanywc",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:1802:5::/123",
         "48.193.48.144/28",
@@ -834,12 +1289,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.IsraelNorthwest",
+      "region": "israelnorthwest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:1702:4::6e0/123",
         "51.4.154.48/28",
@@ -848,12 +1314,23 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "israelnorthwest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.ItalyNorth",
+      "region": "italynorth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:1204:7::620/123",
         "9.235.170.208/28",
@@ -863,12 +1340,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "italynorth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 40,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.JapanEast",
+      "region": "japaneast",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:407:e::4e0/123",
         "4.216.2.16/28"
@@ -876,12 +1364,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "japaneast",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.JapanWest",
+      "region": "japanwest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.192.184.208/28",
         "2603:1040:606:b::5e0/123"
@@ -889,12 +1388,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "japanwest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.JioIndiaCentral",
+      "region": "jioindiacentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:1104:6::640/123",
         "74.225.115.0/28"
@@ -902,12 +1412,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "jioindiacentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.JioIndiaWest",
+      "region": "jioindiawest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.244.209.32/28",
         "2603:1040:d04:7::2e0/123"
@@ -915,12 +1436,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "jioindiawest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.KoreaCentral",
+      "region": "koreacentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:f05:c::280/123",
         "4.230.123.96/28"
@@ -928,12 +1460,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "koreacentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.KoreaSouth",
+      "region": "koreasouth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:e05:9::6e0/123",
         "4.243.158.192/28"
@@ -941,12 +1484,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "koreasouth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.MalaysiaWest",
+      "region": "malaysiawest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:1602:4::780/123",
         "85.211.235.160/27",
@@ -956,12 +1510,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "malaysiawest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 80,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.MexicoCentral",
+      "region": "mexicocentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.195.54.240/28",
         "2603:1030:702:7::220/123"
@@ -969,12 +1534,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "mexicocentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.NewZealandNorth",
+      "region": "newzealandnorth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.196.61.192/27",
         "172.196.62.0/27",
@@ -983,12 +1559,23 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "newzealandnorth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.NorthCentralUS",
+      "region": "northcentralus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:608:14::480/122",
         "52.240.193.64/26"
@@ -996,12 +1583,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "northcentralus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.NorthEurope",
+      "region": "northeurope",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:5:1b::300/122",
         "4.231.242.128/26"
@@ -1009,24 +1607,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "northeurope",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.NorwayEast",
+      "region": "norwaye",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:e04:c::180/123"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "norwaye",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.NorwayWest",
+      "region": "norwayw",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:f04:9::580/123",
         "4.220.240.16/28"
@@ -1034,12 +1654,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "norwayw",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.PolandCentral",
+      "region": "polandcentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.215.127.16/28",
         "2603:1020:1302:5::7e0/123"
@@ -1047,12 +1678,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "polandcentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.QatarCentral",
+      "region": "qatarcentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.173.60.224/28",
         "2603:1040:1002:8::460/123"
@@ -1060,12 +1702,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "qatarcentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SouthAfricaNorth",
+      "region": "southafricanorth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1000:104:a::7a0/123",
         "4.221.222.48/28"
@@ -1073,12 +1726,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southafricanorth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SouthAfricaWest",
+      "region": "southafricawest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.209.113.48/28",
         "2603:1000:4:7::3c0/123"
@@ -1086,12 +1750,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southafricawest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SouthCentralUS",
+      "region": "southcentralus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:807:16::200/122",
         "52.249.21.192/26"
@@ -1099,12 +1774,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southcentralus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SouthCentralUS2",
+      "region": "southcentralus2",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "48.219.9.32/27",
         "48.219.9.64/27"
@@ -1112,12 +1798,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southcentralus2",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SouthIndia",
+      "region": "southindia",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:c06:b::2a0/123",
         "74.225.44.96/28"
@@ -1125,12 +1822,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southindia",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SoutheastAsia",
+      "region": "southeastasia",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:5:16::2e0/123",
         "4.145.16.160/28"
@@ -1138,12 +1846,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SoutheastUS",
+      "region": "southeastus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "68.154.151.128/27",
         "68.154.151.96/27"
@@ -1151,24 +1870,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "southeastus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SoutheastUS3",
+      "region": "southeastus3",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "74.7.65.192/26"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastus3",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SpainCentral",
+      "region": "spaincentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "158.158.131.80/28",
         "2603:1020:1403:7::440/123"
@@ -1176,12 +1917,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "spaincentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SwedenCentral",
+      "region": "swedencentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:1004:d::80/123",
         "4.165.111.96/28"
@@ -1189,12 +1941,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "swedencentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SwedenSouth",
+      "region": "swedensouth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.91.89.192/28",
         "2603:1020:1104:7::7a0/123"
@@ -1202,12 +1965,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "swedensouth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SwitzerlandNorth",
+      "region": "switzerlandn",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:a04:9::5c0/123",
         "74.161.238.224/28"
@@ -1215,12 +1989,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "switzerlandn",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.SwitzerlandWest",
+      "region": "switzerlandw",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:b04:9::80/123",
         "4.226.252.176/28"
@@ -1228,12 +2013,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "switzerlandw",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.TaiwanNorth",
+      "region": "taiwannorth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:1302:7::20/123",
         "70.157.162.144/28"
@@ -1241,12 +2037,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "taiwannorth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.TaiwanNorthwest",
+      "region": "taiwannorthwest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "167.105.250.104/29",
         "167.105.250.112/28"
@@ -1254,12 +2061,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "taiwannorthwest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 24,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.UAECentral",
+      "region": "uaecentral",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.216.92.48/28",
         "2603:1040:b04:8::4a0/123"
@@ -1267,12 +2085,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "uaecentral",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.UAENorth",
+      "region": "uaenorth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1040:904:8::660/123",
         "4.161.10.112/28"
@@ -1280,12 +2109,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "uaenorth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.UKSouth",
+      "region": "uksouth",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "172.165.84.176/28",
         "2603:1020:705:15::420/123"
@@ -1293,12 +2133,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "uksouth",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.UKWest",
+      "region": "ukwest",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.58.79.176/28",
         "2603:1020:605:b::700/123"
@@ -1306,12 +2157,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "ukwest",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.WestCentralUS",
+      "region": "westcentralus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.51.41.192/26",
         "2603:1030:b04:f::2c0/122"
@@ -1319,12 +2181,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "westcentralus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.WestEurope",
+      "region": "westeurope",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1020:206:22::3c0/122",
         "48.199.135.192/26"
@@ -1332,12 +2205,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "westeurope",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.WestUS",
+      "region": "westus",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:a07:22::220/123",
         "2603:1030:a07:22::240/122",
@@ -1347,12 +2231,23 @@
       "removed_prefixes": [],
       "added_count": 4,
       "removed_count": 0,
-      "region": "westus",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 96,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 5.204170427930421e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.WestUS2",
+      "region": "westus2",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "2603:1030:c06:21::300/122",
         "48.202.71.0/26"
@@ -1360,12 +2255,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "westus2",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 64,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.WestUS3",
+      "region": "westus3",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "20.172.117.0/28",
         "2603:1030:504:15::1c0/123"
@@ -1373,48 +2279,92 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "westus3",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 16,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.SoutheastAsia",
+      "region": "southeastasia",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "135.130.202.0/23"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "Storage.SwedenCentral",
+      "region": "swedencentral",
+      "system_service": "AzureStorage",
       "added_prefixes": [
         "145.190.140.0/24"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "swedencentral",
-      "system_service": "AzureStorage"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 256,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "DataFactory.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "DataFactory",
       "added_prefixes": [
         "2603:1040:1802:5::700/121"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "DataFactory"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "LogicApps.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "LogicApps",
       "added_prefixes": [
         "2603:1040:1802:5::7c0/123",
         "48.193.52.192/27"
@@ -1422,12 +2372,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "LogicApps"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "MicrosoftContainerRegistry.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "MicrosoftContainerRegistry",
       "added_prefixes": [
         "2603:1040:1802:5::1b8/125",
         "48.193.50.40/29"
@@ -1435,24 +2396,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "MicrosoftContainerRegistry"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "PowerQueryOnline.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "PowerQueryOnline",
       "added_prefixes": [
         "2603:1040:1802:5::80/122"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "PowerQueryOnline"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 3.469446951953614e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "ServiceFabric.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "ServiceFabric",
       "added_prefixes": [
         "2603:1040:1802:5::5a8/125",
         "48.193.50.104/29"
@@ -1460,24 +2443,46 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "ServiceFabric"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 4.336808689942018e-19,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "StorageSyncService.IndonesiaCentral",
+      "region": "indonesiacentral",
+      "system_service": "StorageSyncService",
       "added_prefixes": [
         "2603:1040:1802:5::160/123"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "indonesiacentral",
-      "system_service": "StorageSyncService"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.734723475976807e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "WindowsVirtualDesktop.ChileCentral",
+      "region": "chilec",
+      "system_service": "WindowsVirtualDesktop",
       "added_prefixes": [
         "57.156.5.248/29",
         "57.156.73.192/28"
@@ -1485,12 +2490,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "chilec",
-      "system_service": "WindowsVirtualDesktop"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 24,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureMonitor.Core",
+      "region": "",
+      "system_service": "AzureMonitor",
       "added_prefixes": [
         "134.138.94.192/27",
         "167.105.250.104/29",
@@ -1515,24 +2531,46 @@
       "removed_prefixes": [],
       "added_count": 19,
       "removed_count": 0,
-      "region": "",
-      "system_service": "AzureMonitor"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 528,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "DataFactoryManagement",
+      "region": "",
+      "system_service": "DataFactory",
       "added_prefixes": [
         "2603:1040:1802:5::700/121"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "",
-      "system_service": "DataFactory"
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 6.938893903907228e-18,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.australiaeast",
+      "region": "australiaeast",
+      "system_service": "",
       "added_prefixes": [
         "40.120.178.128/28",
         "40.120.178.144/31"
@@ -1544,24 +2582,46 @@
       ],
       "added_count": 2,
       "removed_count": 3,
-      "region": "australiaeast",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.canadacentral",
+      "region": "canadacentral",
+      "system_service": "",
       "added_prefixes": [
         "40.120.185.208/29"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "canadacentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 8,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.centralindia",
+      "region": "centralindia",
+      "system_service": "",
       "added_prefixes": [
         "20.20.85.40/30",
         "20.20.85.44/31"
@@ -1571,12 +2631,23 @@
       ],
       "added_count": 2,
       "removed_count": 1,
-      "region": "centralindia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus2",
+      "region": "eastus2",
+      "system_service": "",
       "added_prefixes": [
         "20.201.230.0/24",
         "2603:1030:401:a52::/63",
@@ -1594,12 +2665,23 @@
       ],
       "added_count": 9,
       "removed_count": 2,
-      "region": "eastus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 272,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 8.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.eastus",
+      "region": "eastus",
+      "system_service": "",
       "added_prefixes": [
         "57.157.33.0/26",
         "57.157.33.64/29"
@@ -1609,12 +2691,23 @@
       ],
       "added_count": 2,
       "removed_count": 1,
-      "region": "eastus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 68,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.germanywc",
+      "region": "germanywc",
+      "system_service": "",
       "added_prefixes": [
         "48.203.0.0/17",
         "57.157.60.128/28",
@@ -1623,12 +2716,23 @@
       "removed_prefixes": [],
       "added_count": 3,
       "removed_count": 0,
-      "region": "germanywc",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 32788,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.italynorth",
+      "region": "italynorth",
+      "system_service": "",
       "added_prefixes": [
         "2603:1061:100b:100::/59",
         "2603:1061:100b:120::/63",
@@ -1644,12 +2748,23 @@
       ],
       "added_count": 5,
       "removed_count": 4,
-      "region": "italynorth",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 44,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 22.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.japaneast",
+      "region": "japaneast",
+      "system_service": "",
       "added_prefixes": [
         "40.120.182.128/26",
         "40.120.182.192/28",
@@ -1662,12 +2777,23 @@
       ],
       "added_count": 4,
       "removed_count": 2,
-      "region": "japaneast",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 38,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.northcentralus",
+      "region": "northcentralus",
+      "system_service": "",
       "added_prefixes": [
         "40.120.191.32/28",
         "40.120.191.48/31"
@@ -1679,12 +2805,23 @@
       ],
       "added_count": 2,
       "removed_count": 3,
-      "region": "northcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.northeurope",
+      "region": "northeurope",
+      "system_service": "",
       "added_prefixes": [
         "57.157.29.160/28",
         "57.157.29.176/29",
@@ -1697,12 +2834,23 @@
       ],
       "added_count": 3,
       "removed_count": 3,
-      "region": "northeurope",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 14,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.qatarcentral",
+      "region": "qatarcentral",
+      "system_service": "",
       "added_prefixes": [
         "2603:1061:1004:c8::/63",
         "40.123.149.160/30"
@@ -1710,12 +2858,23 @@
       "removed_prefixes": [],
       "added_count": 2,
       "removed_count": 0,
-      "region": "qatarcentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southcentralus2",
+      "region": "southcentralus2",
+      "system_service": "",
       "added_prefixes": [
         "20.20.72.128/28",
         "2603:1061:1012::/58"
@@ -1733,12 +2892,23 @@
       ],
       "added_count": 2,
       "removed_count": 9,
-      "region": "southcentralus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 2,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 1.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southcentralus",
+      "region": "southcentralus",
+      "system_service": "",
       "added_prefixes": [
         "20.20.103.0/28",
         "20.20.103.16/29",
@@ -1753,24 +2923,46 @@
       ],
       "added_count": 7,
       "removed_count": 1,
-      "region": "southcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 28,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 14.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.southeastasia",
+      "region": "southeastasia",
+      "system_service": "",
       "added_prefixes": [
         "135.130.202.0/23"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "southeastasia",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 512,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.spaincentral",
+      "region": "spaincentral",
+      "system_service": "",
       "added_prefixes": [
         "2603:1061:1008:c0::/60",
         "2603:1061:1008:d0::/64",
@@ -1788,12 +2980,23 @@
       ],
       "added_count": 4,
       "removed_count": 7,
-      "region": "spaincentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 4,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 2.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.swedencentral",
+      "region": "swedencentral",
+      "system_service": "",
       "added_prefixes": [
         "145.190.140.0/24",
         "57.157.68.128/27",
@@ -1806,24 +3009,46 @@
       ],
       "added_count": 4,
       "removed_count": 2,
-      "region": "swedencentral",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 290,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westcentralus",
+      "region": "westcentralus",
+      "system_service": "",
       "added_prefixes": [
         "2603:1030:b80::/48"
       ],
       "removed_prefixes": [],
       "added_count": 1,
       "removed_count": 0,
-      "region": "westcentralus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 0,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 65536.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westeurope",
+      "region": "westeurope",
+      "system_service": "",
       "added_prefixes": [
         "57.157.15.0/25",
         "57.157.15.128/27",
@@ -1838,12 +3063,23 @@
       ],
       "added_count": 3,
       "removed_count": 5,
-      "region": "westeurope",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 44,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westus2",
+      "region": "westus2",
+      "system_service": "",
       "added_prefixes": [
         "57.157.72.0/28",
         "57.157.72.16/29",
@@ -1855,12 +3091,23 @@
       ],
       "added_count": 4,
       "removed_count": 1,
-      "region": "westus2",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 22,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud.westus",
+      "region": "westus",
+      "system_service": "",
       "added_prefixes": [
         "20.20.94.192/28",
         "20.20.94.208/30"
@@ -1871,12 +3118,23 @@
       ],
       "added_count": 2,
       "removed_count": 2,
-      "region": "westus",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 14,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 0.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     },
     {
       "type": "ip_changes",
       "service": "AzureCloud",
+      "region": "",
+      "system_service": "",
       "added_prefixes": [
         "135.130.202.0/23",
         "145.190.140.0/24",
@@ -2003,14 +3261,48 @@
       ],
       "added_count": 69,
       "removed_count": 51,
-      "region": "",
-      "system_service": ""
+      "coverage": {
+        "ipv4": {
+          "added_addresses": 34182,
+          "removed_addresses": 0
+        },
+        "ipv6": {
+          "added_slash64s": 65597.0,
+          "removed_slash64s": 0.0
+        }
+      },
+      "classification": "expansion"
     }
   ],
   "total_changes": 115,
+  "metadata_changes": [],
   "generated_at": "2025-12-22T01:25:02.429388+00:00",
   "metadata": {
     "version": "2025.12.15",
     "date_published": "12/18/2025"
+  },
+  "comparison": {
+    "previous_snapshot": "2025-12-15",
+    "current_snapshot": "2025-12-22",
+    "previous_change_number": 379,
+    "current_change_number": 380,
+    "skipped_change_numbers": [],
+    "reproducible": true,
+    "previous_membership_total": 97497,
+    "current_membership_total": 98027,
+    "added_memberships": 627,
+    "removed_memberships": 97,
+    "net_memberships": 530,
+    "balanced": true,
+    "coverage": {
+      "ipv4": {
+        "added_addresses": 76935,
+        "removed_addresses": 0
+      },
+      "ipv6": {
+        "added_slash64s": 131182.0,
+        "removed_slash64s": 0.0
+      }
+    }
   }
 }

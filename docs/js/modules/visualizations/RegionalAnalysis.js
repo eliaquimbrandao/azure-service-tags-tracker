@@ -1,3 +1,5 @@
+import { changeCounts, comparisonFiles } from '../core/changeCounts.js';
+
 export class RegionalAnalysis {
     constructor(regionMapper, modalManager, dataManager) {
         this.regionMapper = regionMapper;
@@ -166,13 +168,9 @@ export class RegionalAnalysis {
             const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
             const manifest = await manifestResponse.json();
 
-            // Exclude baseline (oldest date)
-            const sortedFiles = [...manifest.files].sort((a, b) =>
+            const filesToProcess = comparisonFiles(manifest).sort((a, b) =>
                 new Date(a.date) - new Date(b.date)
             );
-
-            // Skip the first file (baseline)
-            const filesToProcess = sortedFiles.length > 1 ? sortedFiles.slice(1) : [];
 
             const regionalChanges = [];
 
@@ -185,13 +183,14 @@ export class RegionalAnalysis {
                         const changeRegion = (change.region || '').toLowerCase();
                         const matchKey = (regionKey || '').toLowerCase();
                         if (changeRegion === matchKey) {
-                            const added = change.added_prefixes || [];
-                            const removed = change.removed_prefixes || [];
+                            const n = changeCounts(change);
+                            const added = change.added_prefixes || (n.added ? change.prefixes || [] : []);
+                            const removed = change.removed_prefixes || (n.removed ? change.prefixes || [] : []);
                             regionalChanges.push({
                                 date: fileInfo.date,
                                 service: change.service,
-                                addedCount: change.added_count || added.length,
-                                removedCount: change.removed_count || removed.length,
+                                addedCount: n.added,
+                                removedCount: n.removed,
                                 addedIPs: added,
                                 removedIPs: removed
                             });

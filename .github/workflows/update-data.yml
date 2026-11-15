@@ -43,7 +43,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Self-checks (diff logic, counting helper, search)
+        run: |
+          set -euo pipefail
+          python scripts/test_watcher.py
+          node scripts/test-change-counts.mjs
+          node scripts/test-search.mjs
+
+      # continue-on-error so a failed collection is still recorded in
+      # collection-log.json and committed; the last step fails the job.
       - name: Run Azure Service Tag Tracker
+        id: watcher
+        continue-on-error: true
         run: |
           set -euo pipefail
           BASELINE="${{ github.event.inputs.baseline_setup || 'false' }}"
@@ -54,6 +70,10 @@ jobs:
             echo "📊 Running regular update - detecting changes"
             python scripts/azure_watcher.py
           fi
+
+      - name: Verify published data before committing
+        if: steps.watcher.outcome == 'success'
+        run: python scripts/verify_data.py
 
       - name: Configure Git identity
         run: |
@@ -77,7 +97,11 @@ jobs:
           if [ "$BASELINE" = "true" ]; then
             MSG="📊 Establish Azure Service Tags baseline - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           else
-            MSG="📈 Update Azure Service Tags data - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            if [ "${{ steps.watcher.outcome }}" = "failure" ]; then
+              MSG="⚠️ Record failed Azure Service Tags collection - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            else
+              MSG="📈 Update Azure Service Tags data - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            fi
           fi
           git commit -m "$MSG"
           echo "did_commit=true" >> "$GITHUB_OUTPUT"
@@ -191,3 +215,9 @@ jobs:
             # Not a failure - PR is still created
             exit 0
           fi
+
+      - name: Fail the job if collection failed
+        if: steps.watcher.outcome == 'failure'
+        run: |
+          echo "❌ Collection failed; the failure was recorded in docs/data/collection-log.json"
+          exit 1

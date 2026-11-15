@@ -1,3 +1,5 @@
+import { changeCounts, sumCounts, comparisonFiles } from '../core/changeCounts.js';
+
 export class TimelineManager {
     constructor(dataManager, regionMapper, changeRenderer, modalManager) {
         this.dataManager = dataManager;
@@ -51,9 +53,8 @@ export class TimelineManager {
                 return;
             }
 
-            // Filter out baseline (oldest date - it's just the initial snapshot)
-            const oldestDate = manifest.date_range?.oldest;
-            const changeFiles = files.filter(fileInfo => fileInfo.date !== oldestDate);
+            // Filter out the baseline (initial snapshot, not a change)
+            const changeFiles = comparisonFiles(manifest);
 
             if (changeFiles.length === 0) {
                 timelineContainer.innerHTML = `
@@ -113,11 +114,8 @@ export class TimelineManager {
             // Calculate statistics
             const serviceCount = new Set(changes.map(c => c.service)).size;
             const regionCount = new Set(changes.map(c => c.region || 'global')).size;
-            const totalIPChanges = changes.reduce((sum, c) => {
-                return sum + (c.added_count || 0) + (c.removed_count || 0);
-            }, 0);
-            const addedIPs = changes.reduce((sum, c) => sum + (c.added_count || 0), 0);
-            const removedIPs = changes.reduce((sum, c) => sum + (c.removed_count || 0), 0);
+            const { added: addedIPs, removed: removedIPs } = sumCounts(changes);
+            const totalIPChanges = addedIPs + removedIPs;
 
             return {
                 date: fileInfo.date,
@@ -159,7 +157,7 @@ export class TimelineManager {
                     if (change.region && change.region.trim() !== '') {
                         const baseKey = this.regionMapper.getBaseRegionKey(change.region);
                         const displayName = this.regionMapper.getRegionDisplayName(change.region);
-                        const baseDisplay = displayName.replace(/\s+\d+$/, '').trim() || displayName;
+                        const baseDisplay = displayName;
 
                         if (!regionGroups.has(baseKey)) {
                             regionGroups.set(baseKey, {
@@ -176,10 +174,10 @@ export class TimelineManager {
             }
         });
 
-        // Enrich with known region mappings so numbered variants appear even if not in this subset
+        // Offer every known region in the filter, even those without changes in this subset
         Object.entries(this.regionMapper.regionDisplayMap || {}).forEach(([key, value]) => {
             const baseKey = this.regionMapper.getBaseRegionKey(key);
-            const baseDisplay = value.replace(/\s+\d+$/, '').trim() || value;
+            const baseDisplay = value;
             if (!regionGroups.has(baseKey)) {
                 regionGroups.set(baseKey, {
                     baseKey,
@@ -555,8 +553,9 @@ export class TimelineManager {
             if (change.service) {
                 serviceCounts[change.service] = (serviceCounts[change.service] || 0) + 1;
             }
-            totalMatchedAdded += change.added_count || 0;
-            totalMatchedRemoved += change.removed_count || 0;
+            const n = changeCounts(change);
+            totalMatchedAdded += n.added;
+            totalMatchedRemoved += n.removed;
         });
 
         // Format published date if available

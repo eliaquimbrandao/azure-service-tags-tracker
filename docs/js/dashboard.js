@@ -8,6 +8,7 @@ import { RegionalAnalysis } from './modules/visualizations/RegionalAnalysis.js';
 import { SearchManager } from './modules/ui/SearchManager.js';
 import { TimelineManager } from './modules/ui/TimelineManager.js';
 import { ExportManager } from './modules/export/ExportManager.js';
+import { sumCounts, comparisonFiles } from './modules/core/changeCounts.js';
 
 /**
  * Azure Service Tags Dashboard
@@ -222,9 +223,8 @@ class AzureServiceTagsDashboard {
                 // Load manifest to get actual data coverage
                 const manifest = await this.dataManager.getManifest();
 
-                // Exclude baseline (oldest date) from counts
-                const totalFiles = manifest.total_files || 0;
-                const actualDataWeeks = Math.max(0, totalFiles - 1); // Subtract baseline
+                const comparisons = comparisonFiles(manifest);
+                const actualDataWeeks = comparisons.length;
 
                 if (dataPointsEl) {
                     const totalServices = this.summaryData?.total_services || 0;
@@ -234,12 +234,9 @@ class AzureServiceTagsDashboard {
                 if (durationEl) {
                     const dateRange = manifest.date_range;
                     if (dateRange && actualDataWeeks > 0) {
-                        // Get the second oldest date (first actual change, not baseline)
-                        const files = manifest.files || [];
-                        const sortedFiles = [...files].sort((a, b) => this.dataManager.parseDateOnly(a.date) - this.dataManager.parseDateOnly(b.date));
-
-                        // Skip the oldest (baseline) and use the second oldest as start
-                        const firstChangeDate = sortedFiles.length > 1 ? this.dataManager.parseDateOnly(sortedFiles[1].date) : this.dataManager.parseDateOnly(dateRange.oldest);
+                        // First comparison (the baseline is not a change)
+                        const firstDate = comparisons.map(f => f.date).sort()[0] || dateRange.oldest;
+                        const firstChangeDate = this.dataManager.parseDateOnly(firstDate);
                         const newestDate = this.dataManager.parseDateOnly(dateRange.newest);
 
                         const daysDiff = Math.floor((newestDate - firstChangeDate) / (1000 * 60 * 60 * 24));
@@ -275,7 +272,7 @@ class AzureServiceTagsDashboard {
 
         try {
             const manifest = await this.dataManager.getManifest();
-            const changeFiles = manifest.files.filter(f => f.date !== manifest.date_range.oldest);
+            const changeFiles = comparisonFiles(manifest);
             const changeDatas = await this.dataManager.getChangeFiles(changeFiles);
 
             let azureCloudTotal = 0;
@@ -357,10 +354,8 @@ class AzureServiceTagsDashboard {
             const manifest = await manifestResponse.json();
             const files = manifest.files || [];
 
-            // Filter out baseline (oldest date) and sort newest first
-            const oldestDate = manifest.date_range?.oldest;
-            const changeFiles = files
-                .filter(f => f.date !== oldestDate)
+            // Filter out baseline and sort newest first
+            const changeFiles = comparisonFiles(manifest)
                 .sort((a, b) => new Date(b.date) - new Date(a.date));
 
             if (changeFiles.length === 0) {
@@ -478,8 +473,7 @@ class AzureServiceTagsDashboard {
         // Calculate statistics
         const serviceCount = new Set(changes.map(c => c.service)).size;
         const regionCount = new Set(changes.map(c => c.region || 'global')).size;
-        const addedIPs = changes.reduce((sum, c) => sum + (c.added_count || 0), 0);
-        const removedIPs = changes.reduce((sum, c) => sum + (c.removed_count || 0), 0);
+        const { added: addedIPs, removed: removedIPs } = sumCounts(changes);
 
         if (changes.length === 0) {
             return `
@@ -740,12 +734,7 @@ class AzureServiceTagsDashboard {
             let thisWeekRemovedIPs = 0;
 
             if (this.changesData && this.changesData.changes) {
-                this.changesData.changes.forEach(change => {
-                    if (change.type === 'ip_changes' || change.change_type === 'ip_changes') {
-                        thisWeekAddedIPs += change.added_count || 0;
-                        thisWeekRemovedIPs += change.removed_count || 0;
-                    }
-                });
+                ({ added: thisWeekAddedIPs, removed: thisWeekRemovedIPs } = sumCounts(this.changesData.changes));
             }
 
             const thisWeekNetChange = thisWeekAddedIPs - thisWeekRemovedIPs;
@@ -774,14 +763,8 @@ class AzureServiceTagsDashboard {
                         let weekAddedIPs = 0;
                         let weekRemovedIPs = 0;
 
-                        if (fileData.changes) {
-                            fileData.changes.forEach(change => {
-                                if (change.type === 'ip_changes' || change.change_type === 'ip_changes') {
-                                    weekAddedIPs += change.added_count || 0;
-                                    weekRemovedIPs += change.removed_count || 0;
-                                }
-                            });
-                        }
+                        if (fileData.baseline) continue;
+                        ({ added: weekAddedIPs, removed: weekRemovedIPs } = sumCounts(fileData.changes));
 
                         const weekNetChange = weekAddedIPs - weekRemovedIPs;
 

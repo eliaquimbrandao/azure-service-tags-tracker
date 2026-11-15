@@ -1,3 +1,5 @@
+import { changeCounts, comparisonFiles } from '../core/changeCounts.js';
+
 export class ServiceList {
     constructor(dataManager) {
         this.dataManager = dataManager;
@@ -13,9 +15,7 @@ export class ServiceList {
         try {
             // Load manifest to get total weeks and file list
             const manifest = await this.dataManager.getManifest();
-            const oldestDate = manifest.date_range?.oldest;
-            const changeFiles = manifest.files
-                .filter(f => f.date !== oldestDate)
+            const changeFiles = comparisonFiles(manifest)
                 .sort((a, b) => new Date(a.date) - new Date(b.date));
 
             this.totalWeeks = changeFiles.length;
@@ -44,8 +44,9 @@ export class ServiceList {
                         serviceMap[name] = { added: 0, removed: 0, weekDates: new Set(), recentWeeks: 0 };
                     }
                     const s = serviceMap[name];
-                    s.added += change.added_count || 0;
-                    s.removed += change.removed_count || 0;
+                    const n = changeCounts(change);
+                    s.added += n.added;
+                    s.removed += n.removed;
                     s.weekDates.add(fileInfo.date);
                     if (recentDates.has(fileInfo.date)) {
                         s.recentWeeks++;

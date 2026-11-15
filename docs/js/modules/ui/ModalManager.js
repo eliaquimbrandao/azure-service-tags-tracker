@@ -1,3 +1,5 @@
+import { sumCounts } from '../core/changeCounts.js';
+
 export class ModalManager {
     constructor(regionMapper, changeRenderer) {
         this.regionMapper = regionMapper;
@@ -378,18 +380,7 @@ export class ModalManager {
     }
 
     generateIPChangeStats(changes) {
-        let added = 0;
-        let removed = 0;
-        changes.forEach(c => {
-            if (c.type === 'NewService') {
-                added += (c.ip_count || 0);
-            } else if (c.type === 'RemovedService') {
-                removed += (c.ip_count || 0);
-            } else {
-                added += (c.added_count || 0);
-                removed += (c.removed_count || 0);
-            }
-        });
+        const { added, removed } = sumCounts(changes);
         return `
             <span class="stat-item added">➕ ${added.toLocaleString()} IPs added</span>
             <span class="stat-item removed">➖ ${removed.toLocaleString()} IPs removed</span>
@@ -441,17 +432,8 @@ export class ModalManager {
         const serviceCount = new Set(changes.map(c => c.service)).size;
         const ipChanges = changes.filter(c => c.type === 'ip_changes');
         const regionCount = new Set(ipChanges.map(c => c.region || 'global')).size;
-        const totalIPChanges = changes.reduce((sum, c) => {
-            return sum + (c.added_count || 0) + (c.removed_count || 0) + (c.ip_count || 0);
-        }, 0);
-        const addedIPs = changes.reduce((sum, c) => {
-            if (c.type === 'NewService') return sum + (c.ip_count || 0);
-            return sum + (c.added_count || 0);
-        }, 0);
-        const removedIPs = changes.reduce((sum, c) => {
-            if (c.type === 'RemovedService') return sum + (c.ip_count || 0);
-            return sum + (c.removed_count || 0);
-        }, 0);
+        const { added: addedIPs, removed: removedIPs } = sumCounts(changes);
+        const totalIPChanges = addedIPs + removedIPs;
 
         modal.innerHTML = `
             <div class="changes-modal">
