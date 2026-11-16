@@ -1,0 +1,27 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths-ignore: ["docs/data/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      # None of these need the network dependencies in requirements.txt.
+      - run: python scripts/test_watcher.py
+      - run: node scripts/test-change-counts.mjs
+      - run: node scripts/test-search.mjs
+      - run: python scripts/verify_data.py

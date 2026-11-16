@@ -53,7 +53,6 @@
 
     <!-- Preconnect to CDN origins -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 
     <!-- Preload LCP hero image -->
@@ -76,7 +75,6 @@
     <link rel="modulepreload" href="js/modules/export/ExportManager.js">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js" defer></script>
 </head>
 
 <body>
@@ -254,7 +252,7 @@
                         <div class="process-step">
                             <div class="step-icon">🔄</div>
                             <h3>Official Microsoft Data, Automatically Synced</h3>
-                            <p>The platform pulls the official Azure Service Tags dataset every Monday at 00:00 UTC via GitHub Actions. Each run generates a current snapshot, weekly diffs, and timestamped history so you always know when IP ranges are added or retired.</p>
+                            <p>The platform checks the official Azure Service Tags dataset every day via GitHub Actions and records it whenever Microsoft publishes a new version (roughly weekly). Each new version generates a current snapshot, weekly diffs, and timestamped history so you always know when IP ranges are added or retired.</p>
                         </div>
 
                         <div class="process-step">

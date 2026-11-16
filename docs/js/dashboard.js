@@ -343,16 +343,7 @@ class AzureServiceTagsDashboard {
         }
 
         try {
-            // Load manifest to get the recent change files
-            const timestamp = new Date().getTime();
-            const manifestResponse = await fetch(`./data/changes/manifest.json?t=${timestamp}`);
-
-            if (!manifestResponse.ok) {
-                throw new Error('Could not load change history');
-            }
-
-            const manifest = await manifestResponse.json();
-            const files = manifest.files || [];
+            const manifest = await this.dataManager.getManifest();
 
             // Filter out baseline and sort newest first
             const changeFiles = comparisonFiles(manifest)
@@ -378,10 +369,9 @@ class AzureServiceTagsDashboard {
             for (const file of changeFiles) {
                 if (weeksWithChanges.length >= 3) break;
 
-                const response = await fetch(`./data/changes/${file.filename}?t=${timestamp}`);
-                if (!response.ok) continue;
+                const data = await this.dataManager.getChangeFile(file.filename);
+                if (!data) continue;
 
-                const data = await response.json();
                 const changes = data.changes || [];
 
                 if (!Array.isArray(changes) || changes.length === 0) {
@@ -747,17 +737,16 @@ class AzureServiceTagsDashboard {
             if (!hasChangesThisWeek) {
                 // Load manifest to find the last week with actual changes
                 try {
-                    const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-                    const manifest = await manifestResponse.json();
+                    const manifest = await this.dataManager.getManifest();
 
-                    // Sort files by date (newest first)
-                    const sortedFiles = manifest.files
+                    // Sort a copy by date (newest first); the manifest is shared
+                    const sortedFiles = [...manifest.files]
                         .sort((a, b) => new Date(b.date) - new Date(a.date));
 
                     // Look through previous weeks to find the last one with changes
                     for (const file of sortedFiles) {
-                        const fileResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${file.filename}`);
-                        const fileData = await fileResponse.json();
+                        const fileData = await this.dataManager.getChangeFile(file.filename);
+                        if (!fileData) continue;
 
                         // Calculate IP changes for this week
                         let weekAddedIPs = 0;

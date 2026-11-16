@@ -75,7 +75,7 @@ cd azure-service-tags-tracker
 
 Done! Your dashboard will be live at: `https://yourusername.github.io/azure-service-tags-tracker`
 
-**Auto-updates**: Runs every **Monday 07:00 UTC** automatically
+**Auto-updates**: Checks Microsoft's download **daily** and records a snapshot whenever a new version is published (roughly weekly)
 
 ---
 
@@ -84,7 +84,8 @@ Done! Your dashboard will be live at: `https://yourusername.github.io/azure-serv
 ```text
 azure-service-tags-tracker/
 ├── .github/workflows/
-│   └── update-data.yml           # Weekly automation (GitHub Actions)
+│   ├── update-data.yml           # Daily check (GitHub Actions)
+│   └── test.yml                  # Self-checks on every pull request
 ├── docs/                         # GitHub Pages website
 │   ├── index.html                # Main dashboard
 │   ├── analytics.html            # Analytics & charts page
@@ -108,7 +109,7 @@ azure-service-tags-tracker/
 │       │   ├── manifest.json     # Index of all change files
 │       │   ├── latest-changes.json
 │       │   └── YYYY-MM-DD-changes.json
-│       └── history/              # Weekly snapshots
+│       └── history/              # One snapshot per Microsoft publication
 │           └── YYYY-MM-DD.json
 ├── examples/
 │   └── api-usage-examples.md     # API integration examples & guides
@@ -134,7 +135,7 @@ azure-service-tags-tracker/
 
 **Data Flow**
 
-1. GitHub Action triggers weekly → Python script downloads latest Azure data
+1. GitHub Action runs daily → Python script downloads latest Azure data and stops if it is unchanged
 2. Compares with previous snapshot using hash comparison
 3. Generates change reports (added/removed IPs per service/region)
 4. Commits to `docs/data/` → GitHub Pages auto-deploys

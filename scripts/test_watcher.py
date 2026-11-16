@@ -51,6 +51,10 @@ assert (c['previous_membership_total'], c['added_memberships'], c['removed_membe
 assert c['balanced'] is True and c['skipped_change_numbers'] == [11] and c['reproducible'] is True
 assert doc['baseline'] is False
 
+# a prefix listed twice in one tag is one membership, not an unbalanced total
+dup = build_change_document(snap(1, A=(['1.1.1.0/24'], '')), snap(2, A=(['1.1.1.0/24', '1.1.1.0/24'], '')), '2026-01-02', {}, '2026-01-01')
+assert dup['changes'] == [] and dup['comparison']['balanced'] is True and dup['comparison']['current_membership_total'] == 1
+
 base = build_change_document(None, new, '2026-01-02', {}, None)
 assert base['baseline'] is True and base['changes'] == [] and base['comparison']['balanced'] is None
 
@@ -75,5 +79,52 @@ with tempfile.TemporaryDirectory() as tmp:
     assert names['eastus'] == 'East US' and names['eastus2'] == 'East US 2'      # distinct regions stay distinct
     assert names['brazilne'] == 'brazilne'                                      # never invent a name Microsoft doesn't publish
     assert names['oldregion'] == 'Old Region'                                   # history-only regions kept
+
+# --- a run: stores a new publication, skips a repeat, refuses a truncated download ---
+with tempfile.TemporaryDirectory() as tmp:
+    data_dir = Path(tmp)
+    azure_watcher.DATA_DIR, azure_watcher.HISTORY_DIR, azure_watcher.CHANGES_DIR = data_dir, data_dir / 'history', data_dir / 'changes'
+    azure_watcher.LOG_FILE, azure_watcher.REGIONS_FILE = data_dir / 'collection-log.json', data_dir / 'regions.json'
+    published = {'data': snap(1, **{f'T{i}': ([f'10.0.{i}.0/24'], '') for i in range(10)})}
+    azure_watcher.download_latest_json = lambda: (published['data'], {})
+
+    azure_watcher.run(baseline=True)
+    stored = sorted(p.name for p in data_dir.rglob('*.json'))
+    assert len(list(azure_watcher.HISTORY_DIR.glob('*.json'))) == 1
+    log_before = azure_watcher.LOG_FILE.read_text()
+    azure_watcher.run(baseline=False)                                           # same publication again
+    assert sorted(p.name for p in data_dir.rglob('*.json')) == stored and azure_watcher.LOG_FILE.read_text() == log_before
+
+    azure_watcher.LOG_FILE.unlink()                                             # run died after the snapshot was stored
+    (data_dir / 'summary.json').unlink()
+    azure_watcher.run(baseline=False)                                           # ...so it is completed, not skipped
+    assert sorted(p.name for p in data_dir.rglob('*.json')) == stored and '"success"' in azure_watcher.LOG_FILE.read_text()
+    assert azure_watcher.read_json(next(azure_watcher.CHANGES_DIR.glob('????-*-changes.json')))['baseline'] is True
+
+    published['data'] = snap(2, T0=(['10.0.0.0/24'], ''))                      # 1 tag where there were 10
+    try:
+        azure_watcher.run(baseline=False)
+        raise AssertionError('truncated download was accepted')
+    except ValueError:
+        pass
+
+    published['data'] = snap(2, **{f'T{i}': ([f'10.0.{i}.0/24'], '') for i in range(9)}, **{'<img src=x>': (['10.9.9.0/24'], '')})
+    try:
+        azure_watcher.run(baseline=False)
+        raise AssertionError('markup in a tag name was accepted')
+    except ValueError as e:
+        assert 'HTML-significant' in str(e), e
+
+    # --- coverage: a quiet week is a gap only if the next collection skipped a changeNumber ---
+    def missing(skipped):
+        azure_watcher.write_json(azure_watcher.CHANGES_DIR / 'manifest.json',
+                                 {'files': [{'date': '2026-01-19', 'skipped_change_numbers': skipped}]})
+        log = {'runs': [{'date': d, 'status': 'success'} for d in ('2026-01-05', '2026-01-19')]}
+        azure_watcher._save_log(log)
+        return log['coverage']['missing_weeks']
+    for f in azure_watcher.CHANGES_DIR.glob('*-changes.json'):
+        f.unlink()
+    assert missing([]) == [], 'Microsoft published nothing in the week of 2026-01-12'
+    assert missing([7]) == ['2026-01-12'], 'a publication was missed in the week of 2026-01-12'
 
 print('✅ test_watcher passed')
