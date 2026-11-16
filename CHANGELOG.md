@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-11-16
+
+### 🗓️ Daily Collection, Smaller Snapshots & Cleanup
+
+#### Changed
+- **Collection runs daily instead of every Monday** and writes nothing when Microsoft's file equals the newest snapshot. Previously a version published Tue-Fri waited until the next Monday (median 5 days, worst 13), three Microsoft versions (changeNumbers 381, 395, 401) were never captured, and five weeks stored a duplicate snapshot
+- **Snapshots are stored minified** (`history/*.json`, `current.json`): identical JSON, ~35% smaller (`history/` 232 MB → 168 MB). Existing snapshots were rewritten in place
+- **Coverage in `collection-log.json`** — a week with no collection is reported as missing only if the next collection skipped a Microsoft changeNumber; `expected_schedule` is now `daily-check`
+- **Dashboard fetches** — history timeline, search, recent changes and the regional modal now share `DataManager`'s manifest and change-file cache instead of re-downloading every change file with a fresh timestamp (the regional modal no longer fetches ~58 files one after another)
+- **Workflow** — PR creation and merge use the `gh` CLI (replaces ~90 lines of `curl`/`jq`), merged `data/update-*` branches are deleted, dependencies install from `requirements.txt`, actions updated to v7
+
+#### Added
+- **Collector guards** — a download with fewer than half the previous tag count, or containing HTML-significant characters in any string, is refused and recorded as a failed collection
+- **`Tests` workflow** — self-checks and `verify_data.py` run on every pull request
+- **`LICENSE`** (MIT, as the README already stated) and **`docs/assets/preview.png`** (the Open Graph/Twitter image the pages referenced but which did not exist)
+
+#### Removed
+- Unused `date-fns` script and its preconnect on all 3 pages
+- ~1,250 lines of CSS for classes no page or script uses
+- `--upgrade-history` (one-off schema v2 migration, completed) and stale `<lastmod>` dates in `sitemap.xml`
+
+---
+
 ## [Unreleased] - 2026-04-15
 
 ### ⚡ PageSpeed Performance & Accessibility Improvements

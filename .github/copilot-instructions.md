@@ -7,12 +7,12 @@ This is a **serverless monitoring system** that tracks weekly changes to Azure S
 - **Data Collection**: `scripts/azure_watcher.py` (Python) downloads Microsoft's Service Tags JSON weekly
 - **Change Detection**: Compares current data with previous snapshots, generates diff reports
 - **Web Dashboard**: Static site in `docs/` — three pages (index, history, analytics) with interactive charts and global search
-- **Automation**: GitHub Actions (`.github/workflows/update-data.yml`) runs every Monday 7AM UTC
+- **Automation**: GitHub Actions (`.github/workflows/update-data.yml`) runs daily at 05:17 UTC and writes nothing when Microsoft's file is unchanged
 - **Hosting**: GitHub Pages serves the dashboard from the `docs/` folder on the `main` branch
 
 ## Critical Data Flow
 
-1. **Weekly Schedule**: GitHub Action triggers Monday 7AM UTC → `azure_watcher.py` runs
+1. **Daily Check**: GitHub Action triggers daily → `azure_watcher.py` runs and exits early if the download equals the newest snapshot
 2. **Download**: Scrapes Microsoft's confirmation page to find the current JSON download URL (URL changes weekly)
 3. **Change Analysis**: Compares downloaded JSON with `docs/data/current.json` → generates change report in `docs/data/changes/YYYY-MM-DD-changes.json`
 4. **Historical Archive**: Full snapshot saved to `docs/data/history/YYYY-MM-DD.json`
@@ -23,7 +23,8 @@ This is a **serverless monitoring system** that tracks weekly changes to Azure S
 
 ```
 .github/
-  workflows/update-data.yml     # Weekly cron action
+  workflows/update-data.yml     # Daily cron action
+  workflows/test.yml            # Self-checks on every PR
   copilot-instructions.md       # This file
 scripts/
   azure_watcher.py              # Data collection + change detection (only backend script)
@@ -177,7 +178,6 @@ cd docs && python -m http.server 8000     # Serve on localhost:8000
 - **GitHub Actions**: Requires `contents: write` permission for committing data updates
 - **GitHub Pages**: Serves from `docs/` folder on `main` branch, rebuilds automatically on push
 - **Chart.js 4.4 CDN**: Dashboard depends on `https://cdn.jsdelivr.net/npm/chart.js` for visualizations (loaded with `defer`)
-- **date-fns CDN**: `https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js` (loaded with `defer`)
 
 ## Performance Optimizations
 
@@ -185,7 +185,7 @@ PageSpeed score target: 95+ (desktop). Key optimizations applied:
 
 - **Preconnect hints**: `<link rel="preconnect">` for jsdelivr, cloudflare, and unsplash CDN origins
 - **Module preloading**: All 11 JS modules have `<link rel="modulepreload">` to eliminate the serial import waterfall (was 1,940ms critical path)
-- **Deferred scripts**: Chart.js, date-fns, and scroll-handler.js all use `defer` to avoid render-blocking
+- **Deferred scripts**: Chart.js and scroll-handler.js both use `defer` to avoid render-blocking
 - **LCP preload**: Hero background image preloaded with `fetchpriority="high"` for early discovery
 - **CLS prevention**: `#dashboard` uses `visibility: hidden` + `min-height: 50vh` instead of `display: none` so the footer doesn't shift when content loads
 - **GPU-compositable animations**: Hero animations (`ringPulse`, `connectionPulse`) only animate `opacity` and `transform` — no `stroke-width` which forces CPU paint
@@ -194,7 +194,7 @@ PageSpeed score target: 95+ (desktop). Key optimizations applied:
 
 ## Project Conventions
 
-- **File Naming**: Historical files use `YYYY-MM-DD.json` format (UTC dates, typically Mondays)
+- **File Naming**: Historical files use `YYYY-MM-DD.json` format (UTC date of collection; stored minified)
 - **Commit Messages**: Automated commits use emoji prefixes (`📊 Update Azure Service Tags data`, `📈 Data collection`)
 - **Error Handling**: Python script continues on network errors, logs to GitHub Actions output
 - **Data Persistence**: All data stored in `docs/data/` for GitHub Pages access — NEVER delete historical data

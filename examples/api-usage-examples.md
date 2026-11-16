@@ -18,7 +18,7 @@ https://eliaquimbrandao.github.io/azure-service-tags-tracker
 - **Summary**: `/data/summary.json` - Statistics, available dates, and weekly trends
 - **Regions**: `/data/regions.json` - Region code → display name mapping
 - **Collection Log**: `/data/collection-log.json` - Collection run history with coverage stats
-- **Historical Snapshots**: `/data/history/YYYY-MM-DD.json` - Weekly snapshots (~4MB each)
+- **Historical Snapshots**: `/data/history/YYYY-MM-DD.json` - One snapshot per Microsoft publication, roughly weekly (~3MB each, minified)
 - **Latest Changes**: `/data/changes/latest-changes.json` - Most recent change diff
 - **Historical Changes**: `/data/changes/YYYY-MM-DD-changes.json` - Specific week's change diff
 - **Changes Manifest**: `/data/changes/manifest.json` - Index of all change files
@@ -545,7 +545,7 @@ removed = ips1 - ips2
 
 ```json
 {
-  "expected_schedule": "weekly-monday",
+  "expected_schedule": "daily-check",
   "runs": [
     {
       "date": "2026-02-09",
