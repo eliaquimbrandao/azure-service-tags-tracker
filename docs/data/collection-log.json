@@ -679,19 +679,35 @@
         "date_published_source": "download_page",
         "content_sha256": "e3ac69c59027b0a42d86b7e9ccb2c07dd3eecb95ff94872b451b4bf5456d04cd"
       }
+    },
+    {
+      "date": "2026-11-16",
+      "timestamp": "2026-11-16T04:33:52.277590+00:00",
+      "status": "success",
+      "change_number": 426,
+      "changes_detected": 0,
+      "total_services": 3398,
+      "total_ip_ranges": 105346,
+      "skipped_change_numbers": [],
+      "metadata": {
+        "version": "2026.11.09",
+        "date_published": "11/10/2026",
+        "date_published_source": "download_page",
+        "content_sha256": "e3ac69c59027b0a42d86b7e9ccb2c07dd3eecb95ff94872b451b4bf5456d04cd"
+      }
     }
   ],
   "coverage": {
     "first_collection": "2025-10-08",
-    "latest_collection": "2026-11-15",
-    "total_runs": 60,
-    "expected_runs": 58,
+    "latest_collection": "2026-11-16",
+    "total_runs": 61,
+    "expected_runs": 59,
     "missing_weeks": [],
     "missing_dates": [],
     "missing_count": 0,
     "coverage_pct": 100.0,
     "failed_attempts": 0,
-    "last_attempt": "2026-11-15T20:12:13.116374+00:00",
+    "last_attempt": "2026-11-16T04:33:52.277590+00:00",
     "note": "Coverage counts weeks with a successful collection; it does not prove every Microsoft publication was captured \u2014 see skipped_change_numbers in each change file."
   }
 }
