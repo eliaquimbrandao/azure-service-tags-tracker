@@ -438,6 +438,7 @@ def generate_changes_manifest():
             'size': path.stat().st_size,
             'change_number': cmp_.get('current_change_number'),
             'baseline': bool(doc.get('baseline')),
+            'total_changes': len(doc.get('changes', [])),
             'schema_version': doc.get('schema_version', 1),
             'added_memberships': cmp_.get('added_memberships'),
             'removed_memberships': cmp_.get('removed_memberships'),

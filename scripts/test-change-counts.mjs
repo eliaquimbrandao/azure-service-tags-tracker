@@ -15,6 +15,8 @@ assert.deepEqual(sumCounts([]), { added: 0, removed: 0 });
 
 // --- baseline comes from the explicit flag, not file order ---
 assert.deepEqual(comparisonFiles({ files: [{ date: 'b', baseline: false }, { date: 'a', baseline: true }] }).map(f => f.date), ['b']);
+// --- collections that found no differences are not shown ---
+assert.deepEqual(comparisonFiles({ files: [{ date: 'c', total_changes: 0 }, { date: 'b', total_changes: 3 }] }).map(f => f.date), ['b']);
 
 // --- region keys: aliases merge, numbered regions stay distinct ---
 const rm = new RegionMapper();
