@@ -27,7 +27,9 @@ export function sumCounts(changes) {
     return { added, removed };
 }
 
-// Change files that compare two collections (i.e. not the initial baseline).
+// Change files the dashboard shows: comparisons (not the initial baseline)
+// in which something actually changed. A collection that found no differences
+// stays in the data for the record but is not listed in history or analytics.
 export function comparisonFiles(manifest) {
-    return (manifest?.files || []).filter(f => !f.baseline);
+    return (manifest?.files || []).filter(f => !f.baseline && f.total_changes !== 0);
 }
