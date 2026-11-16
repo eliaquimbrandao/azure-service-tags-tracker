@@ -1,118 +1,19 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-11-15T20:12:13.075422+00:00",
-  "snapshot": "2026-11-15",
+  "last_updated": "2026-11-16T04:33:52.224358+00:00",
+  "snapshot": "2026-11-16",
   "change_number": 426,
   "total_services": 3398,
   "total_ip_ranges": 105346,
-  "changes_this_week": 138,
-  "ip_changes": 101,
-  "service_additions": 37,
+  "changes_this_week": 0,
+  "ip_changes": 0,
+  "service_additions": 0,
   "service_removals": 0,
   "metadata_changes": 0,
-  "added_memberships": 2411,
-  "removed_memberships": 83,
-  "regional_changes": {
-    "Global": 7,
-    "saudiarabiaeast": 36,
-    "australiacentral2": 1,
-    "southfrance": 4,
-    "indiasouthcentral": 1,
-    "jioindiacentral": 1,
-    "malaysiasouth": 1,
-    "norwayw": 4,
-    "southcentralus2": 1,
-    "southeastus": 3,
-    "swedensouth": 2,
-    "switzerlandw": 4,
-    "uaecentral": 4,
-    "westindia": 1,
-    "eastus": 3,
-    "westus3": 2,
-    "australiaeast": 2,
-    "australiasoutheast": 2,
-    "canadacentral": 1,
-    "canadaeast": 1,
-    "centralindia": 3,
-    "centralus": 2,
-    "eastasia": 1,
-    "eastus2": 2,
-    "centralfrance": 4,
-    "germanyn": 1,
-    "germanywc": 1,
-    "japaneast": 2,
-    "japanwest": 1,
-    "koreacentral": 1,
-    "koreasouth": 1,
-    "northeurope": 1,
-    "norwaye": 3,
-    "southafricanorth": 1,
-    "southafricawest": 1,
-    "southcentralus": 2,
-    "southindia": 3,
-    "southeastasia": 1,
-    "southeastasia3": 1,
-    "switzerlandn": 4,
-    "taiwannorth": 2,
-    "taiwannorthwest": 1,
-    "uksouth": 1,
-    "ukwest": 1,
-    "westcentralus": 2,
-    "westeurope": 2,
-    "westus": 1,
-    "uaenorth": 2,
-    "brazilsouth": 1,
-    "centraluseuap": 1,
-    "eastus3": 1,
-    "malaysiawest": 1,
-    "northcentralus": 1,
-    "southeastus3": 1,
-    "spaincentral": 1,
-    "swedencentral": 1,
-    "westus2": 1
-  },
-  "top_active_services": [
-    {
-      "service": "AzureDatabricksServerless",
-      "change_count": 1822
-    },
-    {
-      "service": "PowerBI",
-      "change_count": 119
-    },
-    {
-      "service": "AzureCloud",
-      "change_count": 63
-    },
-    {
-      "service": "AzureCloud.saudiarabiaeast",
-      "change_count": 51
-    },
-    {
-      "service": "AzureCloud.eastus3",
-      "change_count": 15
-    },
-    {
-      "service": "AzureMonitor",
-      "change_count": 13
-    },
-    {
-      "service": "AzureMonitor.SaudiArabiaEast",
-      "change_count": 13
-    },
-    {
-      "service": "AzureMonitor.Core",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.southcentralus",
-      "change_count": 11
-    },
-    {
-      "service": "AzureCloud.swedencentral",
-      "change_count": 11
-    }
-  ],
+  "added_memberships": 0,
+  "removed_memberships": 0,
+  "regional_changes": {},
+  "top_active_services": [],
   "available_dates": [
     "2025-10-08",
     "2025-10-10",
@@ -168,7 +69,8 @@
     "2026-10-26",
     "2026-11-02",
     "2026-11-09",
-    "2026-11-15"
+    "2026-11-15",
+    "2026-11-16"
   ],
   "definitions": {
     "total_ip_ranges": "Tag-prefix memberships: the same CIDR listed under two tags counts twice.",
