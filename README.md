@@ -10,7 +10,7 @@
 [![Azure](https://img.shields.io/badge/Azure-Service_Tags-0078D4?logo=microsoft-azure&logoColor=white)](https://docs.microsoft.com/en-us/azure/virtual-network/service-tags-overview)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-🌐 **Live Dashboard**: [View Demo](https://eliaquimbrandao.github.io/azure-service-tags-tracker)
+🌐 **Live Dashboard**: [View Demo](https://azuretags.egbcorporate.org)
 
 A **100% FREE** serverless solution to monitor Microsoft Azure's 3000+ Service Tags and IP ranges using GitHub Actions + GitHub Pages. No hosting costs, no server maintenance.
 

@@ -7,7 +7,7 @@ This document shows how to use the Azure Service Tags & IP Ranges Tracker as a p
 ## 📡 Base URL
 
 ```
-https://eliaquimbrandao.github.io/azure-service-tags-tracker
+https://azuretags.egbcorporate.org
 ```
 
 ## 📁 Available API Endpoints
@@ -83,7 +83,7 @@ function Test-AzureServiceChanges {
         [string]$ServiceName
     )
     
-    $baseUrl = "https://eliaquimbrandao.github.io/azure-service-tags-tracker"
+    $baseUrl = "https://azuretags.egbcorporate.org"
     
     Write-Host "`n🔍 Checking if '$ServiceName' had ANY changes in collected history..." -ForegroundColor Cyan
     Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`n" -ForegroundColor Cyan
@@ -216,7 +216,7 @@ Test-AzureServiceChanges -ServiceName "AzureKeyVault"
 📈 Total change events: 1
 
 💡 To view detailed IP lists, visit:
-    https://eliaquimbrandao.github.io/azure-service-tags-tracker
+    https://azuretags.egbcorporate.org
 ```
 
 ---
@@ -230,7 +230,7 @@ from typing import List, Dict
 def test_azure_service_changes(service_name: str) -> None:
     """Check if a service had ANY changes across all historical data."""
     
-    base_url = 'https://eliaquimbrandao.github.io/azure-service-tags-tracker'
+    base_url = 'https://azuretags.egbcorporate.org'
     
     print(f"\n🔍 Checking if '{service_name}' had ANY changes in collected history...")
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
@@ -606,7 +606,7 @@ removed = ips1 - ips2
 
 ## 🔗 Additional Resources
 
-- **Live Dashboard**: <https://eliaquimbrandao.github.io/azure-service-tags-tracker>
+- **Live Dashboard**: <https://azuretags.egbcorporate.org>
 - **GitHub Repository**: <https://github.com/eliaquimbrandao/azure-service-tags-tracker>
 - **Microsoft Documentation**: [Azure Service Tags Overview](https://learn.microsoft.com/azure/virtual-network/service-tags-overview)
 
