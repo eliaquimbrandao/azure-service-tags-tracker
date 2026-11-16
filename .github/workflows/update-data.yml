@@ -2,8 +2,9 @@ name: Update Azure Service Tags
 
 on:
   schedule:
-    # Runs every Monday at midnight UTC (00:00)
-    - cron: "0 0 * * 1"
+    # Daily check. Microsoft publishes roughly weekly (Tue-Fri); the collector
+    # exits without writing anything when the published file is unchanged.
+    - cron: "17 5 * * *"
 
   # Allow manual triggering
   workflow_dispatch:
@@ -27,13 +28,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -41,10 +39,10 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install -r requirements.txt
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
 
@@ -85,14 +83,21 @@ jobs:
         id: commit_step
         run: |
           set -euo pipefail
-          CHANGES="$(git status --porcelain=v1 docs/data || true)"
+          # A failed run skipped verification and may have left half-written
+          # data, so publish only its failure record.
+          if [ "${{ steps.watcher.outcome }}" = "failure" ]; then
+            PATHS="docs/data/collection-log.json"
+          else
+            PATHS="docs/data"
+          fi
+          CHANGES="$(git status --porcelain=v1 -- "$PATHS" || true)"
           if [ -z "$CHANGES" ]; then
-            echo "No changes under docs/data; exiting early."
+            echo "No changes under $PATHS; exiting early."
             echo "did_commit=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git add -- docs/data
+          git add -- "$PATHS"
           BASELINE="${{ github.event.inputs.baseline_setup || 'false' }}"
           if [ "$BASELINE" = "true" ]; then
             MSG="📊 Establish Azure Service Tags baseline - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
@@ -116,104 +121,24 @@ jobs:
           git push -u origin "$BRANCH"
           echo "branch_name=$BRANCH" >> "$GITHUB_OUTPUT"
 
-      - name: Open Pull Request to main
+      - name: Open and merge Pull Request
         if: steps.commit_step.outputs.did_commit == 'true'
-        id: open_pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
+          BRANCH: ${{ steps.push_branch.outputs.branch_name }}
         run: |
           set -euo pipefail
-          # jq is available on ubuntu-latest; install if ever missing:
-          if ! command -v jq >/dev/null 2>&1; then
-            sudo apt-get update -y
-            sudo apt-get install -y jq
-          fi
+          PR_URL=$(gh pr create --base main --head "$BRANCH" \
+            --title "Automated data update: $BRANCH" \
+            --body "This PR was opened by CI to merge the latest Azure Service Tags data in \`docs/data\`.")
+          echo "Opened $PR_URL"
 
-          BRANCH="${{ steps.push_branch.outputs.branch_name }}"
-          TITLE="Automated data update: $BRANCH"
-          BODY="This PR was opened by CI to merge the latest Azure Service Tags data in \`docs/data\`."
-
-          DATA=$(jq -n \
-            --arg title "$TITLE" \
-            --arg head  "$BRANCH" \
-            --arg base  "main" \
-            --arg body  "$BODY" \
-            '{title:$title, head:$head, base:$base, body:$body, draft:false}')
-
-          HTTP_CODE=$(curl -sS -o /tmp/pr_resp.json -w "%{http_code}" \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            -X POST "https://api.github.com/repos/${REPO}/pulls" \
-            -d "$DATA")
-
-          if [ "$HTTP_CODE" = "201" ]; then
-            echo "Pull request created."
-            PR_NUMBER=$(jq -r '.number' /tmp/pr_resp.json)
-            echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-          elif [ "$HTTP_CODE" = "422" ]; then
-            echo "A pull request from ${BRANCH} to main may already exist. Response:"
-            cat /tmp/pr_resp.json || true
-            # Not fatal - try to get existing PR number
-            EXISTING_PR=$(curl -sS \
-              -H "Authorization: Bearer $GH_TOKEN" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${REPO}/pulls?head=${REPO%%/*}:${BRANCH}&base=main" | jq -r '.[0].number // empty')
-            if [ -n "$EXISTING_PR" ]; then
-              echo "pr_number=$EXISTING_PR" >> "$GITHUB_OUTPUT"
-            fi
+          # A PR that cannot be merged (ruleset, required review) stays open for
+          # manual merge; that is not a failed collection.
+          if gh pr merge "$PR_URL" --squash --subject "📈 Update Azure Service Tags data"; then
+            git push origin --delete "$BRANCH"
           else
-            echo "PR create failed with HTTP $HTTP_CODE. Response:"
-            cat /tmp/pr_resp.json || true
-            exit 1
-          fi
-
-      - name: Auto-merge Pull Request
-        if: steps.commit_step.outputs.did_commit == 'true' && steps.open_pr.outputs.pr_number != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          PR_NUMBER="${{ steps.open_pr.outputs.pr_number }}"
-
-          echo "🔄 Attempting to merge PR #$PR_NUMBER"
-
-          # Wait a moment for PR to be fully created
-          sleep 3
-
-          # Try to merge directly (will work if admin bypass is configured)
-          MERGE_DATA=$(jq -n \
-            --arg method "squash" \
-            --arg title "📈 Update Azure Service Tags data" \
-            '{merge_method: $method, commit_title: $title}')
-
-          HTTP_CODE=$(curl -sS -o /tmp/merge_resp.json -w "%{http_code}" \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            -X PUT "https://api.github.com/repos/${REPO}/pulls/${PR_NUMBER}/merge" \
-            -d "$MERGE_DATA")
-
-          if [ "$HTTP_CODE" = "200" ]; then
-            echo "✅ Pull request #$PR_NUMBER merged successfully!"
-            echo "🚀 GitHub Pages will deploy automatically in 1-2 minutes"
-          elif [ "$HTTP_CODE" = "405" ]; then
-            echo "⚠️ PR #$PR_NUMBER cannot be auto-merged (requires manual approval or ruleset changes)"
-            echo "Response:"
-            cat /tmp/merge_resp.json || true
-            echo ""
-            echo "ℹ️ The PR is open and ready for your review at:"
-            echo "   https://github.com/${REPO}/pull/${PR_NUMBER}"
-            # Not a failure - PR is still created for manual merge
-            exit 0
-          else
-            echo "❌ Merge failed with HTTP $HTTP_CODE. Response:"
-            cat /tmp/merge_resp.json || true
-            echo ""
-            echo "ℹ️ The PR is still open at:"
-            echo "   https://github.com/${REPO}/pull/${PR_NUMBER}"
-            # Not a failure - PR is still created
-            exit 0
+            echo "::warning::Could not auto-merge $PR_URL; merge it manually."
           fi
 
       - name: Fail the job if collection failed
