@@ -663,35 +663,17 @@ export class SearchManager {
     }
 
     async fetchAllHistoricalChanges() {
-        // Load manifest to get all change files
-        const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
+        // Baseline is the initial snapshot, not a change
+        const changeFiles = comparisonFiles(await this.dataManager.getManifest());
+        const loaded = await this.dataManager.getChangeFiles(changeFiles);
 
-        if (!manifestResponse.ok) {
-            throw new Error('Could not load change history manifest');
-        }
-
-        const manifest = await manifestResponse.json();
-
-        // Filter out the baseline (initial snapshot, not a change)
-        const changeFiles = comparisonFiles(manifest);
-
-        const loaded = await Promise.all(changeFiles.map(async (fileInfo) => {
-            try {
-                const response = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                if (!response.ok) return null;
-                const data = await response.json();
-                return {
-                    date: fileInfo.date,
-                    filename: fileInfo.filename,
-                    changes: data.changes || []
-                };
-            } catch (error) {
-                console.error(`Error loading ${fileInfo.filename}:`, error);
-                return null;
-            }
-        }));
-
-        return loaded.filter(Boolean);
+        return changeFiles
+            .map((fileInfo, i) => loaded[i] && {
+                date: fileInfo.date,
+                filename: fileInfo.filename,
+                changes: loaded[i].changes || []
+            })
+            .filter(Boolean);
     }
 
     displayHistoricalSearchResults(services, regions, ips, query, currentMatches = null) {

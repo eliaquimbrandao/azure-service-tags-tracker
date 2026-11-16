@@ -165,21 +165,18 @@ export class RegionalAnalysis {
 
         // Load detailed changes for this region
         try {
-            const manifestResponse = await this.dataManager.fetchWithCacheBust('data/changes/manifest.json');
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
 
             const filesToProcess = comparisonFiles(manifest).sort((a, b) =>
                 new Date(a.date) - new Date(b.date)
             );
 
             const regionalChanges = [];
+            const changeDatas = await this.dataManager.getChangeFiles(filesToProcess);
 
-            for (const fileInfo of filesToProcess) {
+            for (const [i, fileInfo] of filesToProcess.entries()) {
                 try {
-                    const changeResponse = await this.dataManager.fetchWithCacheBust(`data/changes/${fileInfo.filename}`);
-                    const changeData = await changeResponse.json();
-
-                    (changeData.changes || []).forEach(change => {
+                    (changeDatas[i]?.changes || []).forEach(change => {
                         const changeRegion = (change.region || '').toLowerCase();
                         const matchKey = (regionKey || '').toLowerCase();
                         if (changeRegion === matchKey) {

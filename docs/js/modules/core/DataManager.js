@@ -21,18 +21,20 @@ export class DataManager {
     }
 
     /**
-     * Load dated change files in parallel, once each.
+     * Load one dated change file, once per page load (null if it failed).
      * Dated files never change after publication, so no cache-busting: repeat
-     * visits hit the browser cache. Returns results aligned with fileInfos
-     * (null for anything that failed).
+     * visits hit the browser cache.
      */
+    getChangeFile(filename) {
+        this.changeFileCache[filename] ??= fetch(`data/changes/${filename}`)
+            .then(r => (r.ok ? r.json() : null))
+            .catch(() => null);
+        return this.changeFileCache[filename];
+    }
+
+    /** Load change files in parallel. Results align with fileInfos. */
     async getChangeFiles(fileInfos) {
-        return Promise.all(fileInfos.map(f => {
-            this.changeFileCache[f.filename] ??= fetch(`data/changes/${f.filename}`)
-                .then(r => (r.ok ? r.json() : null))
-                .catch(() => null);
-            return this.changeFileCache[f.filename];
-        }));
+        return Promise.all(fileInfos.map(f => this.getChangeFile(f.filename)));
     }
 
     /**

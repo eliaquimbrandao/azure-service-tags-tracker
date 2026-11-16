@@ -32,15 +32,7 @@ export class TimelineManager {
         `;
 
         try {
-            // Load the manifest file to get all historical changes
-            const timestamp = new Date().getTime();
-            const manifestResponse = await fetch(`./data/changes/manifest.json?t=${timestamp}`);
-
-            if (!manifestResponse.ok) {
-                throw new Error('Could not load change history manifest');
-            }
-
-            const manifest = await manifestResponse.json();
+            const manifest = await this.dataManager.getManifest();
             const files = manifest.files || [];
 
             if (files.length === 0) {
@@ -100,14 +92,10 @@ export class TimelineManager {
 
     async loadTimelineItem(fileInfo) {
         try {
-            const timestamp = new Date().getTime();
-            const response = await fetch(`./data/changes/${fileInfo.filename}?t=${timestamp}`);
-
-            if (!response.ok) {
+            const data = await this.dataManager.getChangeFile(fileInfo.filename);
+            if (!data) {
                 throw new Error(`Could not load ${fileInfo.filename}`);
             }
-
-            const data = await response.json();
             const changes = data.changes || [];
             const metadata = data.metadata || {};
 
@@ -777,15 +765,10 @@ export class TimelineManager {
 
     async showTimelineDetails(filename, date) {
         try {
-            // Load the specific change file
-            const timestamp = new Date().getTime();
-            const response = await fetch(`./data/changes/${filename}?t=${timestamp}`);
-
-            if (!response.ok) {
+            const data = await this.dataManager.getChangeFile(filename);
+            if (!data) {
                 throw new Error('Could not load change details');
             }
-
-            const data = await response.json();
             const changes = data.changes || [];
 
             if (changes.length === 0) {
