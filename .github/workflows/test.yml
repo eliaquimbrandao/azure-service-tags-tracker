@@ -25,3 +25,6 @@ jobs:
       - run: node scripts/test-change-counts.mjs
       - run: node scripts/test-search.mjs
       - run: python scripts/verify_data.py
+      - run: python scripts/test_tag_pages.py
+      - name: Tag pages and sitemap match the data
+        run: python scripts/build_tag_pages.py && git diff --exit-code --stat -- docs/tag docs/sitemap.xml && test -z "$(git status --porcelain -- docs/tag)"
