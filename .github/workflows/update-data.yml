@@ -136,7 +136,9 @@ jobs:
           # A PR that cannot be merged (ruleset, required review) stays open for
           # manual merge; that is not a failed collection.
           if gh pr merge "$PR_URL" --squash --subject "📈 Update Azure Service Tags data"; then
-            git push origin --delete "$BRANCH"
+            # The data/* ruleset may forbid deletion; the data is merged either way.
+            git push origin --delete "$BRANCH" \
+              || echo "::warning::Merged, but could not delete branch $BRANCH."
           else
             echo "::warning::Could not auto-merge $PR_URL; merge it manually."
           fi
