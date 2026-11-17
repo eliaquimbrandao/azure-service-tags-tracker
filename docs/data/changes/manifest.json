@@ -1,12 +1,25 @@
 {
   "schema_version": 2,
-  "generated": "2026-11-16T23:37:07.220381+00:00",
-  "total_files": 59,
+  "generated": "2026-11-17T14:30:44.183441+00:00",
+  "total_files": 60,
   "date_range": {
     "oldest": "2025-10-08",
-    "newest": "2026-11-15"
+    "newest": "2026-11-17"
   },
   "files": [
+    {
+      "date": "2026-11-17",
+      "filename": "2026-11-17-changes.json",
+      "size": 104323,
+      "change_number": 427,
+      "baseline": false,
+      "total_changes": 147,
+      "schema_version": 2,
+      "added_memberships": 649,
+      "removed_memberships": 86,
+      "skipped_change_numbers": [],
+      "reproducible": true
+    },
     {
       "date": "2026-11-15",
       "filename": "2026-11-15-changes.json",
