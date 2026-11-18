@@ -10,7 +10,7 @@ Every service tag has its own static page at `https://azuretags.egbcorporate.org
 - [Dashboard](https://azuretags.egbcorporate.org/): overview, search and the latest changes
 - [Change history](https://azuretags.egbcorporate.org/history.html): week-by-week timeline of IP range changes
 - [Analytics](https://azuretags.egbcorporate.org/analytics.html): trends across services and regions
-- [JSON API docs](https://azuretags.egbcorporate.org/api.html): every endpoint, the change file format, and curl/Python/PowerShell examples
+- [JSON API docs](https://azuretags.egbcorporate.org/api.html): PowerShell, curl and Python examples, the file list and the change file format
 
 ## Data
 

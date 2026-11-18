@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Azure Service Tags JSON API – Free IP Ranges Data</title>
-<meta name="description" content="Free JSON API for Azure service tags and IP ranges: current prefixes, dated diffs of added and removed prefixes, and full history. No key, CORS enabled, updated daily. Examples in curl, Python and PowerShell.">
+<meta name="description" content="Use Azure service tag IP ranges in your scripts: free JSON files, no key, no sign-up, updated daily. Copy-paste examples in PowerShell, curl and Python.">
 <link rel="canonical" href="https://azuretags.egbcorporate.org/api.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://azuretags.egbcorporate.org/api.html">
 <meta property="og:title" content="Azure Service Tags JSON API – Free IP Ranges Data">
-<meta property="og:description" content="Current Azure service tag prefixes, dated diffs and full history as static JSON. No key, CORS enabled, updated daily.">
+<meta property="og:description" content="Azure service tag IP ranges as free JSON files. No key, no sign-up, updated daily.">
 <meta property="og:image" content="https://azuretags.egbcorporate.org/assets/preview.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
 <link rel="stylesheet" href="/css/style.css">
@@ -17,13 +17,19 @@
 <link rel="stylesheet" href="/css/tag.css">
 <script src="/js/tag.js" defer></script>
 <style>
-.tag-card h3 { font-size: 1.05rem; margin: 1.5rem 0 .5rem; }
-.tag-card p + p, .tag-card ul { margin-top: .75rem; }
-.tag-card ul { padding-left: 1.25rem; }
+.langs { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1.5rem; }
+.langs button { font: inherit; padding: .4rem .9rem; border-radius: 999px; border: 1px solid #cbd5e1; background: #fff; color: #334155; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+.url { display: block; margin: .25rem 0 1rem; word-break: break-all; }
+pre[data-lang] { max-height: none; }
+pre[data-lang][hidden] { display: none; }
+.tag-card details { margin-top: .75rem; }
+.tag-card details + details { margin-top: 1rem; }
+.tag-card summary { cursor: pointer; font-weight: 600; }
+.tag-card ul { padding-left: 1.25rem; margin-top: .75rem; }
 .tag-card li + li { margin-top: .35rem; }
 .api-table td { white-space: normal; }
 .api-table td:first-child { white-space: nowrap; }
-pre { max-height: none; }
 </style>
 </head>
 <body id="top">
@@ -33,234 +39,116 @@ pre { max-height: none; }
 </div></nav>
 <main class="main-content page-content"><div class="container">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">›</span> <span aria-current="page">API</span></nav>
-<header class="page-header"><h1>🔌 JSON API</h1><p class="page-subtitle">Current Azure service tag prefixes, dated diffs and full history as static JSON</p></header>
+<header class="page-header"><h1>🔌 API</h1><p class="page-subtitle">Use Azure service tag IP ranges in your scripts and firewall automation</p></header>
 
-<p class="lead tag-card">Everything the dashboard shows is plain JSON under <code>https://azuretags.egbcorporate.org/data/</code>.
-There is no API key, no sign-up and no rate limit. Responses are gzipped, send <code>Access-Control-Allow-Origin: *</code> so browsers can call them directly, and are cached for 10 minutes.
-The data is checked against Microsoft's download every day and a new snapshot is recorded whenever Microsoft publishes one, roughly once a week.
-This is an independent project, not affiliated with Microsoft. The data itself is Microsoft's <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56519" rel="noopener">ServiceTags_Public.json</a>.</p>
+<p class="lead tag-card">Everything on this site is plain JSON you can download from a script. It's free, with <strong>no key, no sign-up and no rate limit</strong>, and it's updated daily from Microsoft's <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56519" rel="noopener">ServiceTags_Public.json</a>.
+Only need one tag, once? Open it under <a href="/tag/">Service Tags</a> and copy its ranges.</p>
 
-<nav class="jump" aria-label="On this page"><span>Jump to:</span><a href="#endpoints">Endpoints</a><a href="#tag-prefixes">Prefixes of a tag</a><a href="#changes-since">Changes since a date</a><a href="#ip-owner">Which tag owns an IP</a><a href="#polling">Polling for updates</a><a href="#schema">Change file format</a><a href="#caveats">Good to know</a></nav>
+<div class="langs" role="group" aria-label="Example language"><span>Show examples in:</span>
+<button type="button" data-lang="ps" aria-pressed="true">PowerShell</button>
+<button type="button" data-lang="sh" aria-pressed="false">curl</button>
+<button type="button" data-lang="py" aria-pressed="false">Python</button></div>
 
-<section class="tag-card" id="endpoints"><h2>Endpoints</h2>
-<p>All paths are relative to <code>https://azuretags.egbcorporate.org</code>. Sizes are uncompressed.</p>
-<div class="scroll"><table class="api-table"><thead><tr><th>Path</th><th>What it contains</th><th>Size</th></tr></thead><tbody>
-<tr><td><code>/data/current.json</code></td><td>The latest snapshot, in Microsoft's own <code>ServiceTags_Public.json</code> format (<code>changeNumber</code>, <code>cloud</code>, <code>values[]</code>).</td><td>2.9 MB (≈560 KB gzipped)</td></tr>
-<tr><td><code>/data/changes/manifest.json</code></td><td>Index of every change file, newest first, with its date, change count and Microsoft <code>changeNumber</code>. <strong>Start here.</strong></td><td>21 KB</td></tr>
-<tr><td><code>/data/changes/YYYY-MM-DD-changes.json</code></td><td>What changed since the previous snapshot: the exact prefixes added and removed for each tag.</td><td>1–620 KB</td></tr>
-<tr><td><code>/data/changes/latest-changes.json</code></td><td>A copy of the newest change file.</td><td>varies</td></tr>
-<tr><td><code>/data/history/YYYY-MM-DD.json</code></td><td>The full snapshot as collected on that date. Same format as <code>current.json</code>.</td><td>≈3 MB each</td></tr>
-<tr><td><code>/data/summary.json</code></td><td>Totals for the latest snapshot, the list of snapshot dates (<code>available_dates</code>) and a <code>definitions</code> block explaining each count.</td><td>4 KB</td></tr>
-<tr><td><code>/data/regions.json</code></td><td>Region code to display name, e.g. <code>"australiaeast": "Australia East"</code>.</td><td>3 KB</td></tr>
-<tr><td><code>/data/collection-log.json</code></td><td>Every collection run with its status, plus coverage: which weeks, if any, were missed.</td><td>19 KB</td></tr>
-<tr><td><code>/tag/&lt;ServiceTag&gt;/</code></td><td>An HTML page per tag with its prefixes and recent changes, e.g. <a href="/tag/Storage.WestEurope/"><code>/tag/Storage.WestEurope/</code></a>.</td><td>HTML</td></tr>
-</tbody></table></div>
-<p>Tag names are case-sensitive and match Microsoft's: <code>AzureCloud.eastus</code>, <code>Storage.WestEurope</code>.</p>
-</section>
-
-<section class="tag-card" id="tag-prefixes"><h2>Get the current prefixes of a tag</h2>
-<div class="card-head"><h3>curl + jq</h3><button type="button" class="copy-btn" data-copy="ex-tag-sh">📋 Copy</button></div>
-<pre id="ex-tag-sh">curl -s https://azuretags.egbcorporate.org/data/current.json \
-  | jq -r '.values[] | select(.name == "Storage.WestEurope") | .properties.addressPrefixes[]'</pre>
-<div class="card-head"><h3>Python</h3><button type="button" class="copy-btn" data-copy="ex-tag-py">📋 Copy</button></div>
-<pre id="ex-tag-py">import json, urllib.request
-
-BASE = "https://azuretags.egbcorporate.org/data"
-
-def get(path):
-    with urllib.request.urlopen(f"{BASE}/{path}") as r:
-        return json.load(r)
-
-tags = {t["name"]: t for t in get("current.json")["values"]}
-for prefix in tags["Storage.WestEurope"]["properties"]["addressPrefixes"]:
-    print(prefix)</pre>
-<div class="card-head"><h3>PowerShell</h3><button type="button" class="copy-btn" data-copy="ex-tag-ps">📋 Copy</button></div>
-<pre id="ex-tag-ps">$base = "https://azuretags.egbcorporate.org/data"
-$tags = (Invoke-RestMethod "$base/current.json").values
+<section class="tag-card" id="tag-prefixes">
+<div class="card-head"><h2>1. Get the IP ranges of a tag</h2><button type="button" class="copy-btn" data-copy="ex1-ps">📋 Copy</button></div>
+<code class="url">https://azuretags.egbcorporate.org/data/current.json</code>
+<pre id="ex1-ps" data-lang="ps">$tags = (Invoke-RestMethod https://azuretags.egbcorporate.org/data/current.json).values
 ($tags | Where-Object name -ceq "Storage.WestEurope").properties.addressPrefixes</pre>
+<pre id="ex1-sh" data-lang="sh" hidden>curl -s https://azuretags.egbcorporate.org/data/current.json \
+  | jq -r '.values[] | select(.name == "Storage.WestEurope") | .properties.addressPrefixes[]'</pre>
+<pre id="ex1-py" data-lang="py" hidden>import json, urllib.request
+
+data = json.load(urllib.request.urlopen("https://azuretags.egbcorporate.org/data/current.json"))
+tags = {t["name"]: t for t in data["values"]}
+print("\n".join(tags["Storage.WestEurope"]["properties"]["addressPrefixes"]))</pre>
+<p>Swap in any tag name. Names are case-sensitive and match Microsoft's, e.g. <code>AzureCloud.eastus</code>.</p>
 </section>
 
-<section class="tag-card" id="changes-since"><h2>See what changed for a tag since a date</h2>
-<p>Read the manifest, then fetch only the change files you need. Each one already lists the exact prefixes added and removed, so you never have to download and compare 3 MB snapshots yourself.</p>
-<div class="card-head"><h3>Python</h3><button type="button" class="copy-btn" data-copy="ex-since-py">📋 Copy</button></div>
-<pre id="ex-since-py">import json, urllib.request
+<section class="tag-card" id="latest">
+<div class="card-head"><h2>2. See what changed in the latest update</h2><button type="button" class="copy-btn" data-copy="ex2-ps">📋 Copy</button></div>
+<code class="url">https://azuretags.egbcorporate.org/data/changes/latest-changes.json</code>
+<pre id="ex2-ps" data-lang="ps">(Invoke-RestMethod https://azuretags.egbcorporate.org/data/changes/latest-changes.json).changes |
+    Select-Object service, added_count, removed_count</pre>
+<pre id="ex2-sh" data-lang="sh" hidden>curl -s https://azuretags.egbcorporate.org/data/changes/latest-changes.json \
+  | jq -r '.changes[] | "\(.service)  +\(.added_count) -\(.removed_count)"'</pre>
+<pre id="ex2-py" data-lang="py" hidden>import json, urllib.request
 
-BASE = "https://azuretags.egbcorporate.org/data"
-TAG = "AzureFrontDoor.Backend"   # tag names are case-sensitive
-SINCE = "2026-09-01"             # only changes collected after this date
+doc = json.load(urllib.request.urlopen("https://azuretags.egbcorporate.org/data/changes/latest-changes.json"))
+for c in doc["changes"]:
+    print(c["service"], f"+{c['added_count']} -{c['removed_count']}")</pre>
+<p>Each change also lists the exact prefixes added and removed, so you never need to compare full snapshots yourself.</p>
+</section>
 
-def get(path):
-    with urllib.request.urlopen(f"{BASE}/{path}") as r:
-        return json.load(r)
-
-def diff(change):
-    """(added, removed) prefixes for any change type."""
-    if change["type"] == "service_added":
-        return change["prefixes"], []
-    if change["type"] == "service_removed":
-        return [], change["prefixes"]
-    return change["added_prefixes"], change["removed_prefixes"]
-
-files = sorted(get("changes/manifest.json")["files"], key=lambda f: f["date"])
-for f in files:
-    if f["baseline"] or f["date"] &lt;= SINCE or f["total_changes"] == 0:
-        continue
-    for change in get(f"changes/{f['filename']}")["changes"]:
-        if change["service"] == TAG:
-            added, removed = diff(change)
-            print(f["date"], change["type"], f"+{len(added)} -{len(removed)}")
-            for p in added:
-                print("  +", p)
-            for p in removed:
-                print("  -", p)</pre>
-<div class="card-head"><h3>PowerShell</h3><button type="button" class="copy-btn" data-copy="ex-since-ps">📋 Copy</button></div>
-<pre id="ex-since-ps">$base  = "https://azuretags.egbcorporate.org/data"
-$tag   = "AzureFrontDoor.Backend"   # tag names are case-sensitive
-$since = [datetime]"2026-09-01"
-
-$files = (Invoke-RestMethod "$base/changes/manifest.json").files |
-    Where-Object { -not $_.baseline -and $_.total_changes -gt 0 -and [datetime]$_.date -gt $since } |
-    Sort-Object { [datetime]$_.date }
-
-foreach ($f in $files) {
-    $doc = Invoke-RestMethod "$base/changes/$($f.filename)"
-    foreach ($c in ($doc.changes | Where-Object service -ceq $tag)) {
-        switch ($c.type) {
-            'service_added'   { $added = @($c.prefixes); $removed = @() }
-            'service_removed' { $added = @(); $removed = @($c.prefixes) }
-            default           { $added = @($c.added_prefixes); $removed = @($c.removed_prefixes) }
-        }
-        "{0} {1} +{2} -{3}" -f $f.filename.Substring(0, 10), $c.type, $added.Count, $removed.Count
-        $added   | ForEach-Object { "  + $_" }
-        $removed | ForEach-Object { "  - $_" }
-    }
+<section class="tag-card" id="polling">
+<div class="card-head"><h2>3. Get told when something changes</h2><button type="button" class="copy-btn" data-copy="ex3-ps">📋 Copy</button></div>
+<code class="url">https://azuretags.egbcorporate.org/data/changes/manifest.json</code>
+<pre id="ex3-ps" data-lang="ps">$newest = (Invoke-RestMethod https://azuretags.egbcorporate.org/data/changes/manifest.json).files |
+    Where-Object total_changes -gt 0 | Select-Object -First 1
+if ($newest.filename -ne (Get-Content last-seen.txt -ErrorAction SilentlyContinue)) {
+    "New Azure update: $($newest.total_changes) tags changed"   # send your alert here
+    $newest.filename | Set-Content last-seen.txt
 }</pre>
+<pre id="ex3-sh" data-lang="sh" hidden>newest=$(curl -s https://azuretags.egbcorporate.org/data/changes/manifest.json \
+  | jq -r '[.files[] | select(.total_changes > 0)][0].filename')
+if [ "$newest" != "$(cat last-seen.txt 2>/dev/null)" ]; then
+  echo "New Azure update: $newest"   # send your alert here
+  echo "$newest" > last-seen.txt
+fi</pre>
+<pre id="ex3-py" data-lang="py" hidden>import json, pathlib, urllib.request
+
+files = json.load(urllib.request.urlopen("https://azuretags.egbcorporate.org/data/changes/manifest.json"))["files"]
+newest = next(f for f in files if f["total_changes"])
+state = pathlib.Path("last-seen.txt")
+if newest["filename"] != (state.read_text() if state.exists() else ""):
+    print(f"New Azure update: {newest['total_changes']} tags changed")   # send your alert here
+    state.write_text(newest["filename"])</pre>
+<p>Run it once a day (cron, Task Scheduler, a pipeline or an Azure Function). It alerts only when Microsoft has published something new.</p>
 </section>
 
-<section class="tag-card" id="ip-owner"><h2>Find which tags contain an IP address</h2>
-<p>Works with a single address or a CIDR, IPv4 or IPv6. Expect several hits: a prefix usually belongs to a service tag, its regional tag and the broad <code>AzureCloud</code> tags.</p>
-<div class="card-head"><h3>Python</h3><button type="button" class="copy-btn" data-copy="ex-owner-py">📋 Copy</button></div>
-<pre id="ex-owner-py">import ipaddress, json, urllib.request
-
-BASE = "https://azuretags.egbcorporate.org/data"
-QUERY = ipaddress.ip_network("20.172.90.116/30", strict=False)  # an address or a CIDR
-
-with urllib.request.urlopen(f"{BASE}/current.json") as r:
-    tags = json.load(r)["values"]
-
-for tag in tags:
-    hits = [p for p in tag["properties"]["addressPrefixes"]
-            if ipaddress.ip_network(p).overlaps(QUERY)]
-    if hits:
-        print(tag["name"], hits)</pre>
-<p>Or search on the <a href="/?q=20.172.90.116/30">dashboard</a>, which also shows when the range was added.</p>
-</section>
-
-<section class="tag-card" id="polling"><h2>Get notified of new changes</h2>
-<p>Run this once a day from cron, a scheduled pipeline or an Azure Function. It remembers the newest change file it has handled and only processes newer ones.</p>
-<div class="card-head"><h3>Python</h3><button type="button" class="copy-btn" data-copy="ex-poll-py">📋 Copy</button></div>
-<pre id="ex-poll-py">import json, pathlib, urllib.request
-
-BASE = "https://azuretags.egbcorporate.org/data"
-STATE = pathlib.Path("last-seen.txt")   # newest change file you already processed
-
-def get(path):
-    with urllib.request.urlopen(f"{BASE}/{path}") as r:
-        return json.load(r)
-
-last_seen = STATE.read_text().strip() if STATE.exists() else ""
-manifest = get("changes/manifest.json")
-new = sorted((f for f in manifest["files"] if f["date"] > last_seen and not f["baseline"]),
-             key=lambda f: f["date"])
-
-for f in new:
-    doc = get(f"changes/{f['filename']}")
-    print(f"{f['date']}: {doc['total_changes']} tags changed "
-          f"(+{doc['comparison']['added_memberships']} / -{doc['comparison']['removed_memberships']} prefixes)")
-    # ... alert, update firewall rules, open a ticket ...
-
-if new:
-    STATE.write_text(new[-1]["date"])</pre>
-<p>On the first run it processes the whole history. To start from today instead, write today's date to <code>last-seen.txt</code> first.</p>
-<p>Polling more often is fine. Every file has an <code>ETag</code>, so sending it back with <code>If-None-Match</code> returns an empty <code>304 Not Modified</code> when nothing changed.</p>
-</section>
-
-<section class="tag-card" id="schema"><h2>Change file format</h2>
-<p>Each <code>changes/YYYY-MM-DD-changes.json</code> compares one snapshot with the previous one. All files use <code>"schema_version": 2</code>. New fields may be added, but existing ones will not be renamed or removed without a new schema version.</p>
+<section class="tag-card" id="reference"><h2>Reference</h2>
+<details id="endpoints"><summary>All files</summary>
+<div class="scroll"><table class="api-table"><thead><tr><th>Path</th><th>What it contains</th></tr></thead><tbody>
+<tr><td><code>/data/current.json</code></td><td>Every tag and its prefixes right now, in Microsoft's own format. 2.9 MB (≈560 KB gzipped).</td></tr>
+<tr><td><code>/data/changes/latest-changes.json</code></td><td>What changed in the latest update.</td></tr>
+<tr><td><code>/data/changes/manifest.json</code></td><td>List of every update, newest first, with its date and how many tags changed.</td></tr>
+<tr><td><code>/data/changes/YYYY-MM-DD-changes.json</code></td><td>What changed in the update collected on that date.</td></tr>
+<tr><td><code>/data/history/YYYY-MM-DD.json</code></td><td>The full snapshot from that date. Same format as <code>current.json</code>.</td></tr>
+<tr><td><code>/data/summary.json</code></td><td>Totals and the list of snapshot dates (<code>available_dates</code>).</td></tr>
+<tr><td><code>/data/regions.json</code></td><td>Region code to name, e.g. <code>"australiaeast": "Australia East"</code>.</td></tr>
+</tbody></table></div>
+<p>Files are gzipped, cached for 10 minutes and can be called from a browser (CORS <code>*</code>). Each has an <code>ETag</code>, so <code>If-None-Match</code> returns <code>304 Not Modified</code> when nothing changed.</p>
+</details>
+<details id="schema"><summary>Change file format</summary>
 <pre>{
-  "schema_version": 2,
   "date": "2026-11-17",
-  "baseline": false,
   "total_changes": 147,
   "changes": [
     {
       "type": "ip_changes",
       "service": "AzureArcInfrastructure",
       "region": "",
-      "system_service": "AzureArcInfrastructure",
       "added_prefixes": ["145.133.209.248/30", "145.133.209.252/31"],
       "removed_prefixes": [],
       "added_count": 88,
-      "removed_count": 0,
-      "coverage": {
-        "ipv4": { "added_addresses": 126, "removed_addresses": 0 },
-        "ipv6": { "added_slash64s": 0.0, "removed_slash64s": 0.0 }
-      },
-      "classification": "expansion"
+      "removed_count": 0
     }
-  ],
-  "metadata_changes": [],
-  "metadata": {
-    "version": "2026.11.16",
-    "source_url": "https://download.microsoft.com/.../ServiceTags_Public_20261116.json",
-    "content_sha256": "1e917022…",
-    "retrieved_at": "2026-11-17T14:30:42+00:00"
-  },
-  "comparison": {
-    "previous_snapshot": "2026-11-15",
-    "current_snapshot": "2026-11-17",
-    "previous_change_number": 426,
-    "current_change_number": 427,
-    "skipped_change_numbers": [],
-    "reproducible": true,
-    "added_memberships": 649,
-    "removed_memberships": 86,
-    "balanced": true
-  }
+  ]
 }</pre>
-<h3>Fields on each change</h3>
-<div class="scroll"><table class="api-table"><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>type</code></td><td><code>ip_changes</code>: an existing tag gained or lost prefixes. <code>service_added</code> / <code>service_removed</code>: the whole tag appeared or disappeared.</td></tr>
-<tr><td><code>service</code></td><td>The tag name, e.g. <code>Storage.WestEurope</code>.</td></tr>
-<tr><td><code>region</code>, <code>system_service</code></td><td>Copied from the tag. <code>region</code> is <code>""</code> for global tags.</td></tr>
-<tr><td><code>added_prefixes</code>, <code>removed_prefixes</code></td><td>On <code>ip_changes</code>: the exact CIDRs that joined or left the tag.</td></tr>
-<tr><td><code>prefixes</code>, <code>ip_count</code></td><td>On <code>service_added</code> / <code>service_removed</code>: every prefix of the tag, and how many.</td></tr>
-<tr><td><code>added_count</code>, <code>removed_count</code></td><td>Number of prefixes added and removed, on every type.</td></tr>
-<tr><td><code>coverage</code></td><td>Address space newly covered and no longer covered: IPv4 in addresses, IPv6 in /64 networks (can be a fraction for prefixes smaller than a /64).</td></tr>
-<tr><td><code>classification</code></td><td><code>expansion</code> (only new space), <code>contraction</code> (only lost space), <code>mixed</code>, or <code>representation_only</code> (the CIDRs were rewritten but cover exactly the same addresses).</td></tr>
-</tbody></table></div>
-<h3>File-level fields</h3>
-<div class="scroll"><table class="api-table"><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>baseline</code></td><td><code>true</code> only for the first file (2025-10-08), which lists every tag as <code>service_added</code>. Skip it.</td></tr>
-<tr><td><code>metadata_changes[]</code></td><td>Tags whose <code>region</code>, <code>regionId</code>, <code>platform</code>, <code>systemService</code> or <code>networkFeatures</code> changed, as <code>{"service": …, "fields": {"systemService": {"old": …, "new": …}}}</code>.</td></tr>
-<tr><td><code>metadata</code></td><td>Which Microsoft file was downloaded, its SHA-256 and when.</td></tr>
-<tr><td><code>comparison.skipped_change_numbers</code></td><td>Microsoft versions published between the two collections that were never collected. Normally empty.</td></tr>
-<tr><td><code>comparison.reproducible</code></td><td><code>true</code> when both snapshots are archived in <code>/data/history/</code>, so the diff can be re-derived.</td></tr>
-<tr><td><code>comparison.added_memberships</code>, <code>removed_memberships</code>, <code>balanced</code></td><td>Totals across all tags. <code>balanced</code> confirms previous total + added − removed = current total.</td></tr>
-</tbody></table></div>
-<h3>Manifest entries</h3>
-<p><code>changes/manifest.json</code> has <code>files[]</code>, newest first, each with <code>date</code>, <code>filename</code>, <code>size</code>, <code>change_number</code>, <code>baseline</code>, <code>total_changes</code>, <code>added_memberships</code>, <code>removed_memberships</code>, <code>skipped_change_numbers</code> and <code>reproducible</code>, plus <code>date_range.oldest</code> / <code>date_range.newest</code>.</p>
-</section>
-
-<section class="tag-card" id="caveats"><h2>Good to know</h2>
 <ul>
-<li><strong>Counts are memberships.</strong> A CIDR listed under three tags counts three times in <code>total_ip_ranges</code> and <code>added_memberships</code>. <code>summary.json → definitions</code> spells this out.</li>
-<li><strong>The earliest history is partial.</strong> Change files from 2025-10-17 to 2025-11-24 have <code>reproducible: false</code> and some have no matching snapshot, because those snapshots were not archived at the time. Their counts are as originally recorded, and some of their entries have no <code>coverage</code> or <code>classification</code>, so read those two fields with a default.</li>
-<li><strong>Use <code>summary.json → available_dates</code> to list snapshots.</strong> Change file dates and snapshot dates don't line up one-to-one.</li>
-<li><strong>Dates are collection dates</strong>, not Microsoft's publication date. Microsoft's date is in each change file's <code>metadata.date_published</code>.</li>
-<li><strong>Need Azure China or Government?</strong> Only the Public cloud file is tracked.</li>
+<li><code>type</code> is <code>ip_changes</code> when a tag gained or lost prefixes, or <code>service_added</code> / <code>service_removed</code> when a whole tag appeared or disappeared. For those two, the prefixes are in <code>prefixes</code>.</li>
+<li>Every change also has <code>coverage</code> (address space added and removed) and <code>classification</code> (<code>expansion</code>, <code>contraction</code>, <code>mixed</code> or <code>representation_only</code>).</li>
+<li>The file also records which Microsoft version was compared (<code>comparison</code>) and where it was downloaded from (<code>metadata</code>). Fields may be added, but existing ones won't be renamed.</li>
 </ul>
-<p>Found a problem or need another format? <a href="https://github.com/eliaquimbrandao/azure-service-tags-tracker/issues" rel="noopener">Open an issue</a>.</p>
+</details>
+<details id="caveats"><summary>Good to know</summary>
+<ul>
+<li>A prefix often belongs to several tags (a service tag, its regional tag and <code>AzureCloud</code>), so it counts once per tag in totals.</li>
+<li>Dates are when this site collected the data. Microsoft's own date is in each change file's <code>metadata.date_published</code>.</li>
+<li>Changes from October and November 2025 can't be fully re-checked, and some of their entries have no <code>coverage</code> or <code>classification</code>.</li>
+<li>Only the Azure Public cloud is tracked, not China or Government.</li>
+<li>This is an independent project, not affiliated with Microsoft. Found a problem? <a href="https://github.com/eliaquimbrandao/azure-service-tags-tracker/issues" rel="noopener">Open an issue</a>.</li>
+</ul>
+</details>
 </section>
 </div></main>
 <a href="#top" class="to-top" aria-label="Back to top">↑</a>
@@ -272,5 +160,22 @@ if new:
 </div>
 <div class="footer-bottom"><p>&copy; 2025 Azure Service Tags &amp; IP Ranges Tracker | Built with ❤️ for the Azure community | Not affiliated with Microsoft</p></div>
 </footer>
+<script>
+// One language choice switches every example and its copy button. Without JS, the PowerShell examples show.
+{
+    const show = lang => {
+        document.querySelectorAll('.langs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+        document.querySelectorAll('pre[data-lang]').forEach(p => { p.hidden = p.dataset.lang !== lang; });
+        document.querySelectorAll('.card-head .copy-btn').forEach(b => { b.dataset.copy = b.dataset.copy.replace(/-\w+$/, '-' + lang); });
+        try { localStorage.setItem('apiLang', lang); } catch {}
+    };
+    document.querySelector('.langs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(b.dataset.lang); });
+    let saved = null;
+    try { saved = localStorage.getItem('apiLang'); } catch {}
+    if (saved && document.querySelector(`.langs button[data-lang="${saved}"]`)) show(saved);
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target instanceof HTMLDetailsElement) target.open = true;
+}
+</script>
 </body>
 </html>

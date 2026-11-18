@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **A static page per service tag** (all 3,398) at `/tag/<Tag>/`: current IPv4/IPv6 prefixes with copy buttons, region, changeNumber, tracked-since and last-changed dates, and change history with exact prefix diffs. Pages carry their own title, description, canonical URL and `Dataset`/`BreadcrumbList` structured data, so tags can be found by search engines and crawlers that don't run JavaScript
 - **`/tag/` index**: tags grouped per service (103 groups) with a filter box and A-Z links
 - **`scripts/build_tag_pages.py`** builds the tag pages and `sitemap.xml` (per-tag `lastmod`) after each data update; CI fails if they are out of date
-- **API documentation page** (`/api.html`): endpoints, the change file format, caveats, and examples in curl, Python and PowerShell for getting a tag's prefixes, changes since a date, finding which tags contain an IP/CIDR, and polling once a day via the manifest. `examples/api-usage-examples.md` now points to it
+- **API page** (`/api.html`): three short tasks (get a tag's IP ranges, see the latest changes, get told when something changes) with one language picker for PowerShell, curl and Python, plus the file list, change file format and caveats in collapsed sections. `examples/api-usage-examples.md` now points to it
 - API and Service Tags links in the site navigation; `llms.txt` lists the API page, manifest and summary files
 
 #### Changed
