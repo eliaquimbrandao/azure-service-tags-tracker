@@ -56,7 +56,7 @@ def tag_facts(tag, events, regions):
 
 
 NAV_LINKS = [('/', '🏠 Home'), ('/history.html', '📅 Change History'),
-             ('/analytics.html', '📊 Analytics'), ('/tag/', '🏷️ Service Tags')]
+             ('/analytics.html', '📊 Analytics'), ('/tag/', '🏷️ Service Tags'), ('/api.html', '🔌 API')]
 
 
 def head(title, desc, path, extra=''):
