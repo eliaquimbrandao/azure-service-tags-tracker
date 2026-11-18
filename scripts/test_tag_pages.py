@@ -51,6 +51,11 @@ with tempfile.TemporaryDirectory() as tmp:
     regional = (docs / 'tag' / 'Storage.WestEurope' / 'index.html').read_text()
     assert 'West Europe &lt;EU&gt;' in regional and '<EU>' not in regional, 'data is HTML-escaped'
     assert 'href="/tag/Storage/"' in regional, 'variant links to parent'
+    assert '"@type": "BreadcrumbList"' in regional and '<a href="/tag/Storage/">Storage</a>' in regional, 'breadcrumb via parent'
+    assert 'href="/css/style.css"' in regional and 'class="main-nav"' in regional, 'uses the site chrome'
+
+    index = (docs / 'tag' / 'index.html').read_text()
+    assert '<details class="family tag-card" id="f-Storage">' in index and '2 tags' in index, 'index groups tags by service'
     assert 'No IP range changes recorded since tracking began on 2026-01-01' in regional
 
     sitemap = (docs / 'sitemap.xml').read_text()

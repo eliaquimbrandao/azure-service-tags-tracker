@@ -1,0 +1,22 @@
+# Azure IP Ranges & Service Tags Tracker
+
+> Daily-updated, independent tracker of Microsoft's published Azure IP ranges and service tags (ServiceTags_Public.json, Azure Public Cloud). It shows the current IPv4/IPv6 prefixes of every service tag and a dated history of which prefixes were added or removed. Not affiliated with Microsoft.
+
+Every service tag has its own static page at `https://azuretags.egbcorporate.org/tag/<ServiceTag>/`, for example `/tag/AzureFrontDoor.Backend/`, `/tag/Storage.WestEurope/` or `/tag/AzureCloud.eastus/`. Each page lists the tag's current IPv4 and IPv6 address prefixes, its region, changeNumber, when it last changed, and its recent changes with the exact prefixes added and removed. Tag names are case-sensitive and match Microsoft's names.
+
+## Pages
+
+- [All service tags](https://azuretags.egbcorporate.org/tag/): index of every tag grouped by service, with prefix counts and last-changed dates
+- [Dashboard](https://azuretags.egbcorporate.org/): overview, search and the latest changes
+- [Change history](https://azuretags.egbcorporate.org/history.html): week-by-week timeline of IP range changes
+- [Analytics](https://azuretags.egbcorporate.org/analytics.html): trends across services and regions
+
+## Data
+
+- [current.json](https://azuretags.egbcorporate.org/data/current.json): the latest ServiceTags_Public.json snapshot as collected
+- [Sitemap](https://azuretags.egbcorporate.org/sitemap.xml): every tag page with its last-changed date
+
+## Source
+
+- [Microsoft download page](https://www.microsoft.com/en-us/download/details.aspx?id=56519): the official source of the data
+- [GitHub repository](https://github.com/eliaquimbrandao/azure-service-tags-tracker): code and full data history
