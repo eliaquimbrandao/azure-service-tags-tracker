@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-11-18
+
+### 🏷️ Service Tag Pages, API Docs & Custom Domain
+
+#### Added
+- **A static page per service tag** (all 3,398) at `/tag/<Tag>/`: current IPv4/IPv6 prefixes with copy buttons, region, changeNumber, tracked-since and last-changed dates, and change history with exact prefix diffs. Pages carry their own title, description, canonical URL and `Dataset`/`BreadcrumbList` structured data, so tags can be found by search engines and crawlers that don't run JavaScript
+- **`/tag/` index**: tags grouped per service (103 groups) with a filter box and A-Z links
+- **`scripts/build_tag_pages.py`** builds the tag pages and `sitemap.xml` (per-tag `lastmod`) after each data update; CI fails if they are out of date
+- **API documentation page** (`/api.html`): endpoints, the change file format, caveats, and examples in curl, Python and PowerShell for getting a tag's prefixes, changes since a date, finding which tags contain an IP/CIDR, and polling once a day via the manifest. `examples/api-usage-examples.md` now points to it
+- API and Service Tags links in the site navigation; `llms.txt` lists the API page, manifest and summary files
+
+#### Changed
+- **Site served at https://azuretags.egbcorporate.org**: canonical, Open Graph and Twitter URLs, `sitemap.xml`, `robots.txt` and docs updated (the github.io URL redirects)
+- **History and analytics show only collections that found changes**: change files with `total_changes: 0` are no longer listed. The 2026-11-16 duplicate snapshot was removed
+- **README** corrected: change detection, dependencies, features, project structure, local development and troubleshooting now match the code. The FAQ alerts answer no longer gives a date
+
+#### Fixed
+- The data update workflow no longer fails when the branch ruleset blocks deleting a merged `data/*` branch; it logs a warning instead
+
+---
+
 ## [Unreleased] - 2026-11-16
 
 ### 🗓️ Daily Collection, Smaller Snapshots & Cleanup
@@ -26,6 +47,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Unused `date-fns` script and its preconnect on all 3 pages
 - ~1,250 lines of CSS for classes no page or script uses
 - `--upgrade-history` (one-off schema v2 migration, completed) and stale `<lastmod>` dates in `sitemap.xml`
+
+---
+
+## [Unreleased] - 2026-11-15
+
+### 🧮 Reliable Change Counts, Provenance & Regions (Schema v2)
+
+#### Changed
+- **Change counts include new and removed tags**: every change record has `added_count`/`removed_count`, and each run checks that `previous + added − removed = current` (Nov 9 showed +5,530 instead of +6,454). One frontend helper (`changeCounts.js`) replaces 8 separate sums
+- **Regions**: `regions.json` is generated each run from Microsoft's tag names. Distinct regions are never merged (East US and East US 2 were grouped together); regions Microsoft never names keep their raw code
+- The baseline is an explicit `baseline` flag; summary and index files are built after the new snapshot is saved; a same-day re-run compares against the previous snapshot
+
+#### Added
+- **Provenance in each change file**: both snapshots and Microsoft `changeNumber`s compared, any versions skipped in between, source URL, SHA-256 of the download, retrieval time, and how the publish date was found
+- **Per-tag address coverage** (IPv4 in addresses, IPv6 in /64s) with a classification: `expansion`, `contraction`, `mixed` or `representation_only`; `region`, `systemService` and `networkFeatures` changes under `metadata_changes`
+- **Failed collections** are recorded in `collection-log.json`
+- **`scripts/verify_data.py`** re-derives every reproducible comparison from the archived snapshots and runs before any data commit
+
+#### Migration
+- All 58 existing change files upgraded in place. 51 were recomputed and matched exactly; the baseline and 6 weeks in Oct-Nov 2025 whose previous snapshot was never archived keep their original counts and are marked `reproducible: false`
 
 ---
 
