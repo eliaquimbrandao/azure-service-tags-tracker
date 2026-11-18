@@ -234,7 +234,8 @@ def render_sitemap(facts):
     urls = [f'<url><loc>{SITE}/</loc>{lm}<priority>1.00</priority></url>',
             f'<url><loc>{SITE}/history.html</loc>{lm}<priority>0.80</priority></url>',
             f'<url><loc>{SITE}/analytics.html</loc>{lm}<priority>0.80</priority></url>',
-            f'<url><loc>{SITE}/tag/</loc>{lm}<priority>0.80</priority></url>']
+            f'<url><loc>{SITE}/tag/</loc>{lm}<priority>0.80</priority></url>',
+            f'<url><loc>{SITE}/api.html</loc><priority>0.70</priority></url>']
     for f in facts:
         lm = f'<lastmod>{f["last_changed"]}</lastmod>' if f['last_changed'] else ''
         urls.append(f'<url><loc>{SITE}/tag/{f["id"]}/</loc>{lm}<priority>0.60</priority></url>')
