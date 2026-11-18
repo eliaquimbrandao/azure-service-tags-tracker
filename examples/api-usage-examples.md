@@ -2,12 +2,13 @@
 
 The API documentation now lives on the site: **<https://azuretags.egbcorporate.org/api.html>**
 
-It covers every endpoint, the change file format, and tested examples in curl, Python and PowerShell for:
+It has copy-paste examples in PowerShell, curl and Python for:
 
-- getting the current prefixes of a service tag
-- seeing what changed for a tag since a date
-- finding which tags contain an IP address or CIDR
-- polling once a day for new changes
+- getting the current IP ranges of a service tag
+- seeing what changed in the latest update
+- getting told when something changes (a short daily check)
+
+plus a list of every file and the change file format.
 
 Quick start:
 

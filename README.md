@@ -190,7 +190,7 @@ azure-service-tags-tracker/
 
 ## API Access & Usage
 
-All data is publicly accessible as static JSON: no key, no rate limit, CORS enabled. **Full docs with tested curl, Python and PowerShell examples: [azuretags.egbcorporate.org/api.html](https://azuretags.egbcorporate.org/api.html).**
+All data is publicly accessible as static JSON: no key, no rate limit, CORS enabled. **Docs with copy-paste PowerShell, curl and Python examples: [azuretags.egbcorporate.org/api.html](https://azuretags.egbcorporate.org/api.html).**
 
 ### Quick Reference
 
