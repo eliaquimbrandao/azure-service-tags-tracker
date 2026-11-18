@@ -29,9 +29,9 @@ A **100% FREE** serverless solution to monitor Microsoft Azure's 3000+ Service T
 | **Automation** | GitHub Actions (Cron + Workflow Dispatch) |
 | **Hosting** | GitHub Pages (Static Site) |
 | **Data Storage** | JSON files (Git-versioned) |
-| **Change Detection** | SHA256 hashing + diff algorithms |
+| **Change Detection** | Per-tag prefix diff against the previous snapshot (SHA-256 of each download recorded) |
 
-**No dependencies required** - Fork, enable Pages, and you're live in 2 minutes! ✨
+**No servers, no paid services** - Fork, enable Pages, and you're live in 2 minutes! ✨ (The workflow installs its two Python packages, `requests` and `beautifulsoup4`, by itself.)
 
 ---
 
@@ -43,8 +43,10 @@ Azure Service Tags Tracker is a free, serverless solution that continuously moni
 
 - 📊 **Analytics Dashboard**: Charts showing service volatility, regional infrastructure changes, and update timelines
 - 📅 **Change History**: Complete timeline with detailed IP-level changes per service and region
-- 🔍 **Smart Search**: Find services, regions, or specific IP addresses instantly
-- 📥 **Export Data**: Download filtered results as JSON for automation
+- 🔍 **Smart Search**: Find services, regions, IP addresses or CIDR ranges across the current data and the full history
+- 🏷️ **A Page per Service Tag**: Every tag has its own page with its current prefixes and recent changes, e.g. [`/tag/Storage.WestEurope/`](https://azuretags.egbcorporate.org/tag/Storage.WestEurope/)
+- 🔌 **JSON API**: Current prefixes and dated diffs as static JSON, no key needed — see the [API docs](https://azuretags.egbcorporate.org/api.html)
+- 📥 **Export Data**: Download filtered results as JSON or CSV
 - 🌍 **Regional Analysis**: See which Azure regions and services are most active
 
 ---
@@ -90,8 +92,12 @@ azure-service-tags-tracker/
 │   ├── index.html                # Main dashboard
 │   ├── analytics.html            # Analytics & charts page
 │   ├── history.html              # Change history timeline
+│   ├── api.html                  # JSON API documentation
+│   ├── tag/                      # One generated page per service tag (+ index)
+│   ├── sitemap.xml, llms.txt     # For search engines and AI crawlers
 │   ├── js/
 │   │   ├── dashboard.js          # Main controller
+│   │   ├── tag.js                # Copy buttons & filter on tag pages
 │   │   └── modules/              # ES6 Modules
 │   │       ├── core/             # Data & Region logic
 │   │       ├── ui/               # UI Managers (Timeline, Modal, Search)
@@ -100,10 +106,12 @@ azure-service-tags-tracker/
 │   ├── css/
 │   │   ├── style.css             # Main styles
 │   │   ├── navigation.css        # Navigation & common components
-│   │   └── history-controls.css  # History page controls
+│   │   ├── history-controls.css  # History page controls
+│   │   └── tag.css               # Tag pages and API page
 │   └── data/                     # JSON data storage
 │       ├── current.json          # Latest Azure Service Tags
 │       ├── summary.json          # Dashboard statistics
+│       ├── regions.json          # Region code → display name
 │       ├── collection-log.json   # Collection run history & coverage
 │       ├── changes/              # Change detection reports
 │       │   ├── manifest.json     # Index of all change files
@@ -112,9 +120,12 @@ azure-service-tags-tracker/
 │       └── history/              # One snapshot per Microsoft publication
 │           └── YYYY-MM-DD.json
 ├── examples/
-│   └── api-usage-examples.md     # API integration examples & guides
+│   └── api-usage-examples.md     # Pointer to the API docs
 ├── scripts/
-│   └── azure_watcher.py          # Data collection & change detection
+│   ├── azure_watcher.py          # Data collection & change detection
+│   ├── build_tag_pages.py        # Generates docs/tag/ and sitemap.xml
+│   ├── verify_data.py            # Re-derives every diff from the snapshots
+│   └── test_*.py, test-*.mjs     # Self-checks run in CI
 └── README.md
 ```
 
@@ -122,7 +133,9 @@ azure-service-tags-tracker/
 
 **Backend (Python)**
 
-- `azure_watcher.py`: Scrapes Microsoft's Service Tags page, downloads JSON, detects changes using SHA256 hashing
+- `azure_watcher.py`: Finds the current download on Microsoft's Service Tags page, downloads the JSON, and diffs each tag's prefixes against the previous snapshot
+- `build_tag_pages.py`: Writes a static page per service tag, the tag index and `sitemap.xml`
+- `verify_data.py`: Recomputes every reproducible change file from the archived snapshots before anything is committed
 
 **Frontend (Vanilla JS + Chart.js)**
 
@@ -135,10 +148,10 @@ azure-service-tags-tracker/
 
 **Data Flow**
 
-1. GitHub Action runs daily → Python script downloads latest Azure data and stops if it is unchanged
-2. Compares with previous snapshot using hash comparison
-3. Generates change reports (added/removed IPs per service/region)
-4. Commits to `docs/data/` → GitHub Pages auto-deploys
+1. GitHub Action runs daily → Python script downloads latest Azure data and stops if it matches the last snapshot
+2. Compares every tag's prefixes with the previous snapshot
+3. Writes the change report (added/removed prefixes per tag), summary, manifest and log
+4. Verifies the data, rebuilds the tag pages, commits to `docs/` → GitHub Pages auto-deploys
 5. Dashboard loads JSON via fetch API and renders visualizations
 
 ---
@@ -147,10 +160,9 @@ azure-service-tags-tracker/
 
 ### Main Dashboard (`index.html`)
 
-- **Summary Cards**: Total services, IP ranges, weekly changes
-- **Service Search**: Real-time search across 3000+ services
+- **Summary Cards**: Total IP ranges, service changes and region changes this week — click one for details
+- **Global Search**: Search service tags, regions, IP addresses or CIDR ranges across the current data and the full history; `?q=` links are shareable, `/` or Ctrl/Cmd-K focuses the box
 - **Recent Changes**: Latest additions/removals with visual indicators
-- **Quick Stats**: Click cards to view detailed modals
 
 ### Analytics Page (`analytics.html`)
 
@@ -162,30 +174,40 @@ azure-service-tags-tracker/
 ### History Page (`history.html`)
 
 - **Complete Timeline**: Visual timeline of all weekly changes
-- **Smart Filters**: Search by service, region, date range (7/14/30/60 days)
+- **Smart Filters**: Search by service, region, date range (last 7 days up to 1 year)
 - **Detailed Views**: Expandable service cards with exact IP changes
 - **One-Click Copy**: Copy all added or removed IPs per service
-- **Export Data**: Download filtered results as JSON for automation
+- **Export Data**: Download selected weeks or filtered results as JSON or CSV
+
+### Service Tag Pages (`tag/`)
+
+- **One page per tag** (3,000+), e.g. `/tag/AzureFrontDoor.Backend/`: current IPv4/IPv6 prefixes with copy buttons, region, `changeNumber`, and recent changes with the exact prefixes
+- **Tag index** at `/tag/` grouped by service, with a filter and A–Z jump
+- Plain static HTML, so search engines can index every tag
 - **Region Navigation**: Browse changes by geographic region
 
 ---
 
 ## API Access & Usage
 
-All data is publicly accessible as JSON via GitHub Pages. You can integrate this into your applications, scripts, and monitoring systems.
+All data is publicly accessible as static JSON: no key, no rate limit, CORS enabled. **Full docs with tested curl, Python and PowerShell examples: [azuretags.egbcorporate.org/api.html](https://azuretags.egbcorporate.org/api.html).**
 
 ### Quick Reference
 
-**Base URL**: `https://yourusername.github.io/azure-service-tags-tracker`
+**Base URL**: `https://azuretags.egbcorporate.org` (on your fork: `https://yourusername.github.io/azure-service-tags-tracker`)
 
 **Available Endpoints**:
 
-- `/data/current.json` - Latest Azure Service Tags snapshot
-- `/data/summary.json` - Statistics and available dates
+- `/data/current.json` - Latest Azure Service Tags snapshot (Microsoft's format)
+- `/data/changes/manifest.json` - Index of all change reports — start here
+- `/data/changes/YYYY-MM-DD-changes.json` - Exact prefixes added/removed per tag since the previous snapshot
+- `/data/changes/latest-changes.json` - Most recent change report
+- `/data/history/YYYY-MM-DD.json` - Full historical snapshots (~3 MB each; you rarely need these)
+- `/data/summary.json` - Statistics, snapshot dates and definitions
+- `/data/regions.json` - Region code → display name
 - `/data/collection-log.json` - Collection run history, coverage, and missing dates
-- `/data/changes/latest-changes.json` - Most recent changes
-- `/data/changes/manifest.json` - Index of all change reports
-- `/data/history/YYYY-MM-DD.json` - Historical snapshots
+
+To follow changes, read the manifest and fetch the change files newer than the last one you processed. Each one already contains the diff, so there's no need to download and compare snapshots.
 
 ### Change file schema (v2)
 
@@ -212,33 +234,22 @@ Every change file has `"schema_version": 2`. All v1 fields are still present; v2
 
 Each run is checked by `scripts/verify_data.py`, which re-derives every reproducible comparison from the archived snapshots, before anything is committed. A failed collection is recorded in `collection-log.json` (`status: "failed"`).
 
-### Complete Integration Examples
-
-For **comprehensive API documentation** with working code examples, see:
-
-📁 **[examples/api-usage-examples.md](examples/api-usage-examples.md)**
-
-This includes:
-
-- **PowerShell**: Auto-discovery function with detailed change tracking
-- **Python**: Complete implementation with error handling and filtering
-- **Multi-language guides**: JavaScript, C#, Go, Java, Ruby code samples
-- **Integration patterns**: DevOps automation, security monitoring, compliance reporting
-- **Best practices**: Caching strategies, error handling, rate limiting
-- **Data structure reference**: Complete JSON schemas for all endpoints
-
 ---
 
 ## 🛠️ Local Development
 
 ```bash
 # Run from the repository root
+pip install -r requirements.txt
 python scripts/azure_watcher.py --baseline  # First run
 python scripts/azure_watcher.py             # Regular update
+python scripts/build_tag_pages.py           # Rebuild docs/tag/ and sitemap.xml
 
 # Checks (also run in CI before every data commit)
 python scripts/test_watcher.py
 node scripts/test-change-counts.mjs
+node scripts/test-search.mjs
+python scripts/test_tag_pages.py
 python scripts/verify_data.py
 
 # Test dashboard locally
@@ -253,7 +264,8 @@ python -m http.server 8000
 
 | Issue | Solution |
 |-------|----------|
-| Action not running | Check Actions tab, ensure repo is public or has GitHub Pro |
+| Action not running | Check the Actions tab; on a fork, enable workflows there first |
+| Site not published | GitHub Pages on a private repo needs a paid GitHub plan; keep the fork public |
 | Dashboard empty | Run baseline setup first with checkbox enabled |
 | No data loading | Verify `docs/data/current.json` exists and is valid JSON |
 | Pages not working | Settings → Pages → Deploy from `main` branch, `/docs` folder |

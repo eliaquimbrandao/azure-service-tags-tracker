@@ -156,6 +156,7 @@
                 <a href="history.html" class="hero-nav-link">📅 Change History</a>
                 <a href="analytics.html" class="hero-nav-link">📊 Analytics Dashboard</a>
                 <a href="tag/" class="hero-nav-link">🏷️ All Service Tags</a>
+                <a href="api.html" class="hero-nav-link">🔌 API</a>
             </div>
         </div>
     </header>
@@ -265,7 +266,7 @@
                         <div class="process-step">
                             <div class="step-icon">🤖</div>
                             <h3>API & Automation Friendly</h3>
-                            <p>All datasets are published on GitHub Pages under <code>/data</code>. Automation tools can discover available updates, retrieve precise diffs from historical snapshots, or queue downloads using the manifest. Sample scripts for PowerShell, Python, and other languages are provided.</p>
+                            <p>All datasets are published as static JSON under <code>/data</code>. Automation tools read the manifest to discover new updates and fetch dated diffs listing the exact prefixes added and removed. See the <a href="api.html" style="color: #93c5fd; text-decoration: underline;">API docs</a> for examples in curl, Python and PowerShell.</p>
                         </div>
                     </div>
                 </section>
@@ -303,7 +304,7 @@
                                 <h3>Can I monitor Azure IP changes without forking?</h3>
                                 <span class="arrow-icon">▼</span>
                             </div>
-                            <p>Yes. Point your scripts to <code>https://azuretags.egbcorporate.org/data/</code> and query the JSON endpoints directly. No API keys, rate limits, or authentication flows required. Check out our <a href="https://github.com/eliaquimbrandao/azure-service-tags-tracker/blob/main/examples/api-usage-examples.md" target="_blank" rel="noopener noreferrer" style="color: #93c5fd; text-decoration: underline;">API Usage Examples</a> for scripts in Python, PowerShell, and more.</p>
+                            <p>Yes. Point your scripts to <code>https://azuretags.egbcorporate.org/data/</code> and query the JSON endpoints directly. No API keys, rate limits, or authentication flows required. See the <a href="api.html" style="color: #93c5fd; text-decoration: underline;">API docs</a> for endpoints and examples in curl, Python and PowerShell.</p>
                         </article>
 
                         <article class="feature-card faq-card" onclick="this.classList.toggle('expanded')">
@@ -311,7 +312,7 @@
                                 <h3>How do I get alerted when Service Tags move?</h3>
                                 <span class="arrow-icon">▼</span>
                             </div>
-                            <p>We are implementing a feature that will allow users to receive alerts for changes (ETA: Q3 CY 2026).</p>
+                            <p>Built-in alerts are on the roadmap. Until then, a short daily script can check the change manifest and notify you; the <a href="api.html#polling" style="color: #93c5fd; text-decoration: underline;">API docs</a> include a ready-to-use example.</p>
                         </article>
                     </div>
                 </section>
