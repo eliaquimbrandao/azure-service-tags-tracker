@@ -695,19 +695,35 @@
         "date_published_source": "download_page",
         "content_sha256": "1e917022f684ca0eb7f53b85753f0206ea3b9140109590e7baa8af0ce11f50d8"
       }
+    },
+    {
+      "date": "2026-11-24",
+      "timestamp": "2026-11-24T15:56:43.072532+00:00",
+      "status": "success",
+      "change_number": 428,
+      "changes_detected": 52,
+      "total_services": 3398,
+      "total_ip_ranges": 112580,
+      "skipped_change_numbers": [],
+      "metadata": {
+        "version": "2026.11.23",
+        "date_published": "11/24/2026",
+        "date_published_source": "download_page",
+        "content_sha256": "7decd1fcafcdccd804be1cb7a93a97e5fea2ef5202f157a3426aed724a524117"
+      }
     }
   ],
   "coverage": {
     "first_collection": "2025-10-08",
-    "latest_collection": "2026-11-17",
-    "total_runs": 61,
-    "expected_runs": 59,
+    "latest_collection": "2026-11-24",
+    "total_runs": 62,
+    "expected_runs": 60,
     "missing_weeks": [],
     "missing_dates": [],
     "missing_count": 0,
     "coverage_pct": 100.0,
     "failed_attempts": 0,
-    "last_attempt": "2026-11-17T14:30:44.184782+00:00",
+    "last_attempt": "2026-11-24T15:56:43.072532+00:00",
     "note": "A week counts as missing only when no collection succeeded in it and the next collection skipped a Microsoft changeNumber. Weeks in which Microsoft published nothing are not gaps."
   }
 }
